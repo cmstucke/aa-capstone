@@ -5,7 +5,7 @@ lorem_ipsum_1 = lorem_ipsum[0: 123]
 lorem_ipsum_2 = lorem_ipsum[0: 231]
 lorem_ipsum_3 = lorem_ipsum[0: 334]
 
-print('ORIGINAL:', lorem_ipsum)
-print('ONE SENTENCE:', lorem_ipsum_1)
-print('TWO SENTENCES:', lorem_ipsum_2)
-print('THREE SENTENCES:', lorem_ipsum_3)
+# print('ORIGINAL:', lorem_ipsum)
+# print('ONE SENTENCE:', lorem_ipsum_1)
+# print('TWO SENTENCES:', lorem_ipsum_2)
+# print('THREE SENTENCES:', lorem_ipsum_3)
