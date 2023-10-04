@@ -1,13 +1,16 @@
 """empty message
 
 Revision ID: 5b3b5394278e
-Revises: 
+Revises:
 Create Date: 2023-10-04 09:23:20.442859
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '5b3b5394278e'
