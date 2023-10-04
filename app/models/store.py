@@ -18,6 +18,7 @@ class Store(db.Model):
   def to_dict(self):
     return {
       'id': self.id,
+      'owner_id': self.owner_id,
       'title': self.title,
       'category': self.category,
       'description': self.description,
