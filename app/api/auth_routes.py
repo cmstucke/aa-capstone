@@ -67,7 +67,7 @@ def sign_up():
     if form.validate_on_submit():
 
         url = None
-        image_url=form.data["image_url"]
+        image_url=form.data["image"]
         if image_url:
             image_url.filename = get_unique_filename(image_url.filename)
             upload = upload_file_to_s3(image_url)
@@ -86,7 +86,7 @@ def sign_up():
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
-            image_url=url
+            image=url
         )
         db.session.add(user)
         db.session.commit()
