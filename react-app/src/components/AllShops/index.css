@@ -1,0 +1,23 @@
+#shops-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#shops-list {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0 1rem;
+  justify-content: center;
+}
+
+.shop-link {
+  text-decoration: none;
+}
+
+.shop-img {
+  width: 18rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: .5rem .5rem 0 0;
+}

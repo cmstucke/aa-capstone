@@ -1,7 +1,21 @@
 .profile-dropdown {
   position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #DEDEDE;
+  padding: .5rem;
+  border-radius: .75rem;
 }
 
 .hidden {
   display: none;
+}
+
+.drop-down-text {
+  margin: .1rem 0;
+}
+
+.drop-down-link {
+  text-decoration: none;
 }

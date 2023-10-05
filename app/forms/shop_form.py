@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, ValidationError
 from app.routes.s3_helpers import ALLOWED_EXTENSIONS
 
 
-class StoreForm(FlaskForm):
+class ShopForm(FlaskForm):
   title = StringField('Title', validators=[DataRequired()])
   category = StringField('Category')
   description = StringField('Description', validators=[DataRequired()])

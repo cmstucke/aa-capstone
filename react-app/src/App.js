@@ -5,9 +5,10 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import AllStores from "./components/AllStores";
 import CreateShopForm from "./components/ShopForms/CreateShopForm";
-import UpdateStore from "./components/ShopForms/UpdateShopForm";
+import UpdateShopForm from './components/ShopForms/UpdateShopForm'
+import AllShops from "./components/AllShops";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -28,13 +29,13 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route exact path="/shops">
-            <AllStores />
+            <AllShops />
           </Route>
           <Route exact path="/shops/create">
             <CreateShopForm />
           </Route>
           <Route exact path="/shops/update">
-            <UpdateStore />
+            <UpdateShopForm />
           </Route>
         </Switch>
       )}

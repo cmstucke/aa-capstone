@@ -1,4 +1,4 @@
-export default function UpdateStore() {
+export default function UpdateShopForm() {
   return (
     <h1>Update your shop</h1>
   )
