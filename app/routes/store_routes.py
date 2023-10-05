@@ -67,17 +67,13 @@ def get_all_stores():
 @login_required
 def update_store(store_id):
     """
-    Updates a store by it id
+    Updates a store by its id by an authorized user
     """
-    print('YOU HAVE MADE IT TO THE EDIT STORE ROUTE')
     form = StoreForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    store_query = Store.query.get(store_id)
-    store = store_query.to_dict()
-    print('STORE:', store)
+    store = Store.query.get(store_id)
 
-
-    if store is None:
+    if not store:
         return {"errors": {"not found": "store not found"}}, 404
 
     if form.validate_on_submit() and store.owner_id == current_user.id:
@@ -99,14 +95,33 @@ def update_store(store_id):
 
             store.preview_image = url
 
-        store.title = form.data['title'],
-        store.category = form.data['category'],
-        store.description = form.data['description'],
+        store.title = form.data['title']
+        store.category = form.data['category']
+        store.description = form.data['description']
 
         db.session.commit()
         return store.to_dict()
-    elif store.owner_id != current_user:
+    elif store.owner_id != current_user.id:
         return {"errors": {"unauthorized": "User unauthorized to edit store"}}, 401
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return {"errors": errors}, 400
+
+
+# Delete a store
+@store_routes.route('/<int:store_id>', methods=['DELETE'])
+@login_required
+def delete_store(store_id):
+    """
+    Delete a store by its id by an authorized user
+    """
+    store = Store.query.get(store_id)
+    if not store:
+        return {"errors": {"not found": "Store not found"}}, 404
+
+    if store.owner_id == current_user.id:
+        db.session.delete(store)
+        db.session.commit()
+        return {"message": "Store successfully deleted"}
+    else:
+        return {"errors": {"unauthorized": "User must be store owner to delete"}}, 401
