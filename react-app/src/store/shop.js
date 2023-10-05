@@ -34,9 +34,10 @@ export const getShopsThunk = () => async dispatch => {
 };
 
 // Create a Shop
-export const createShopThunk = (shop, preview_image) => async dispatch => {
+export const createShopThunk = (shop, previewImg) => async dispatch => {
+  console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
   let res;
-  if (preview_image) {
+  if (previewImg) {
     res = await fetch('/shops', {
       method: "POST",
       body: shop
@@ -44,7 +45,8 @@ export const createShopThunk = (shop, preview_image) => async dispatch => {
   } else {
     res = await fetch('/shops', {
       method: "POST",
-      body: shop
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(shop)
     });
   };
   if (res.ok) {
@@ -65,13 +67,14 @@ export const updateShopThunk = (
     let res;
     if (preview_image) {
       res = await fetch(`/shops/${shopId}`, {
-        method: "POST",
+        method: "PUT",
         body: shop
       });
     } else {
       res = await fetch(`/shops/${shopId}`, {
-        method: "POST",
-        body: shop
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(shop)
       });
     };
     if (res.ok) {
@@ -110,6 +113,11 @@ export default function reducer(state = initialState, action) {
           ...shop
         }));
       return getAllState;
+    case ADD_SHOP:
+      console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
+      console.log("CREATE SHOP REDUCER STATE:", state);
+      const addShopState = {};
+      return state;
     default:
       return state;
   };

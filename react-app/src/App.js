@@ -5,8 +5,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import CreateShopForm from "./components/ShopForms/CreateShopForm";
-import UpdateShopForm from './components/ShopForms/UpdateShopForm'
+import CreateShopForm from "./components/ShopForms/CreateShopForm.js";
+import UpdateShopForm from './components/ShopForms/UpdateShopForm.js'
 import AllShops from "./components/AllShops";
 
 

@@ -12,12 +12,12 @@ shop_routes = Blueprint('shops', __name__)
 
 # Create a shop
 @shop_routes.route('/', methods=['POST'])
-@login_required
+# @login_required
 def create_shop():
     """
     Posts a new server by user id
     """
-    # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
