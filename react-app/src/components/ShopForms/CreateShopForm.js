@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createShopThunk } from "../../store/shop";
 
 
 export default function CreateShopForm() {
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [title, setTitle] = useState('');
@@ -14,6 +14,7 @@ export default function CreateShopForm() {
   const [imageInput, setImageInput] = useState('');
   const [errors, setErrors] = useState({})
   // const [imageLoading, setImageLoading] = useState(false);
+  // console.log('ERRORS:', errors);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -40,8 +41,10 @@ export default function CreateShopForm() {
     try {
       createdShop = await dispatch(createShopThunk(data, imageInputBool));
       history.push('/shops');
-    } catch (errRes) {
-      console.log('CAUGHT ERRORS:', errRes);
+      console.log('CREATED SHOP:', createdShop);
+    } catch ({ errors }) {
+      // console.log('CAUGHT ERRORS:', errors);
+      setErrors(errors);
     };
   };
 
@@ -64,9 +67,16 @@ export default function CreateShopForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor='shop-title-input'
-          >Title</label>
+          {errors.title
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-title-input'
+            >Title is required</label>
+            :
+            <label
+              htmlFor='shop-title-input'
+            >Title</label>}
           <input
             id="shop-title-input"
             type="text"
@@ -86,9 +96,16 @@ export default function CreateShopForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor='shop-description-input'
-          >Description</label>
+          {errors.title
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-title-input'
+            >Description is required</label>
+            :
+            <label
+              htmlFor='shop-title-input'
+            >Description</label>}
           <input
             id="shop-description-input"
             type="textarea"
@@ -108,5 +125,5 @@ export default function CreateShopForm() {
         </section>
       </form>
     </div>
-  )
+  );
 };

@@ -12,31 +12,33 @@ shop_routes = Blueprint('shops', __name__)
 
 # Create a shop
 @shop_routes.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_shop():
     """
     Posts a new server by user id
     """
     print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
+    # cookies = request.cookies
+    # print('COOKIE DATA:', cookies)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
         url = None
-        preview_image=form.data["preview_image"]
+        preview_image=form.data['preview_image']
         if preview_image:
             preview_image.filename = get_unique_filename(preview_image.filename)
             upload = upload_file_to_s3(preview_image)
-            print("image upload", upload)
+            print('image upload', upload)
 
-            if "url" not in upload:
+            if 'url' not in upload:
             # if the dictionary doesn't have a url key
             # it means that there was an error when we tried to upload
             # so we send back that error message (and we printed it above)
                 errors = [upload]
                 return {'errors': errors}, 400
 
-            url = upload["url"]
+            url = upload['url']
 
         new_shop = Shop(
             title= form.data['title'],
@@ -47,7 +49,7 @@ def create_shop():
         )
         db.session.add(new_shop)
         db.session.commit()
-        return new_shop.to_dict()
+        return new_shop.to_dict(), 201
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return { "errors": errors }, 400
@@ -69,6 +71,7 @@ def update_shop(shop_id):
     """
     Updates a shop by its id by an authorized user
     """
+    print('YOU HAVE MADE IT TO THE UPDATE SHOP ROUTE')
     form = ShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     shop = Shop.query.get(shop_id)

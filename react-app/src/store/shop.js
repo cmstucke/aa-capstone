@@ -26,7 +26,7 @@ const removeShop = shopId => ({
 // Get all Shops
 export const getShopsThunk = () => async dispatch => {
   // console.log("YOU'VE MADE IT TO THE GET SHOPS THUNK");
-  const res = await fetch('/shops');
+  const res = await fetch('/shops/');
   const data = await res.json();
   // console.log("GET SHOPS FETCH RES:", data);
   dispatch(getShops(data));
@@ -35,15 +35,15 @@ export const getShopsThunk = () => async dispatch => {
 
 // Create a Shop
 export const createShopThunk = (shop, previewImg) => async dispatch => {
-  console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
+  // console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
   let res;
   if (previewImg) {
-    res = await fetch('/shops', {
+    res = await fetch('/shops/', {
       method: "POST",
       body: shop
     });
   } else {
-    res = await fetch('/shops', {
+    res = await fetch('/shops/', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(shop)
@@ -64,6 +64,7 @@ export const updateShopThunk = (
   shopId,
   shop,
   preview_image) => async dispatch => {
+    // console.log('YOU ARE HITTING THE THUNK');
     let res;
     if (preview_image) {
       res = await fetch(`/shops/${shopId}`, {
@@ -114,10 +115,10 @@ export default function reducer(state = initialState, action) {
         }));
       return getAllState;
     case ADD_SHOP:
-      console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
-      console.log("CREATE SHOP REDUCER STATE:", state);
-      const addShopState = {};
-      return state;
+      // console.log("YOU'VE MADE IT TO THE ADD SHOPS THUNK");
+      // console.log("CREATE SHOP REDUCER STATE:", state);
+      const addShopState = { ...state, [action.shop.id]: { ...action.shop } };
+      return addShopState;
     default:
       return state;
   };
