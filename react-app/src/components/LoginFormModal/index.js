@@ -15,9 +15,10 @@ function LoginFormModal() {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
+      console.log('LOGIN ERRORS:', data);
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   };
 
