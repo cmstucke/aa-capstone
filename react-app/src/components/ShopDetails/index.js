@@ -11,18 +11,15 @@ export default function ShopDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const shop = useSelector(state => state.shop[shop_id]);
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log('USER:', sessionUser);
-  console.log('SHOP:', shop);
-
 
   useEffect(() => {
     dispatch(getShopsThunk())
       .then(() => setIsLoaded(true));
   }, []);
 
-  let sessionLinks;
+  let sessionLink;
   if (isLoaded && sessionUser.id === shop.owner_id) {
-    sessionLinks = (
+    sessionLink = (
       <div>
         <button
           onClick={() => {
@@ -30,9 +27,6 @@ export default function ShopDetails() {
           }}
         >
           Update
-        </button>
-        <button>
-          Delete
         </button>
       </div>
     );
@@ -50,8 +44,7 @@ export default function ShopDetails() {
       <h1>{shop.title}</h1>
       <p>{shop.category}</p>
       <p>{shop.description}</p>
-      {sessionLinks && sessionLinks}
+      {sessionLink && sessionLink}
     </div>
-
   );
 };

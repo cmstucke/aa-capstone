@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask_login import current_user, login_required
+from app.models import User, Shop, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +23,15 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+
+# Get all shops created by a user
+@user_routes.route('/shops')
+@login_required
+def get_all_user_shops():
+    """
+    Query a list of all shops created by a user
+    """
+    user_shops = Shop.query.filter(Shop.owner_id == current_user.id)
+    print('USER SHOP QUERY:', user_shops)
+    return [shop.to_dict() for shop in user_shops]

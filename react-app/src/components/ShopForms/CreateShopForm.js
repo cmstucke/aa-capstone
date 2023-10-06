@@ -40,7 +40,7 @@ export default function CreateShopForm() {
     let createdShop;
     try {
       createdShop = await dispatch(createShopThunk(data, imageInputBool));
-      history.push('/shops');
+      history.push('/me/shops');
       console.log('CREATED SHOP:', createdShop);
     } catch ({ errors }) {
       // console.log('CAUGHT ERRORS:', errors);

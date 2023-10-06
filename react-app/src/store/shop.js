@@ -25,17 +25,23 @@ const removeShop = shopId => ({
 
 // Get all Shops
 export const getShopsThunk = () => async dispatch => {
-  // console.log("YOU'VE MADE IT TO THE GET SHOPS THUNK");
   const res = await fetch('/shops/');
   const data = await res.json();
-  // console.log("GET SHOPS FETCH RES:", data);
+  dispatch(getShops(data));
+  return data;
+};
+
+// Get all Shops created by current user
+export const getUserShopsThunk = () => async dispatch => {
+  const res = await fetch('/api/users/shops');
+  const data = await res.json();
+  console.log('USER SHOPS FETCH RES:', data);
   dispatch(getShops(data));
   return data;
 };
 
 // Create a Shop
 export const createShopThunk = (shop, previewImg) => async dispatch => {
-  // console.log("YOU'VE MADE IT TO THE CREATE SHOPS THUNK");
   let res;
   if (previewImg) {
     res = await fetch('/shops/', {
@@ -64,7 +70,6 @@ export const updateShopThunk = (
   shopId,
   shop,
   preview_image) => async dispatch => {
-    // console.log('YOU ARE HITTING THE THUNK');
     let res;
     if (preview_image) {
       res = await fetch(`/shops/${shopId}`, {
@@ -106,19 +111,27 @@ const initialState = {};
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_SHOPS:
-      // console.log("YOU'VE MADE IT TO THE GET SHOPS REDUCER");
       const getAllState = {};
-      // console.log('ACTION SHOPS:', action.shops);
       action.shops.map(shop => (
         getAllState[shop.id] = {
           ...shop
         }));
       return getAllState;
     case ADD_SHOP:
-      // console.log("YOU'VE MADE IT TO THE ADD SHOPS THUNK");
-      // console.log("CREATE SHOP REDUCER STATE:", state);
-      const addShopState = { ...state, [action.shop.id]: { ...action.shop } };
+      const addShopState = {
+        ...state,
+        [action.shop.id]: { ...action.shop }
+      };
       return addShopState;
+    case REMOVE_SHOP:
+      const removeShopState = {};
+      const shopsArr = Object.values(state);
+      shopsArr.map(shop => (
+        removeShopState[shop.id] = {
+          ...shop
+        }));
+      delete removeShopState[action.shopId];
+      return removeShopState;
     default:
       return state;
   };

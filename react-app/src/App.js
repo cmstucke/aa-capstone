@@ -9,6 +9,7 @@ import CreateShopForm from "./components/ShopForms/CreateShopForm.js";
 import UpdateShopForm from './components/ShopForms/UpdateShopForm.js'
 import AllShops from "./components/AllShops";
 import ShopDetails from "./components/ShopDetails";
+import AllUserShops from "./components/AllUserShops";
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/me/shops">
+            <AllUserShops />
           </Route>
           <Route exact path="/shops/create">
             <CreateShopForm />

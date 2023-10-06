@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getShopsThunk } from "../../store/shop";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getUserShopsThunk } from "../../store/shop";
 import './index.css';
 
 
-export default function AllShops() {
+export default function AllUserShops() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const shopsObj = useSelector(state => state.shop);
-  // console.log('SHOPS STATE', shopsObj);
+  console.log('SHOP STATE:', shopsObj);
   const shopsArr = Object.values(shopsObj);
-  // console.log('SHOPS ARR', shopsArr);
 
   useEffect(() => {
-    dispatch(getShopsThunk())
+    dispatch(getUserShopsThunk())
       .then(() => setIsLoaded(true));
   }, [dispatch]);
 
   return (
     <div id="shops-page">
-      <h1>Shops</h1>
+      <h1>Your shops</h1>
       <div id="shops-list-container">
         <div id="shops-list">
           {isLoaded &&

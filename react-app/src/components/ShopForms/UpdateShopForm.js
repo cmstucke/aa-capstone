@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateShopThunk, getShopsThunk } from "../../store/shop";
+import OpenModalButton from '../OpenModalButton';
+import DeleteShopModal from "./DeleteShopModal";
 import './index.css';
 
 
@@ -142,6 +144,10 @@ export default function UpdateShopForm() {
         </section>
       </form>
       <div>
+        <OpenModalButton
+          buttonText="Delete Shop"
+          modalComponent={<DeleteShopModal shop_id={shop_id} />}
+        />
         <button
           id="create-shop-breadcrumb"
           onClick={() => history.push('/shops')}
