@@ -6,11 +6,13 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 from .models import db, User
 from .models import db, Shop
+from .models import db, Product
 from .seeds import seed_commands
 from .config import Config
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .routes.shop_routes import shop_routes
+from .routes.product_routes import product_routes
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -31,6 +33,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(shop_routes, url_prefix='/shops')
+app.register_blueprint(product_routes, url_prefix='/products')
 db.init_app(app)
 Migrate(app, db)
 

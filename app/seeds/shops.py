@@ -1,6 +1,6 @@
 from app.models import db, Shop, environment, SCHEMA
 from sqlalchemy.sql import text
-from app.assets.helpers.block_text import lorem_ipsum_2, sample_image_url
+from app.assets.helpers.block_text import lorem_ipsum_2, sample_shop_url
 
 
 def seed_shops():
