@@ -14,6 +14,7 @@ class Shop(db.Model):
   preview_image = db.Column(db.String, nullable=True)
 
   users = db.relationship('User', back_populates='shops')
+  products = db.relationship('Product', back_populates='shops')
 
   def to_dict(self):
     return {

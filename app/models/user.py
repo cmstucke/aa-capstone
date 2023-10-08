@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     image = db.Column(db.String, nullable=True)
 
     shops = db.relationship('Shop', back_populates='users', cascade='all, delete')
-    products = db.relationship('Product', back_populates='products', cascade='all, delete')
+    products = db.relationship('Product', back_populates='users', cascade='all, delete')
 
     @property
     def password(self):

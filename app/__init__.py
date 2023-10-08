@@ -14,7 +14,9 @@ from .api.auth_routes import auth_routes
 from .routes.shop_routes import shop_routes
 from .routes.product_routes import product_routes
 
+
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
+
 
 # Setup login manager
 login = LoginManager(app)

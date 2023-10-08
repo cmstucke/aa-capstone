@@ -9,101 +9,111 @@ def seed_products():
     owner_id= 1,
     seller_id= 1,
     title= "Product 1",
+    price= 10.00,
     category= 'Home goods',
     description= lorem_ipsum_2,
-    availability='In stock'
-    inventory=10
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='In stock',
+    inventory=10,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product2= Product(
     owner_id= 1,
     seller_id= 1,
     title= "Product 2",
+    price= 12.99,
     category= 'Art & Collectibles',
     description= lorem_ipsum_2,
-    availability='Backorder'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Backorder',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product3= Product(
     owner_id= 1,
     seller_id= 1,
     title= "Product 3",
+    price= 12.99,
     category= 'Toys & Games',
     description= lorem_ipsum_2,
-    availability='Made to order'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Made to order',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product4= Product(
     owner_id= 1,
     seller_id= 1,
     title= "Product 4",
+    price= 13.49,
     category= 'Shoes',
     description= lorem_ipsum_2,
-    availability='In stock'
-    inventory=10
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='In stock',
+    inventory=10,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product5= Product(
     owner_id= 1,
-    seller_id= None,
+    seller_id= 0,
     title= "Product 5",
+    price= 385.49,
     category= 'Bags & Purses',
     description= lorem_ipsum_2,
-    availability='Backorder'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Backorder',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product6= Product(
     owner_id= 2,
     seller_id= 2,
     title= "Product 6",
+    price= 6.66,
     category= 'Home & Living',
     description= lorem_ipsum_2,
-    availability='Made to order'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Made to order',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product7= Product(
     owner_id= 2,
     seller_id= 2,
     title= "Product 7",
+    price= 4.20,
     category= 'Books, Movies & Music',
     description= lorem_ipsum_2,
-    availability='In stock'
-    inventory=10
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='In stock',
+    inventory=10,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product8= Product(
     owner_id= 2,
-    seller_id= None,
+    seller_id= 0,
     title= "Product 8",
+    price= 9.99,
     category= 'Electronics & Accessories',
     description= lorem_ipsum_2,
-    availability='Backorder'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Backorder',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product9= Product(
     owner_id= 2,
     seller_id= 1,
     title= "Product 9",
+    price= 8.63,
     category= 'Bath & Beauty',
     description= lorem_ipsum_2,
-    availability='Made to order'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Made to order',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
-    product10= Product(
+  product10= Product(
     owner_id= 2,
-    seller_id= None,
+    seller_id= 2,
     title= "Product 10",
+    price= 19.99,
     category= 'Electronics & Accessories',
     description= lorem_ipsum_2,
-    availability='Backorder'
-    inventory=None
-    preview_image= sample_product_url[randint(0 , len(sample_product_url))]
+    availability='Backorder',
+    inventory=None,
+    preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
 
   all_products = [
@@ -117,7 +127,7 @@ def seed_products():
     product8,
     product9,
     product10
-    ]
+  ]
   add_products = [db.session.add(product) for product in all_products]
   db.session.commit()
 

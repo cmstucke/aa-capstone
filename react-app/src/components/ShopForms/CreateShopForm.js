@@ -43,7 +43,7 @@ export default function CreateShopForm() {
       history.push('/me/shops');
       console.log('CREATED SHOP:', createdShop);
     } catch ({ errors }) {
-      // console.log('CAUGHT ERRORS:', errors);
+      console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };

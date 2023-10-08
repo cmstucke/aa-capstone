@@ -11,19 +11,20 @@ class Product(db.Model):
   seller_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('shops.id')), nullable=True)
   title = db.Column(db.String, nullable=False)
   category = db.Column(db.String, nullable=True)
-  price = db.Column(db.Enum, nullable=False)
+  price = db.Column(db.Float, nullable=False)
   description = db.Column(db.String, nullable=False)
   availability = db.Column(db.String, nullable=False)
   inventory = db.Column(db.Integer, nullable=True)
   preview_image = db.Column(db.String, nullable=True)
 
-  users = db.relationship('User', back_populates='users')
-  shops = db.relationship('Shop', backref='shops')
+  users = db.relationship('User', back_populates='products')
+  shops = db.relationship('Shop', back_populates='products')
 
   def to_dict(self):
     return {
       'id': self.id,
       'owner_id': self.owner_id,
+      'seller_id': self.seller_id,
       'title': self.title,
       'category': self.category,
       'price': self.price,

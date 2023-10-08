@@ -17,7 +17,7 @@ def create_shop():
     """
     Posts a new server by user id
     """
-    print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
     # cookies = request.cookies
     # print('COOKIE DATA:', cookies)
@@ -52,7 +52,7 @@ def create_shop():
         return new_shop.to_dict(), 201
     else:
         errors = validation_errors_to_error_messages(form.errors)
-        return { "errors": errors }, 400
+        return {"errors": errors}, 400
 
 
 # Get all shops
@@ -88,9 +88,6 @@ def update_shop(shop_id):
             print("image upload", upload)
 
             if "url" not in upload:
-            # if the dictionary doesn't have a url key
-            # it means that there was an error when we tried to upload
-            # so we send back that error message (and we printed it above)
                 errors = [upload]
                 return {'errors': errors}, 400
 
@@ -103,9 +100,11 @@ def update_shop(shop_id):
         shop.description = form.data['description']
 
         db.session.commit()
-        return shop.to_dict()
+        return shop.to_dict(), 204
+
     elif shop.owner_id != current_user.id:
         return {"errors": {"unauthorized": "User unauthorized to edit shop"}}, 401
+
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return {"errors": errors}, 400
