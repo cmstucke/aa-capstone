@@ -15,7 +15,7 @@ shop_routes = Blueprint('shops', __name__)
 @login_required
 def create_shop():
     """
-    Posts a new server by user id
+    Post a new Shop by User id
     """
     # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
@@ -69,7 +69,7 @@ def get_all_shops():
 @login_required
 def update_shop(shop_id):
     """
-    Updates a shop by its id by an authorized user
+    Update a Shop by its id by an authorized User
     """
     print('YOU HAVE MADE IT TO THE UPDATE SHOP ROUTE')
     form = ShopForm()
@@ -115,15 +115,14 @@ def update_shop(shop_id):
 @login_required
 def delete_shop(shop_id):
     """
-    Delete a shop by its id by an authorized user
+    Delete a Shop by its id by an authorized User
     """
     shop = Shop.query.get(shop_id)
     if not shop:
         return {"errors": {"not found": "Shop not found"}}, 404
-
-    if shop.owner_id == current_user.id:
+    elif shop.owner_id == current_user.id:
         db.session.delete(shop)
         db.session.commit()
         return {"message": "Shop successfully deleted"}
     else:
-        return {"errors": {"unauthorized": "User must be shop owner to delete"}}, 401
+        return {"errors": {"unauthorized": "User must be Shop owner to delete"}}, 401

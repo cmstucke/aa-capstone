@@ -9,12 +9,12 @@ from app.routes.s3_helpers import (
 
 product_routes = Blueprint('products', __name__)
 
-
+# Create a Product
 @product_routes.route('/', methods=['POST'])
 @login_required
 def create_product():
     '''
-    Posts a new product by user id
+    Post a new Product by User id
     '''
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -63,20 +63,22 @@ def create_product():
         return {"errors": errors}, 400
 
 
+# Get all Products for sale
 @product_routes.route('/', methods=['GET'])
 def get_all_products():
     '''
-    Queries a list of all products available in a store.
+    Query a list of all Products available in a Shop.
     '''
     products = Product.query.filter(Product.seller_id != None)
     return [product.to_dict() for product in products]
 
 
+# Update a Product
 @product_routes.route('/<int:product_id>', methods=['PUT'])
 @login_required
 def update_product(product_id):
     '''
-    Updates a new product by product id by an authorized user
+    Updates a Product by id by an authorized User
     '''
     form = ProductForm()
     print('YOU HAVE MADE IT TO THE UPDATE PRODUCT ROUTE')
@@ -124,3 +126,22 @@ def update_product(product_id):
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return {"errors": errors}, 400
+
+
+# Delete a Product
+@product_routes.route('/<int:product_id>', methods=['DELETE'])
+@login_required
+def delete_product(product_id):
+    '''
+    Delete a Product by its id by an authorized User
+    '''
+    product = Product.query.get(product_id)
+
+    if not product:
+        return {"errors": {"not found": "Product not found"}}, 404
+    elif current_user.id == product.owner_id:
+        db.session.delete(product)
+        db.session.commit()
+        return {"message": "Poduct successfully deleted"}
+    else:
+        return {"errors": {"unauthorized": "User must be Poduct owner to delete"}}, 401
