@@ -34,9 +34,6 @@ def create_product():
             print('image upload', upload)
 
             if 'url' not in upload:
-            # if the dictionary doesn't have a url key
-            # it means that there was an error when we tried to upload
-            # so we send back that error message (and we printed it above)
                 errors = [upload]
                 return {'errors': errors}, 400
 
@@ -81,7 +78,7 @@ def update_product(product_id):
     Updates a Product by id by an authorized User
     '''
     form = ProductForm()
-    print('YOU HAVE MADE IT TO THE UPDATE PRODUCT ROUTE')
+    # print('YOU HAVE MADE IT TO THE UPDATE PRODUCT ROUTE')
     form['csrf_token'].data = request.cookies['csrf_token']
     product = Product.query.get(product_id)
 
@@ -118,7 +115,7 @@ def update_product(product_id):
         product.inventory= form.data['inventory']
 
         db.session.commit()
-        return product.to_dict(), 204
+        return product.to_dict()
 
     elif current_user.id != product.owner_id:
         return {"errors": {"unauthorized": "User unauthorized to edit product"}}, 401
