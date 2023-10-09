@@ -5,6 +5,12 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import CreateShopForm from "./components/ShopForms/CreateShopForm.js";
+import UpdateShopForm from './components/ShopForms/UpdateShopForm.js'
+import AllShops from "./components/AllShops";
+import ShopDetails from "./components/ShopDetails";
+import AllUserShops from "./components/AllUserShops";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +29,21 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/me/shops">
+            <AllUserShops />
+          </Route>
+          <Route exact path="/shops/create">
+            <CreateShopForm />
+          </Route>
+          <Route exact path="/shops/:shop_id/update">
+            <UpdateShopForm />
+          </Route>
+          <Route exact path="/shops/:shop_id">
+            <ShopDetails />
+          </Route>
+          <Route exact path="/shops">
+            <AllShops />
           </Route>
         </Switch>
       )}
