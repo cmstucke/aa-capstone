@@ -11,6 +11,7 @@ import AllShops from "./components/AllShops";
 import ShopDetails from "./components/ShopDetails";
 import AllUserShops from "./components/AllUserShops";
 import AllProducts from "./components/AllProducts";
+import ProductDetails from "./components/ProductDetails";
 
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <Route exact path="/shops/:shop_id">
             <ShopDetails />
+          </Route>
+          <Route exact path="/products/:product_id">
+            <ProductDetails />
           </Route>
           <Route exact path="/shops">
             <AllShops />

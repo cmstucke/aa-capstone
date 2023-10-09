@@ -1,6 +1,6 @@
 // constants
 const GET_PRODUCTS = 'products/GET_PRODUCTS';
-// const ADD_PRODUCT = 'products/ADD_PRODUCT';
+const ADD_PRODUCT = 'products/ADD_PRODUCT';
 // const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT';
 
 
@@ -10,10 +10,10 @@ const getProducts = products => ({
   products
 });
 
-// const addProduct = product => ({
-//   type: ADD_PRODUCT,
-//   product
-// });
+const addProduct = product => ({
+  type: ADD_PRODUCT,
+  product
+});
 
 // const removeProduct = productId => ({
 //   type: REMOVE_PRODUCT,
@@ -29,6 +29,31 @@ export const getProductsThunk = () => async dispatch => {
   const data = await res.json();
   dispatch(getProducts(data));
   return data;
+};
+
+// Get all Products created by current user
+export const getUserProductsThunk = () => async dispatch => {
+  const res = await fetch('api/users/products');
+  const data = await res.json();
+  // console.log('USER PRODUCTS FETCH RES:', data);
+  dispatch(getProducts(data));
+  return data;
+};
+
+// Create a Product
+export const createProductThunk = product => async dispatch => {
+  const res = await fetch('/products/', {
+    method: "POST",
+    body: product
+  });
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addProduct(data));
+    return data;
+  } else {
+    const errors = await res.json();
+    throw errors;
+  };
 };
 
 

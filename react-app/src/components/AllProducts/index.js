@@ -19,7 +19,7 @@ export default function AllProducts() {
     dispatch(getProductsThunk())
       .then(() => dispatch(getShopsThunk()))
       .then(() => setIsLoaded(true));
-  }, [dispatch]);
+  }, []);
 
   return (
     <div id="products-page">

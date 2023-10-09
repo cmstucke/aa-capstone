@@ -35,7 +35,7 @@ export const getShopsThunk = () => async dispatch => {
 export const getUserShopsThunk = () => async dispatch => {
   const res = await fetch('/api/users/shops');
   const data = await res.json();
-  console.log('USER SHOPS FETCH RES:', data);
+  // console.log('USER SHOPS FETCH RES:', data);
   dispatch(getShops(data));
   return data;
 };
