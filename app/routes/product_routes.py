@@ -21,7 +21,7 @@ def create_product():
 
     if form.data['seller_id'] != 0:
         shop = Shop.query.get(form.data['seller_id'])
-        if not shop or current_user.id != shop.owner_id:
+        if shop and current_user.id != shop.owner_id:
             return {"errors": {"unauthorized": "User may only add products to shops they own"}}, 401
 
     if form.validate_on_submit():
@@ -43,8 +43,8 @@ def create_product():
             owner_id= current_user.id,
             seller_id= form.data['seller_id'],
             title= form.data['title'],
-            category= form.data['category'],
             price= form.data['price'],
+            category= form.data['category'],
             description= form.data['description'],
             availability= form.data['availability'],
             inventory= form.data['inventory'],
@@ -87,7 +87,7 @@ def update_product(product_id):
 
     if form.data['seller_id'] != 0:
         shop = Shop.query.get(form.data['seller_id'])
-        if not shop or current_user.id != shop.owner_id:
+        if shop and current_user.id != shop.owner_id:
             return {"errors": {"unauthorized": "User may only add products to shops they own"}}, 401
 
     if form.validate_on_submit() and product.owner_id == current_user.id:

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserShopsThunk } from "../../store/shop";
 import { createProductThunk } from "../../store/product";
+import { categoryStrs, availabilityStrs } from "../../assets/helpers/block-text";
 
 
 export default function CreateProductForm() {
@@ -14,13 +15,21 @@ export default function CreateProductForm() {
   const history = useHistory();
 
   const [isLoaded, setIsLoaded] = useState(false)
+  const [imageInput, setImageInput] = useState('');
+  // console.log('IMAGE INPUT:', imageInput);
   const [seller_id, setSellerId] = useState('');
-  console.log('SELLER ID:', seller_id);
+  // console.log('SELLER ID:', !seller_id);
   const [title, setTitle] = useState('');
+  const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   // console.log('CATEGORY:', category);
   const [description, setDescription] = useState('');
-  const [imageInput, setImageInput] = useState('');
+  const [availability, setAvailability] = useState('');
+  // console.log('AVAILABILITY:', availability);
+  const [showInv, setShowInv] = useState(1);
+  // console.log('SHOW INV:', showInv);
+  const [inventory, setInventory] = useState(null);
+  // console.log('INVENTORY:', inventory);
   const [errors, setErrors] = useState({})
   // const [imageLoading, setImageLoading] = useState(false);
   // console.log('ERRORS:', errors);
@@ -30,33 +39,40 @@ export default function CreateProductForm() {
       .then(() => setIsLoaded(true));
   }, []);
 
+  useEffect(() => {
+    if (availability === 'In stock') {
+      setShowInv(true);
+      setInventory(1);
+    } else {
+      setShowInv(false);
+      setInventory(null);
+    };
+  }, [availability]);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let data;
-    let imageInputBool;
-    if (imageInput) {
-      data = new FormData();
-      data.append('seller_id', seller_id);
-      data.append('title', title);
-      data.append('category', category);
-      data.append('description', description);
-      data.append('preview_image', imageInput);
-      imageInputBool = true;
-    } else {
-      data = {
-        title: title,
-        category: category,
-        description: description
-      };
-      imageInputBool = false;
-    };
+    const data = new FormData();
+    if (imageInput) data.append('preview_image', imageInput);
+    if (seller_id) data.append('seller_id', seller_id);
+    data.append('title', title);
+    data.append('price', price);
+    data.append('category', category);
+    data.append('description', description);
+    data.append('availability', availability);
+    if (inventory) data.append('inventory', inventory);
 
-    let createdShop;
+    let createdProduct;
     try {
-      createdShop = await dispatch(createProductThunk(data, imageInputBool));
-      history.push('/me/shops');
-      console.log('CREATED SHOP:', createdShop);
+      createdProduct = await dispatch(createProductThunk(data));
+      if (createdProduct) {
+        console.log('CREATED PRODUCT:', createdProduct);
+        if (seller_id) {
+          history.push(`/shops/${seller_id}`);
+        } else {
+          history.push('/me/products');
+        };
+      };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
@@ -64,48 +80,50 @@ export default function CreateProductForm() {
   };
 
   return (
-    <div id="create-shop-page">
+    <div id="create-product-page">
       <h1>Create a product</h1>
       <form
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <label
-          htmlFor='shop-seller-input'
-        >Seller</label>
-        <select
-          onChange={e => setSellerId(e.target.value)}
-          value={seller_id}
-        >
-          <option value={0}>{'(select one)'}</option>
-          {shops.map(shop => (
-            <option value={shop.id}>{shop.title}</option>
-          ))}
-        </select>
         <section>
           <label
-            htmlFor='shop-previewImg-input'
+            htmlFor='product-previewImg-input'
           >Preview image</label>
           <input
-            id="shop-previewImg-input"
+            id="product-previewImg-input"
             type="file"
             accept="image/*"
             onChange={e => setImageInput(e.target.files[0])}
           />
         </section>
+        <label
+          htmlFor="product-shop-input"
+        >Shop listing</label>
+        <select
+          id="product-shop-input"
+          defaultValue={null}
+          value={seller_id}
+          onChange={e => setSellerId(e.target.value)}
+        >
+          <option>{'(select one)'}</option>
+          {shops.map(shop => (
+            <option value={shop.id}>{shop.title}</option>
+          ))}
+        </select>
         <section>
           {errors.title
             ?
             <label
               className="error-text"
-              htmlFor='shop-title-input'
+              htmlFor='product-title-input'
             >Title is required</label>
             :
             <label
-              htmlFor='shop-title-input'
+              htmlFor='product-title-input'
             >Title</label>}
           <input
-            id="shop-title-input"
+            id="product-title-input"
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
@@ -113,15 +131,34 @@ export default function CreateProductForm() {
         </section>
         <section>
           <label
-            htmlFor='shop-category-input'
+            htmlFor="product-price-input"
+          >Price</label>
+          <label
+            htmlFor="product-price-input"
+          >$</label>
+          <input
+            id="product-price-input"
+            type="number"
+            min={0}
+            max={9999.99}
+            step={.01}
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-category-input'
           >Category</label>
           <select
+            id="product-category-input"
             onChange={e => setCategory(e.target.value)}
             value={category}
           >
-            <option value={null}>{null}</option>
-            <option value='Home & Living'>Home & Living</option>
-            <option value='Craft Supplies'>Craft Supplies</option>
+            <option value={null}>{'(select one)'}</option>
+            {categoryStrs.map(str => (
+              <option value={str}>{str}</option>
+            ))}
           </select>
         </section>
         <section>
@@ -129,28 +166,57 @@ export default function CreateProductForm() {
             ?
             <label
               className="error-text"
-              htmlFor='shop-title-input'
+              htmlFor='product-title-input'
             >Description is required</label>
             :
             <label
-              htmlFor='shop-title-input'
+              htmlFor='product-title-input'
             >Description</label>}
           <input
-            id="shop-description-input"
+            id="product-description-input"
             type="textarea"
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
         </section>
         <section>
+          <label
+            htmlFor="product-availability-input"
+          >Availability</label>
+          <select
+            id="product-availability-input"
+            value={availability}
+            onChange={e => setAvailability(e.target.value)}
+          >
+            <option value={null}>{'(select one)'}</option>
+            {availabilityStrs.map(str => (
+              <option value={str}>{str}</option>
+            ))}
+          </select>
+        </section>
+        {showInv &&
+          <section>
+            <label
+              htmlFor="product-inventory-input"
+            >Inventory</label>
+            <input
+              type="number"
+              min={1}
+              max={1000}
+              step={1}
+              value={inventory}
+              onChange={e => setInventory(e.target.value)}
+            />
+          </section>}
+        <section>
           <button
-            id="create-shop-breadcrumb"
-            onClick={() => history.push('/shops')}
+            id="create-product-breadcrumb"
+            onClick={() => history.push('api/users/products')}
           >Cancel</button>
           <button
-            id="create-shop-submit"
+            id="create-product-submit"
             type="submit"
-          >Create Shop</button>
+          >Create product</button>
         </section>
       </form>
     </div>
