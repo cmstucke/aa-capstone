@@ -15,9 +15,9 @@ shop_routes = Blueprint('shops', __name__)
 @login_required
 def create_shop():
     """
-    Posts a new server by user id
+    Post a new Shop by User id
     """
-    print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
     # cookies = request.cookies
     # print('COOKIE DATA:', cookies)
@@ -52,7 +52,7 @@ def create_shop():
         return new_shop.to_dict(), 201
     else:
         errors = validation_errors_to_error_messages(form.errors)
-        return { "errors": errors }, 400
+        return {"errors": errors}, 400
 
 
 # Get all shops
@@ -69,7 +69,7 @@ def get_all_shops():
 @login_required
 def update_shop(shop_id):
     """
-    Updates a shop by its id by an authorized user
+    Update a Shop by its id by an authorized User
     """
     print('YOU HAVE MADE IT TO THE UPDATE SHOP ROUTE')
     form = ShopForm()
@@ -88,9 +88,6 @@ def update_shop(shop_id):
             print("image upload", upload)
 
             if "url" not in upload:
-            # if the dictionary doesn't have a url key
-            # it means that there was an error when we tried to upload
-            # so we send back that error message (and we printed it above)
                 errors = [upload]
                 return {'errors': errors}, 400
 
@@ -103,9 +100,11 @@ def update_shop(shop_id):
         shop.description = form.data['description']
 
         db.session.commit()
-        return shop.to_dict()
+        return shop.to_dict(), 204
+
     elif shop.owner_id != current_user.id:
         return {"errors": {"unauthorized": "User unauthorized to edit shop"}}, 401
+
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return {"errors": errors}, 400
@@ -116,15 +115,14 @@ def update_shop(shop_id):
 @login_required
 def delete_shop(shop_id):
     """
-    Delete a shop by its id by an authorized user
+    Delete a Shop by its id by an authorized User
     """
     shop = Shop.query.get(shop_id)
     if not shop:
         return {"errors": {"not found": "Shop not found"}}, 404
-
-    if shop.owner_id == current_user.id:
+    elif shop.owner_id == current_user.id:
         db.session.delete(shop)
         db.session.commit()
         return {"message": "Shop successfully deleted"}
     else:
-        return {"errors": {"unauthorized": "User must be shop owner to delete"}}, 401
+        return {"errors": {"unauthorized": "User must be Shop owner to delete"}}, 401

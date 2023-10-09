@@ -1,4 +1,4 @@
-#shops-list {
+#products-list {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -6,11 +6,11 @@
   justify-content: flex-start;
 }
 
-.shop-link {
+.product-link {
   text-decoration: none;
 }
 
-.shop-img {
+.product-img {
   width: 18rem;
   height: 15rem;
   object-fit: cover;
