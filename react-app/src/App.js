@@ -12,6 +12,7 @@ import ShopDetails from "./components/ShopDetails";
 import AllUserShops from "./components/AllUserShops";
 import AllProducts from "./components/AllProducts";
 import ProductDetails from "./components/ProductDetails";
+import CreateProductForm from "./components/ProductForms/CreateProductForm";
 
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path="/shops/create">
             <CreateShopForm />
+          </Route>
+          <Route exact path="/products/create">
+            <CreateProductForm />
           </Route>
           <Route exact path="/shops/:shop_id/update">
             <UpdateShopForm />
