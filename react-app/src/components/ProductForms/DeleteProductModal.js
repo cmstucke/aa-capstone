@@ -1,23 +1,23 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
-import { deleteShopThunk } from "../../store/shop";
+import { deleteProductThunk } from "../../store/product";
 
-export default function DeleteProductModal({ shop_id }) {
+export default function DeleteProductModal({ product_id }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    history.push('/me/shops');
-    dispatch(deleteShopThunk(shop_id));
+    history.push('/products');
+    dispatch(deleteProductThunk(product_id));
     closeModal();
   };
 
   return (
     <div>
-      <h1>Delete this shop</h1>
+      <h1>Delete this product</h1>
       <form
         onSubmit={handleSubmit}
       >
@@ -29,7 +29,7 @@ export default function DeleteProductModal({ shop_id }) {
         <button
           type="submit"
         >
-          Delete Shop
+          Delete product
         </button>
       </form>
     </div>

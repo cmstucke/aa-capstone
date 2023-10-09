@@ -7,12 +7,13 @@ import { getShopsThunk } from "../../store/shop";
 
 export default function ProductDetails() {
   const { product_id } = useParams();
+  console.log('PARAM:', product_id);
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const product = useSelector(state => state.product[product_id]);
+  console.log('PRODUCT:', product);
   const shop = useSelector(state => state.shop[product?.seller_id]);
-  // console.log('SHOP STATE', shop);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function ProductDetails() {
   }, []);
 
   let sessionLink;
-  if (isLoaded && sessionUser.id === product.owner_id) {
+  if (isLoaded && sessionUser?.id === product?.owner_id) {
     sessionLink = (
       <div>
         <button
@@ -40,16 +41,19 @@ export default function ProductDetails() {
 
   return (
     <div id="product-details-page">
-      <img
-        id="product-details-image"
-        alt={`${product.title}`}
-        src={product.preview_image}
-      />
-      <h1>{product.title}</h1>
-      <p>{shop.title}</p>
-      <p>{product.category}</p>
-      <p>{product.description}</p>
-      {sessionLink && sessionLink}
+      {isLoaded &&
+        <>
+          <img
+            id="product-details-image"
+            alt={`${product.title}`}
+            src={product.preview_image}
+          />
+          <h1>{product.title}</h1>
+          <p>{shop.title}</p>
+          <p>{product.category}</p>
+          <p>{product.description}</p>
+          {sessionLink && sessionLink}
+        </>}
     </div>
   );
 };

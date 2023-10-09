@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getShopsThunk, getUserShopsThunk } from "../../store/shop";
-import { getProductsThunk, getUserProductsThunk, updateProductThunk } from "../../store/product";
+import { getUserShopsThunk } from "../../store/shop";
+import { getUserProductsThunk, updateProductThunk } from "../../store/product";
 import { categoryStrs, availabilityStrs } from "../../assets/helpers/block-text";
+import OpenModalButton from '../OpenModalButton';
+import DeleteProductModal from "./DeleteProductModal";
 
 
 export default function UpdateProductForm() {
@@ -91,6 +93,7 @@ export default function UpdateProductForm() {
     <div id="create-product-page">
       <h1>Update your product</h1>
       <form
+        id="update-product-form"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
@@ -216,17 +219,22 @@ export default function UpdateProductForm() {
               onChange={e => setInventory(e.target.value)}
             />
           </section>}
-        <section>
-          <button
-            id="create-product-breadcrumb"
-            onClick={() => history.push('api/users/products')}
-          >Cancel</button>
-          <button
-            id="create-product-submit"
-            type="submit"
-          >Update product</button>
-        </section>
       </form>
+      <div>
+        <OpenModalButton
+          buttonText="Delete Product"
+          modalComponent={<DeleteProductModal product_id={product_id} />}
+        />
+        <button
+          id="create-product-breadcrumb"
+          onClick={() => history.push('api/users/products')}
+        >Cancel</button>
+        <button
+          id="create-product-submit"
+          type="submit"
+          form="update-product-form"
+        >Update product</button>
+      </div>
     </div>
   );
 };

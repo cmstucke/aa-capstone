@@ -8,12 +8,12 @@ import './index.css';
 
 export default function AllProducts() {
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
   const productsObj = useSelector(state => state.product);
-  // console.log('PRODUCTS STATE', productsObj);
-  const productsArr = Object.values(productsObj);
-  // console.log('PRODUCTS ARR', productsArr);
+  const productsArr = Object.values(productsObj)
+    .filter(product => product.seller_id);
   const shopsObj = useSelector(state => state.shop);
+
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(getProductsThunk())
@@ -26,7 +26,7 @@ export default function AllProducts() {
       <h1>Products</h1>
       <div id="products-list-container">
         <div id="products-list">
-          {isLoaded &&
+          {isLoaded && productsArr.length &&
             productsArr.map(product => (
               <Link
                 key={product.id}
@@ -40,12 +40,12 @@ export default function AllProducts() {
                 />
                 <p className="product-link-title">{product.title}</p>
                 <p className="product-link-shop"
-                >{shopsObj[product.seller_id].title}</p>
+                >{shopsObj[product.seller_id]?.title}</p>
               </Link>
             ))
           }
         </div>
       </div>
     </div>
-  )
+  );
 };

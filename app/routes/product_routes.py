@@ -66,7 +66,7 @@ def get_all_products():
     '''
     Query a list of all Products available in a Shop.
     '''
-    products = Product.query.filter(Product.seller_id != None)
+    products = Product.query.all()
     return [product.to_dict() for product in products]
 
 

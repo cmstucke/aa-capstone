@@ -1,7 +1,7 @@
 // constants
 const GET_PRODUCTS = 'products/GET_PRODUCTS';
 const ADD_PRODUCT = 'products/ADD_PRODUCT';
-// const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT';
+const REMOVE_PRODUCT = 'products/REMOVE_PRODUCT';
 
 
 // Product Actions
@@ -15,10 +15,10 @@ const addProduct = product => ({
   product
 });
 
-// const removeProduct = productId => ({
-//   type: REMOVE_PRODUCT,
-//   productId
-// });
+const removeProduct = productId => ({
+  type: REMOVE_PRODUCT,
+  productId
+});
 
 
 // Product Thunks
@@ -35,7 +35,7 @@ export const getProductsThunk = () => async dispatch => {
 export const getUserProductsThunk = () => async dispatch => {
   const res = await fetch('/api/users/products');
   const data = await res.json();
-  console.log('USER PRODUCTS FETCH RES:', data);
+  // console.log('USER PRODUCTS FETCH RES:', data);
   dispatch(getProducts(data));
   return data;
 };
@@ -72,6 +72,16 @@ export const updateProductThunk = (productId, product) => async dispatch => {
   };
 };
 
+// Delete a product by its id
+export const deleteProductThunk = productId => async dispatch => {
+  const res = await fetch(`products/${productId}`, {
+    method: "DELETE"
+  });
+  const data = await res.json();
+  dispatch(removeProduct(productId));
+  return data;
+};
+
 
 // Initial State
 const initialState = {};
@@ -87,6 +97,21 @@ export default function reducer(state = initialState, action) {
         };
       };
       return getAllState;
+    case ADD_PRODUCT:
+      const addProductState = {
+        ...state,
+        [action.product.id]: { ...action.product }
+      };
+      return addProductState;
+    case REMOVE_PRODUCT:
+      const removeProductState = {};
+      const productsArr = Object.values(state);
+      productsArr.map(product => (
+        removeProductState[product.id] = {
+          ...product
+        }));
+      delete removeProductState[action.productId];
+      return removeProductState;
     default:
       return state;
   };
