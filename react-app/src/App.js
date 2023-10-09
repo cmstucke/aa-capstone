@@ -10,6 +10,7 @@ import UpdateShopForm from './components/ShopForms/UpdateShopForm.js'
 import AllShops from "./components/AllShops";
 import ShopDetails from "./components/ShopDetails";
 import AllUserShops from "./components/AllUserShops";
+import AllProducts from "./components/AllProducts";
 
 
 function App() {
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/shops">
             <AllShops />
+          </Route>
+          <Route exact path="/products">
+            <AllProducts />
           </Route>
         </Switch>
       )}
