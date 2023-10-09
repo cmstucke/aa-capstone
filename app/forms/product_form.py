@@ -1,14 +1,15 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import BooleanField, DecimalField, IntegerField, StringField, TextAreaField
+from wtforms import BooleanField, DecimalField, IntegerField, SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired, Optional, ValidationError
 from app.routes.s3_helpers import ALLOWED_EXTENSIONS
+from app.assets.helpers.block_text import category_strings
 
 
 class ProductForm(FlaskForm):
   seller_id = IntegerField('Seller ID', validators=[Optional()])
   title = StringField('Title', validators=[DataRequired()])
-  category = StringField('Category', validators=[Optional()])
+  category = SelectField('Category', choices=category_strings, validators=[DataRequired()])
   price = DecimalField('Price', places=2, validators=[DataRequired()])
   description = TextAreaField('Description', validators=[DataRequired()])
   availability = StringField('Availability', validators=[DataRequired()])

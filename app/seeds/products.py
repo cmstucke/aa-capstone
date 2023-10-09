@@ -1,6 +1,6 @@
 from app.models import db, Product, environment, SCHEMA
 from sqlalchemy.sql import text
-from app.assets.helpers.block_text import lorem_ipsum_2, sample_product_url
+from app.assets.helpers.block_text import category_strings, lorem_ipsum_2, sample_product_url
 from random import randint
 
 def seed_products():
@@ -10,7 +10,7 @@ def seed_products():
     seller_id= 1,
     title= "Product 1",
     price= 10.00,
-    category= 'Home goods',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='In stock',
     inventory=10,
@@ -21,10 +21,10 @@ def seed_products():
     seller_id= 1,
     title= "Product 2",
     price= 12.99,
-    category= 'Art & Collectibles',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Backorder',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product3= Product(
@@ -32,10 +32,10 @@ def seed_products():
     seller_id= 1,
     title= "Product 3",
     price= 12.99,
-    category= 'Toys & Games',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Made to order',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product4= Product(
@@ -43,7 +43,7 @@ def seed_products():
     seller_id= 1,
     title= "Product 4",
     price= 13.49,
-    category= 'Shoes',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='In stock',
     inventory=10,
@@ -54,10 +54,10 @@ def seed_products():
     seller_id= 0,
     title= "Product 5",
     price= 385.49,
-    category= 'Bags & Purses',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Backorder',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product6= Product(
@@ -65,10 +65,10 @@ def seed_products():
     seller_id= 2,
     title= "Product 6",
     price= 6.66,
-    category= 'Home & Living',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Made to order',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product7= Product(
@@ -76,7 +76,7 @@ def seed_products():
     seller_id= 2,
     title= "Product 7",
     price= 4.20,
-    category= 'Books, Movies & Music',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='In stock',
     inventory=10,
@@ -87,10 +87,10 @@ def seed_products():
     seller_id= 0,
     title= "Product 8",
     price= 9.99,
-    category= 'Electronics & Accessories',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Backorder',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product9= Product(
@@ -98,10 +98,10 @@ def seed_products():
     seller_id= 1,
     title= "Product 9",
     price= 8.63,
-    category= 'Bath & Beauty',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Made to order',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
   product10= Product(
@@ -109,10 +109,10 @@ def seed_products():
     seller_id= 2,
     title= "Product 10",
     price= 19.99,
-    category= 'Electronics & Accessories',
+    category= category_strings[randint(0 , len(category_strings) - 1)],
     description= lorem_ipsum_2,
     availability='Backorder',
-    inventory=None,
+    inventory= 0,
     preview_image= sample_product_url[randint(0 , len(sample_product_url) - 1)]
   )
 

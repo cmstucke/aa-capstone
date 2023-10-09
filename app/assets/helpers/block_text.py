@@ -10,6 +10,8 @@ lorem_ipsum_3 = lorem_ipsum[0: 334]
 # print('TWO SENTENCES:', lorem_ipsum_2)
 # print('THREE SENTENCES:', lorem_ipsum_3)
 
+
+# SAMPLE SHOP IMAGE URLS
 sample_shop_url = [
   'https://www.sciencefriday.com/wp-content/uploads/2018/10/Alligator-dorsal-1.jpg',
   'https://images.fineartamerica.com/images-medium-large-5/3-single-gravestone-in-a-spooky-graveyard-on-a-foggy-day-ken-biggs.jpg',
@@ -17,6 +19,8 @@ sample_shop_url = [
   'https://i.etsystatic.com/24984991/r/il/c501a5/3558047167/il_fullxfull.3558047167_k4lo.jpg'
 ]
 
+
+# SAMPLE PRODUCT IMAGE URLS
 sample_product_url = [
   'https://i.etsystatic.com/27771846/r/il/5ab285/4734649510/il_570xN.4734649510_a4mx.jpg',
   'https://i.etsystatic.com/16202918/r/il/ef032f/3223263270/il_fullxfull.3223263270_42ig.jpg',
@@ -28,4 +32,18 @@ sample_product_url = [
   'https://i.pinimg.com/564x/92/71/a1/9271a177efcca05edd8da2eb5ed7b7bb.jpg',
   'https://di2ponv0v5otw.cloudfront.net/posts/2019/09/12/5d7ac7928557af513306f4f5/m_5d7ac7ffb146ccf7e0040c81.jpg',
   'https://cdn.shopify.com/s/files/1/0943/8048/files/F4LVG2MG43EFYWC.LARGE_grande.jpg?v=1540319862'
+]
+
+
+# CATEGORY SELECT FIELD STRINGS
+category_strings = [
+  'Other',
+  'The Holiday Shop',
+  'Jewelry & Accessories',
+  'Clothing & Shoes',
+  'Home & Living',
+  'Wedding & Party',
+  'Craft Supplies',
+  'GiftS & Gift Cards',
+  'Etsy Registry'
 ]
