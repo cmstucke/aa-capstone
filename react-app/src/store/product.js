@@ -74,12 +74,19 @@ export const updateProductThunk = (productId, product) => async dispatch => {
 
 // Delete a product by its id
 export const deleteProductThunk = productId => async dispatch => {
-  const res = await fetch(`products/${productId}`, {
+  console.log('DELETE PARAM:', productId);
+  const res = await fetch(`/products/${productId}`, {
     method: "DELETE"
   });
-  const data = await res.json();
-  dispatch(removeProduct(productId));
-  return data;
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(removeProduct(productId));
+    return data;
+  } else {
+    const data = await res.json();
+    console.log('ERROR RES:', data);
+    throw data;
+  };
 };
 
 
