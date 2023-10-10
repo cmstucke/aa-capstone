@@ -17,7 +17,7 @@ def create_shop():
     """
     Post a new Shop by User id
     """
-    # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     form = ShopForm()
     # cookies = request.cookies
     # print('COOKIE DATA:', cookies)

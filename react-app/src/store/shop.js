@@ -47,6 +47,7 @@ export const getUserShopsThunk = () => async dispatch => {
 
 // Create a Shop
 export const createShopThunk = (shop, previewImg) => async dispatch => {
+  console.log('YOU ARE HERE');
   let res;
   if (previewImg) {
     res = await fetch('/shops/', {
