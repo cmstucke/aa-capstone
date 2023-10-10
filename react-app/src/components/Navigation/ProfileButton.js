@@ -40,12 +40,13 @@ function ProfileButton({ user }) {
 
   return (
     <section id="profile-section">
-      <NavLink
-        id='shop-manager-link'
-        to='/me/shops'
-      >
-        <i className="fas fa-store" />
-      </NavLink>
+      {user &&
+        <NavLink
+          id='shop-manager-link'
+          to='/me/shops'
+        >
+          <i className="fas fa-store" />
+        </NavLink>}
       <button
         id="profile-button"
         onClick={openMenu}>

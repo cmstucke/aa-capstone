@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../store/product";
 import { getShopsThunk } from "../../store/shop";
+import './index.css';
 
 
 export default function ProductDetails() {
@@ -27,6 +28,7 @@ export default function ProductDetails() {
     sessionLink = (
       <div>
         <button
+          id="product-details-update"
           onClick={() => {
             history.push(`/products/${product_id}/update`);
           }}
@@ -40,20 +42,64 @@ export default function ProductDetails() {
   if (!isLoaded) return null;
 
   return (
-    <div id="product-details-page">
+    <>
       {isLoaded &&
-        <>
+        <div id="product-details-page">
           <img
             id="product-details-image"
             alt={`${product.title}`}
             src={product.preview_image}
           />
-          <h1>{product.title}</h1>
-          <p>{shop.title}</p>
-          <p>{product.category}</p>
-          <p>{product.description}</p>
-          {sessionLink && sessionLink}
-        </>}
-    </div>
+          <section
+            id="product-details-information"
+          >
+            <h1
+              id='product-details-price'
+            >${product.price}</h1>
+            <h2
+              className="product-details-heading"
+            >{product.title}</h2>
+            {sessionLink
+              ?
+              sessionLink
+              :
+              <>
+                <button
+                  id="add-to-cart"
+                  onClick={() => alert('Feature coming soon')}
+                >Add to cart</button>
+                <h2
+                  className="product-details-heading"
+                >Item details</h2>
+                <p
+                  className="product-details-desc"
+                >{product.availability}</p>
+                {product.availability === 'In stock' &&
+                  <p
+                    className="product-details-desc"
+                  >{product.inventory} left</p>}
+                <p
+                  className="product-details-desc"
+                >{product.description}</p>
+                <h2
+                  className="product-details-heading"
+                >Meet your seller</h2>
+                <Link
+                  id="product-shop"
+                  to={`/shops/${shop.id}`}
+                >
+                  <img
+                    id="product-shop-icon"
+                    alt={`${shop.title}`}
+                    src={shop.preview_image}
+                  />
+                  <p
+                    id="product-shop-title"
+                  >{shop.title}</p>
+                </Link>
+              </>}
+          </section>
+        </div>}
+    </>
   );
 };

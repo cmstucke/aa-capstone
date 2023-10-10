@@ -18,7 +18,7 @@ export default function ShopDetails() {
   }, []);
 
   let sessionLink;
-  if (isLoaded && sessionUser.id === shop.owner_id) {
+  if (isLoaded && sessionUser?.id === shop?.owner_id) {
     sessionLink = (
       <div>
         <button
