@@ -34,10 +34,15 @@ export const getShopsThunk = () => async dispatch => {
 // Get all Shops created by current user
 export const getUserShopsThunk = () => async dispatch => {
   const res = await fetch('/api/users/shops');
-  const data = await res.json();
-  // console.log('USER SHOPS FETCH RES:', data);
-  dispatch(getShops(data));
-  return data;
+  if (res.ok) {
+    const data = await res.json();
+    // console.log('USER SHOPS FETCH RES:', data);
+    dispatch(getShops(data));
+    return data;
+  } else {
+    const data = await res.json();
+    throw data;
+  };
 };
 
 // Create a Shop

@@ -7,12 +7,12 @@ import { categoryStrs, availabilityStrs } from "../../assets/helpers/block-text"
 
 
 export default function CreateProductForm() {
-  // const sessionUser = useSelector(state => state.session.user);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
   const userShopsObj = useSelector(state => state.shop);
   const shops = Object.values(userShopsObj);
   // console.log('SHOPS:', shops);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const [isLoaded, setIsLoaded] = useState(false)
   const [imageInput, setImageInput] = useState('');
@@ -35,6 +35,7 @@ export default function CreateProductForm() {
   // console.log('ERRORS:', errors);
 
   useEffect(() => {
+    if (!sessionUser) history.push('/');
     dispatch(getUserShopsThunk())
       .then(() => setIsLoaded(true));
   }, []);
