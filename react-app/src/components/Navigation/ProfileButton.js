@@ -4,7 +4,7 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -39,8 +39,13 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <>
-      <i className="fas fa-store" />
+    <section id="profile-section">
+      <NavLink
+        id='shop-manager-link'
+        to='/me/shops'
+      >
+        <i className="fas fa-store" />
+      </NavLink>
       <button
         id="profile-button"
         onClick={openMenu}>
@@ -82,7 +87,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </div>
-    </>
+    </section>
   );
 }
 

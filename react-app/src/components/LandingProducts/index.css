@@ -1,0 +1,87 @@
+#landing-products-page {
+  height: 100vh;
+  margin: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+#landing-products-container {
+  display: flex;
+  gap: .75rem;
+  min-height: 15rem;
+  max-height: 40%;
+  width: 100%;
+  max-width: 1500px;
+}
+
+#large-link {
+  width: 40%;
+}
+
+#large-landing-product {
+  width: 100%;
+  height: 100%;
+}
+
+#large-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: .75rem;
+}
+
+#large-price {
+  position: relative;
+  bottom: 14%;
+  left: 81%;
+  background-color: white;
+  width: fit-content;
+  padding: .1rem .25rem;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: .5rem;
+}
+
+#small-landing-products {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  height: 100%;
+  gap: .75rem;
+}
+
+.small-row {
+  display: flex;
+  height: 47.5%;
+  gap: .75rem;
+}
+
+.small-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: .75rem;
+}
+
+.small-price {
+  position: relative;
+  bottom: 35%;
+  left: 60%;
+  background-color: white;
+  width: fit-content;
+  padding: .1rem .25rem;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: .5rem;
+}
+
+.landing-link {
+  border-radius: .75rem;
+  width: 30%;
+  text-decoration: none;
+}
+
+.landing-link:hover {
+  box-shadow: 0 0 8px 1px #919191;
+}

@@ -16,9 +16,7 @@ function Navigation({ isLoaded }) {
 				>Spooky</NavLink>
 			</section>
 			{isLoaded && (
-				<section>
-					<ProfileButton user={sessionUser} />
-				</section>
+				<ProfileButton user={sessionUser} />
 			)}
 		</nav>
 	);
