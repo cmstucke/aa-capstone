@@ -33,8 +33,6 @@ export default function LandingProducts() {
     ];
   };
 
-  // const shopsObj = useSelector(state => state.shop);
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
