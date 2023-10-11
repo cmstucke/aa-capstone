@@ -51,7 +51,7 @@ def seed_products():
   )
   product5= Product(
     owner_id= 1,
-    seller_id= 0,
+    seller_id= None,
     title= "Product 5",
     price= 385.49,
     category= category_strings[randint(0 , len(category_strings) - 1)],
@@ -84,7 +84,7 @@ def seed_products():
   )
   product8= Product(
     owner_id= 2,
-    seller_id= 0,
+    seller_id= None,
     title= "Product 8",
     price= 9.99,
     category= category_strings[randint(0 , len(category_strings) - 1)],
