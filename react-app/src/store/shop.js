@@ -34,14 +34,20 @@ export const getShopsThunk = () => async dispatch => {
 // Get all Shops created by current user
 export const getUserShopsThunk = () => async dispatch => {
   const res = await fetch('/api/users/shops');
-  const data = await res.json();
-  console.log('USER SHOPS FETCH RES:', data);
-  dispatch(getShops(data));
-  return data;
+  if (res.ok) {
+    const data = await res.json();
+    // console.log('USER SHOPS FETCH RES:', data);
+    dispatch(getShops(data));
+    return data;
+  } else {
+    const data = await res.json();
+    throw data;
+  };
 };
 
 // Create a Shop
 export const createShopThunk = (shop, previewImg) => async dispatch => {
+  console.log('YOU ARE HERE');
   let res;
   if (previewImg) {
     res = await fetch('/shops/', {
@@ -69,29 +75,31 @@ export const createShopThunk = (shop, previewImg) => async dispatch => {
 export const updateShopThunk = (
   shopId,
   shop,
-  preview_image) => async dispatch => {
-    let res;
-    if (preview_image) {
-      res = await fetch(`/shops/${shopId}`, {
-        method: "PUT",
-        body: shop
-      });
-    } else {
-      res = await fetch(`/shops/${shopId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(shop)
-      });
-    };
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(addShop(data));
-      return data;
-    } else {
-      const errors = await res.json();
-      throw errors;
-    };
+  preview_image
+) => async dispatch => {
+  // console.log('UPDATE ARGS:', shopId, shop, preview_image);
+  let res;
+  if (preview_image) {
+    res = await fetch(`/shops/${shopId}`, {
+      method: "PUT",
+      body: shop
+    });
+  } else {
+    res = await fetch(`/shops/${shopId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(shop)
+    });
   };
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addShop(data));
+    return data;
+  } else {
+    const errors = await res.json();
+    throw errors;
+  };
+};
 
 // Delete a shop by its id
 export const deleteShopThunk = shopId => async dispatch => {

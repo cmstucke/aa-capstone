@@ -9,7 +9,12 @@ import CreateShopForm from "./components/ShopForms/CreateShopForm.js";
 import UpdateShopForm from './components/ShopForms/UpdateShopForm.js'
 import AllShops from "./components/AllShops";
 import ShopDetails from "./components/ShopDetails";
-import AllUserShops from "./components/AllUserShops";
+import AllProducts from "./components/AllProducts";
+import ProductDetails from "./components/ProductDetails";
+import CreateProductForm from "./components/ProductForms/CreateProductForm";
+import UpdateProductForm from "./components/ProductForms/UpdateProductForm";
+import ShopManager from "./components/ShopManager";
+import LandingProducts from "./components/LandingProducts";
 
 
 function App() {
@@ -31,19 +36,34 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route exact path="/me/shops">
-            <AllUserShops />
+            <ShopManager />
           </Route>
           <Route exact path="/shops/create">
             <CreateShopForm />
           </Route>
+          <Route exact path="/products/create">
+            <CreateProductForm />
+          </Route>
           <Route exact path="/shops/:shop_id/update">
             <UpdateShopForm />
+          </Route>
+          <Route exact path="/products/:product_id/update">
+            <UpdateProductForm />
           </Route>
           <Route exact path="/shops/:shop_id">
             <ShopDetails />
           </Route>
+          <Route exact path="/products/:product_id">
+            <ProductDetails />
+          </Route>
           <Route exact path="/shops">
             <AllShops />
+          </Route>
+          <Route exact path="/products">
+            <AllProducts />
+          </Route>
+          <Route exact path="/">
+            <LandingProducts />
           </Route>
         </Switch>
       )}

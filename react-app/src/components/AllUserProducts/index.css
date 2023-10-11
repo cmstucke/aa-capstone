@@ -1,0 +1,34 @@
+#products-list {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: flex-start;
+}
+
+.product-link {
+  text-decoration: none;
+}
+
+.product-img {
+  width: 18rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: .5rem .5rem 0 0;
+}
+
+.products-list-delete {
+  border: none;
+  text-decoration: none;
+  background: none;
+  font-family: 'Open Sans';
+  font-size: 18px;
+  border-radius: 2rem;
+  padding: .5rem;
+  color: #919191;
+}
+
+.products-list-delete:hover {
+  cursor: pointer;
+  background-color: #e9e9e9;
+}

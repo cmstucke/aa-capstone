@@ -61,15 +61,15 @@ export default function UpdateShopForm() {
     };
 
     try {
-      await dispatch(
+      dispatch(
         updateShopThunk(
           shop_id,
           data,
           imageBoolean
         ));
       history.push('/shops');
-    } catch ({ errors }) {
-      // console.log('CAUGHT ERRORS:', errors);
+    } catch (errors) {
+      console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };
@@ -96,7 +96,7 @@ export default function UpdateShopForm() {
             <p className="img_url">{imageUrl}</p>}
         </section>
         <section>
-          {errors.title
+          {errors?.title
             ?
             <label
               className="error-text"
@@ -125,7 +125,7 @@ export default function UpdateShopForm() {
           />
         </section>
         <section>
-          {errors.description
+          {errors?.description
             ?
             <label
               className="error-text"

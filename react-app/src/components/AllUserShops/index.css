@@ -1,26 +1,17 @@
-#shops-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-#shops-list-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 #shops-list {
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
   justify-content: flex-start;
-  margin: 0 3rem;
 }
 
-.shop-link {
-  text-decoration: none;
+.shop-list-item {
+  border-radius: .5rem;
+}
+
+.shop-list-item:hover {
+  box-shadow: 0 0 8px 1px #919191;
 }
 
 .shop-img {
@@ -28,4 +19,41 @@
   height: 15rem;
   object-fit: cover;
   border-radius: .5rem .5rem 0 0;
+}
+
+.shops-list-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: 0 .5rem .5rem .5rem;
+}
+
+.shops-list-text {
+  text-decoration: none;
+  color: #222222;
+}
+
+.shops-list-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.shops-list-category {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.shops-list-update {
+  text-decoration: none;
+  color: #919191;
+  padding: .5rem;
+  border-radius: 2rem;
+}
+
+.shops-list-update:hover {
+  background-color: #e9e9e9;
 }

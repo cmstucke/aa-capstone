@@ -1,45 +1,40 @@
-import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { getUserShopsThunk } from "../../store/shop";
+import { Link, useHistory } from 'react-router-dom';
 import './index.css';
 
 
-export default function AllUserShops() {
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const shopsObj = useSelector(state => state.shop);
-  console.log('SHOP STATE:', shopsObj);
-  const shopsArr = Object.values(shopsObj);
-
-  useEffect(() => {
-    dispatch(getUserShopsThunk())
-      .then(() => setIsLoaded(true));
-  }, [dispatch]);
+export default function AllUserShops({ shopsArr }) {
+  const history = useHistory();
 
   return (
-    <div id="shops-page">
-      <h1>Your shops</h1>
-      <div id="shops-list-container">
-        <div id="shops-list">
-          {isLoaded &&
-            shopsArr.map(shop => (
-              <Link
-                key={shop.id}
-                className='shop-link'
-                exact to={`/shops/${shop.id}`}
-              >
-                <img
-                  alt={`${shop.title}`}
-                  src={shop.preview_image}
-                  className="shop-img"
-                />
-                <h2>{shop.title}</h2>
-              </Link>
-            ))
-          }
+    <div id="shops-list">
+      {shopsArr.map(shop => (
+        <div className='shop-list-item'>
+          <Link
+            key={shop.id}
+            className='shop-link'
+            exact to={`/shops/${shop.id}`}
+          >
+            <img
+              alt={`${shop.title}`}
+              src={shop.preview_image}
+              className="shop-img"
+            />
+          </Link>
+          <section className='shops-list-details'>
+            <Link
+              className='shops-list-text'
+              exact to={`/shops/${shop.id}`}
+            >
+              <p className='shops-list-title'>{shop.title}</p>
+              <p className='shops-list-category'>{shop.category}</p>
+            </Link>
+            <Link
+              className='shops-list-update'
+              to={`/shops/${shop.id}/update`}
+            >Update</Link>
+          </section>
         </div>
-      </div>
+      ))}
     </div>
-  )
+  );
 };
