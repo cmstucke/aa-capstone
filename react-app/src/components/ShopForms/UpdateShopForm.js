@@ -151,7 +151,7 @@ export default function UpdateShopForm() {
         />
         <button
           id="create-shop-breadcrumb"
-          onClick={() => history.push('/shops')}
+          onClick={() => history.push(`/shops/${shop_id}`)}
         >Cancel</button>
         <button
           id="create-shop-submit"
