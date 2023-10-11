@@ -92,7 +92,9 @@ export const updateShopThunk = (
     });
   };
   if (res.ok) {
+    // console.log('RES:', res);
     const data = await res.json();
+    // console.log('DATA:', data);
     dispatch(addShop(data));
     return data;
   } else {

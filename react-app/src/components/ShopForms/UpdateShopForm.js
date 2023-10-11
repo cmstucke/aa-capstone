@@ -26,7 +26,7 @@ export default function UpdateShopForm() {
       .then(() => setIsLoaded(true));
   }, []);
 
-  if (isLoaded && shop.owner_id !== sessionUser.id) {
+  if (isLoaded && shop?.owner_id !== sessionUser?.id) {
     history.push('/shops');
   };
 
@@ -60,14 +60,15 @@ export default function UpdateShopForm() {
       imageBoolean = false;
     };
 
+    let updatedShop;
     try {
-      dispatch(
+      updatedShop = await dispatch(
         updateShopThunk(
           shop_id,
           data,
           imageBoolean
         ));
-      history.push('/shops');
+      history.push('/me/shops');
     } catch (errors) {
       console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
