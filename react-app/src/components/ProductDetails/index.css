@@ -9,13 +9,14 @@
 }
 
 #product-details-image {
-  min-width: 40%;
+  width: 40%;
+  max-width: 750px;
   max-height: 25rem;
   object-fit: cover;
   border-radius: .5rem;
 }
 
-#product-details-information {
+.product-details-information {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -46,9 +46,11 @@ function ProfileButton({ user }) {
       {user &&
         <NavLink
           id='shop-manager-link'
+          className='tooltip'
           to='/me/shops'
         >
           <i className="fas fa-store" />
+          <span class="tooltiptext">Manage your shops and products</span>
         </NavLink>}
       <button
         id="profile-button"
