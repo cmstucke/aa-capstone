@@ -26,7 +26,20 @@ export default function ProductDetails() {
   let sessionLink;
   if (isLoaded && sessionUser?.id === product?.owner_id) {
     sessionLink = (
-      <div>
+      <>
+        <h2
+          className="product-details-heading"
+        >Item details</h2>
+        <p
+          className="product-details-desc"
+        >{product.availability}</p>
+        {product.availability === 'In stock' &&
+          <p
+            className="product-details-desc"
+          >{product.inventory} left</p>}
+        <p
+          className="product-details-desc"
+        >{product.description}</p>
         <button
           id="product-details-update"
           onClick={() => {
@@ -35,7 +48,7 @@ export default function ProductDetails() {
         >
           Update
         </button>
-      </div>
+      </>
     );
   };
 
@@ -51,7 +64,7 @@ export default function ProductDetails() {
             src={product.preview_image}
           />
           <section
-            id="product-details-information"
+            className="product-details-information"
           >
             <h1
               id='product-details-price'

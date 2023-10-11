@@ -11,7 +11,6 @@ import DeleteProductModal from "./DeleteProductModal";
 export default function UpdateProductForm() {
   const { product_id } = useParams();
   const product = useSelector(state => state.product[product_id]);
-  // console.log('PRODUCT STATE:', product);
   const userShopsObj = useSelector(state => state.shop);
   const shops = Object.values(userShopsObj);
   const dispatch = useDispatch();
@@ -19,6 +18,7 @@ export default function UpdateProductForm() {
 
   const [isLoaded, setIsLoaded] = useState(false)
   const [imageInput, setImageInput] = useState('');
+  // console.log('IMAGE INPUT:', imageInput);
   const [seller_id, setSellerId] = useState('');
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
@@ -28,7 +28,7 @@ export default function UpdateProductForm() {
   const [showInv, setShowInv] = useState(1);
   const [inventory, setInventory] = useState(null);
   const [previewImg, setPreviewImg] = useState(null);
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     dispatch(getUserProductsThunk())
@@ -48,7 +48,7 @@ export default function UpdateProductForm() {
 
   useEffect(() => {
     if (product) {
-      if (product.preview_image) setPreviewImg(product.preview_image);
+      setPreviewImg(product.preview_image);
       if (product.seller_id) setSellerId(product.seller_id);
       setTitle(product.title);
       setPrice(product.price);
@@ -72,16 +72,40 @@ export default function UpdateProductForm() {
     data.append('availability', availability);
     if (inventory) data.append('inventory', inventory);
 
+    // let data;
+    // let imgBool;
+    // if (imageInput) {
+    //   data = new FormData();
+    //   data.append('preview_image', imageInput);
+    //   if (seller_id) data.append('seller_id', seller_id);
+    //   data.append('title', title);
+    //   data.append('price', price);
+    //   data.append('category', category);
+    //   data.append('description', description);
+    //   data.append('availability', availability);
+    //   if (inventory) data.append('inventory', inventory);
+    //   imgBool = true;
+    // } else {
+    //   data = {
+    //     seller_id,
+    //     title,
+    //     price,
+    //     category,
+    //     description,
+    //     availability,
+    //     inventory
+    //   };
+    //   imgBool = false;
+    // };
+
+    // console.log('INPUT:', data);
+    // console.log('IMAGE BOOLEAN:', imgBool);
+
     let updatedProduct;
     try {
       updatedProduct = await dispatch(updateProductThunk(product_id, data));
       if (updatedProduct) {
-        // console.log('UPDATED SHOP:', updatedProduct);
-        if (seller_id) {
-          history.push(`/shops/${seller_id}`);
-        } else {
-          history.push('/me/products');
-        };
+        history.push('/me/shops');
       };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);
@@ -119,7 +143,7 @@ export default function UpdateProductForm() {
         >
           <option value={null}>{null}</option>
           {shops.map(shop => (
-            <option value={shop.id}>{shop.title}</option>
+            <option value={shop?.id}>{shop?.title}</option>
           ))}
         </select>
         <section>
@@ -225,10 +249,10 @@ export default function UpdateProductForm() {
           buttonText="Delete Product"
           modalComponent={<DeleteProductModal product_id={product_id} />}
         />
-        <Link
-          id="create-product-breadcrumb"
-          to={`/products/${product_id}`}
-        >Cancel</Link>
+        <button
+          id="create-shop-breadcrumb"
+          onClick={() => history.push(`/me/shops`)}
+        >Cancel</button>
         <button
           id="create-product-submit"
           type="submit"
