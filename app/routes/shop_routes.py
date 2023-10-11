@@ -101,7 +101,7 @@ def update_shop(shop_id):
 
         db.session.commit()
         print('UPDATED SHOP RECORD:', shop.to_dict())
-        return shop.to_dict(), 204
+        return shop.to_dict(), 200
 
     elif shop.owner_id != current_user.id:
         return {"errors": {"unauthorized": "User unauthorized to edit shop"}}, 401
