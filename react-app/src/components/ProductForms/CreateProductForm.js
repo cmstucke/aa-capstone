@@ -4,35 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserShopsThunk } from "../../store/shop";
 import { createProductThunk } from "../../store/product";
 import { categoryStrs, availabilityStrs } from "../../assets/helpers/block-text";
+import './index.css';
 
 
 export default function CreateProductForm() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const userShopsObj = useSelector(state => state.shop);
   const shops = Object.values(userShopsObj);
-  // console.log('SHOPS:', shops);
 
   const [isLoaded, setIsLoaded] = useState(false)
   const [imageInput, setImageInput] = useState('');
-  // console.log('IMAGE INPUT:', imageInput);
-  const [seller_id, setSellerId] = useState('');
-  // console.log('SELLER ID:', !seller_id);
+  const [seller_id, setSellerId] = useState(null);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
-  // console.log('CATEGORY:', category);
   const [description, setDescription] = useState('');
   const [availability, setAvailability] = useState('');
-  // console.log('AVAILABILITY:', availability);
   const [showInv, setShowInv] = useState(1);
-  // console.log('SHOW INV:', showInv);
   const [inventory, setInventory] = useState(null);
-  // console.log('INVENTORY:', inventory);
-  const [errors, setErrors] = useState({})
-  // const [imageLoading, setImageLoading] = useState(false);
-  // console.log('ERRORS:', errors);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!sessionUser) history.push('/');
@@ -54,7 +46,7 @@ export default function CreateProductForm() {
     e.preventDefault();
 
     const data = new FormData();
-    if (imageInput) data.append('preview_image', imageInput);
+    data.append('preview_image', imageInput);
     if (seller_id) data.append('seller_id', seller_id);
     data.append('title', title);
     data.append('price', price);
@@ -65,20 +57,19 @@ export default function CreateProductForm() {
 
     let createdProduct;
     try {
+      if (!imageInput) throw { "errors": { "preview_image": "Product image is required" } }
       createdProduct = await dispatch(createProductThunk(data));
       if (createdProduct) {
-        console.log('CREATED PRODUCT:', createdProduct);
-        if (seller_id) {
-          history.push(`/shops/${seller_id}`);
-        } else {
-          history.push('/me/products');
-        };
+        // console.log('CREATED PRODUCT:', createdProduct);
+        history.push('/me/shops');
       };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };
+
+  if (!isLoaded) return null;
 
   return (
     <div id="create-product-page">
@@ -88,9 +79,16 @@ export default function CreateProductForm() {
         encType="multipart/form-data"
       >
         <section>
-          <label
-            htmlFor='product-previewImg-input'
-          >Preview image</label>
+          {errors.preview_image
+            ?
+            <label
+              className="error-text"
+              htmlFor='product-previewImg-input'
+            >Product image is required</label>
+            :
+            <label
+              htmlFor='product-previewImg-input'
+            >Preview image</label>}
           <input
             id="product-previewImg-input"
             type="file"
@@ -105,7 +103,13 @@ export default function CreateProductForm() {
           id="product-shop-input"
           defaultValue={null}
           value={seller_id}
-          onChange={e => setSellerId(e.target.value)}
+          onChange={e => {
+            e.target.value === '(select one)'
+              ?
+              setSellerId(null)
+              :
+              setSellerId(e.target.value)
+          }}
         >
           <option>{'(select one)'}</option>
           {shops.map(shop => (
@@ -131,9 +135,16 @@ export default function CreateProductForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor="product-price-input"
-          >Price</label>
+          {errors.price
+            ?
+            <label
+              className="error-text"
+              htmlFor="product-price-input"
+            >Price is required</label>
+            :
+            <label
+              htmlFor="product-price-input"
+            >Price</label>}
           <label
             htmlFor="product-price-input"
           >$</label>
@@ -148,9 +159,16 @@ export default function CreateProductForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor='product-category-input'
-          >Category</label>
+          {errors.category
+            ?
+            <label
+              className="error-text"
+              htmlFor="product-category-input"
+            >Category is required</label>
+            :
+            <label
+              htmlFor="product-category-input"
+            >Category</label>}
           <select
             id="product-category-input"
             onChange={e => setCategory(e.target.value)}
@@ -163,7 +181,7 @@ export default function CreateProductForm() {
           </select>
         </section>
         <section>
-          {errors.title
+          {errors.description
             ?
             <label
               className="error-text"
@@ -181,9 +199,16 @@ export default function CreateProductForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor="product-availability-input"
-          >Availability</label>
+          {errors.availability
+            ?
+            <label
+              className="error-text"
+              htmlFor="product-availability-input"
+            >Availability is required</label>
+            :
+            <label
+              htmlFor="product-availability-input"
+            >Availability</label>}
           <select
             id="product-availability-input"
             value={availability}
@@ -212,7 +237,8 @@ export default function CreateProductForm() {
         <section>
           <button
             id="create-product-breadcrumb"
-            onClick={() => history.push('api/users/products')}
+            type="button"
+            onClick={() => history.push('/me/shops')}
           >Cancel</button>
           <button
             id="create-product-submit"

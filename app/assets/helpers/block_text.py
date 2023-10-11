@@ -47,3 +47,13 @@ category_strings = [
   'GiftS & Gift Cards',
   'Etsy Registry'
 ]
+
+
+
+# AVAILABILITY SELECT FIELD STRINGS
+availabilityStrs = [
+  'In stock',
+  'Backorder',
+  'Made to order',
+  'Out of stock'
+]

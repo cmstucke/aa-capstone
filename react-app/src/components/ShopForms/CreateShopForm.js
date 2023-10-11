@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createShopThunk } from "../../store/shop";
+import { categoryStrs } from "../../assets/helpers/block-text";
 
 
 export default function CreateShopForm() {
@@ -85,15 +86,26 @@ export default function CreateShopForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor='shop-category-input'
-          >Category</label>
-          <input
+          {errors.category
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-category-input'
+            >Category selection is required</label>
+            :
+            <label
+              htmlFor='shop-category-input'
+            >Category</label>}
+          <select
             id="shop-category-input"
-            type="text"
-            value={category}
             onChange={e => setCategory(e.target.value)}
-          />
+            value={category}
+          >
+            <option value={null}>{'(select one)'}</option>
+            {categoryStrs.map(str => (
+              <option value={str}>{str}</option>
+            ))}
+          </select>
         </section>
         <section>
           {errors.title
@@ -116,7 +128,7 @@ export default function CreateShopForm() {
         <section>
           <button
             id="create-shop-breadcrumb"
-            onClick={() => history.push('/shops')}
+            onClick={() => history.push('/me/shops')}
           >Cancel</button>
           <button
             id="create-shop-submit"

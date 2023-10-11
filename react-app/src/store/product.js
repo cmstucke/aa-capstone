@@ -62,6 +62,21 @@ export const updateProductThunk = (productId, product) => async dispatch => {
     method: "PUT",
     body: product
   });
+
+  // let res;
+  // if (imgBool) {
+  //   res = await fetch(`/products/${productId}`, {
+  //     method: "PUT",
+  //     body: product
+  //   });
+  // } else {
+  //   res = await fetch(`/products/${productId}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(product)
+  //   });
+  // };
+
   if (res.ok) {
     const data = await res.json();
     dispatch(addProduct(data));

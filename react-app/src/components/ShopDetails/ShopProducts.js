@@ -21,7 +21,8 @@ export default function ShopProducts({ seller_id }) {
   return (
     <div id="shop-products-container">
       <div id="shop-products">
-        {isLoaded && productsArr.length &&
+        {isLoaded && productsArr.length
+          ?
           productsArr.map(product => (
             <Link
               key={product.id}
@@ -43,6 +44,8 @@ export default function ShopProducts({ seller_id }) {
               </section>
             </Link>
           ))
+          :
+          null
         }
       </div>
     </div>
