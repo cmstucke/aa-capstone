@@ -61,7 +61,7 @@ export default function UpdateShopForm() {
     };
 
     try {
-      await dispatch(
+      dispatch(
         updateShopThunk(
           shop_id,
           data,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserShopsThunk } from "../../store/shop";
 import { getUserProductsThunk, updateProductThunk } from "../../store/product";
@@ -76,7 +76,7 @@ export default function UpdateProductForm() {
     try {
       updatedProduct = await dispatch(updateProductThunk(product_id, data));
       if (updatedProduct) {
-        console.log('UPDATED SHOP:', updatedProduct);
+        // console.log('UPDATED SHOP:', updatedProduct);
         if (seller_id) {
           history.push(`/shops/${seller_id}`);
         } else {
@@ -225,10 +225,10 @@ export default function UpdateProductForm() {
           buttonText="Delete Product"
           modalComponent={<DeleteProductModal product_id={product_id} />}
         />
-        <button
+        <Link
           id="create-product-breadcrumb"
-          onClick={() => history.push('api/users/products')}
-        >Cancel</button>
+          to={`/products/${product_id}`}
+        >Cancel</Link>
         <button
           id="create-product-submit"
           type="submit"

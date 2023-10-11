@@ -100,6 +100,7 @@ def update_shop(shop_id):
         shop.description = form.data['description']
 
         db.session.commit()
+        print('UPDATED SHOP RECORD:', shop.to_dict())
         return shop.to_dict(), 204
 
     elif shop.owner_id != current_user.id:

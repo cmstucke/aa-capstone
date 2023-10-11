@@ -75,29 +75,31 @@ export const createShopThunk = (shop, previewImg) => async dispatch => {
 export const updateShopThunk = (
   shopId,
   shop,
-  preview_image) => async dispatch => {
-    let res;
-    if (preview_image) {
-      res = await fetch(`/shops/${shopId}`, {
-        method: "PUT",
-        body: shop
-      });
-    } else {
-      res = await fetch(`/shops/${shopId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(shop)
-      });
-    };
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(addShop(data));
-      return data;
-    } else {
-      const errors = await res.json();
-      throw errors;
-    };
+  preview_image
+) => async dispatch => {
+  // console.log('UPDATE ARGS:', shopId, shop, preview_image);
+  let res;
+  if (preview_image) {
+    res = await fetch(`/shops/${shopId}`, {
+      method: "PUT",
+      body: shop
+    });
+  } else {
+    res = await fetch(`/shops/${shopId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(shop)
+    });
   };
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addShop(data));
+    return data;
+  } else {
+    const errors = await res.json();
+    throw errors;
+  };
+};
 
 // Delete a shop by its id
 export const deleteShopThunk = shopId => async dispatch => {
