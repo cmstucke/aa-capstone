@@ -14,4 +14,4 @@ class ProductForm(FlaskForm):
   description = TextAreaField('Description', validators=[DataRequired()])
   availability = SelectField('Availability', choices=availabilityStrs, validators=[DataRequired()])
   inventory = IntegerField('Inventory', validators=[Optional()])
-  preview_image = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+  preview_image = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS)), DataRequired()])

@@ -1,8 +1,8 @@
 from app.api.auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Shop, User, db
-from app.forms import ShopForm
+from app.models import db, User, Shop, ShopImage
+from app.forms import ShopForm, ShopImageForm
 from app.routes.s3_helpers import (
     upload_file_to_s3, get_unique_filename)
 
@@ -17,10 +17,10 @@ def create_shop():
     """
     Post a new Shop by User id
     """
-    print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
+    print('FILES:', request.files)
     form = ShopForm()
-    # cookies = request.cookies
-    # print('COOKIE DATA:', cookies)
+    image_form = ShopImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
@@ -32,9 +32,6 @@ def create_shop():
             print('image upload', upload)
 
             if 'url' not in upload:
-            # if the dictionary doesn't have a url key
-            # it means that there was an error when we tried to upload
-            # so we send back that error message (and we printed it above)
                 errors = [upload]
                 return {'errors': errors}, 400
 
@@ -49,7 +46,19 @@ def create_shop():
         )
         db.session.add(new_shop)
         db.session.commit()
-        return new_shop.to_dict(), 201
+
+        new_shop_dict = new_shop.to_dict()
+
+        new_shop_image = ShopImage(
+            shop_id= new_shop_dict['id'],
+            image_url= url,
+            preview_image=True
+        )
+        db.session.add(new_shop_image)
+        db.session.commit()
+
+        # print('NEW SHOP:', new_shop.to_dict())
+        return new_shop_dict, 201
     else:
         errors = validation_errors_to_error_messages(form.errors)
         return {"errors": errors}, 400

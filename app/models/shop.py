@@ -15,6 +15,7 @@ class Shop(db.Model):
 
   users = db.relationship('User', back_populates='shops')
   products = db.relationship('Product', back_populates='shops')
+  shop_images = db.relationship('ShopImage', back_populates='shops', cascade='all, delete')
 
   def to_dict(self):
     return {

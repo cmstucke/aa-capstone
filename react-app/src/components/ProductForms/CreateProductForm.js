@@ -57,7 +57,7 @@ export default function CreateProductForm() {
 
     let createdProduct;
     try {
-      if (!imageInput) throw { "errors": { "preview_image": "Product image is required" } }
+      // if (!imageInput) throw { "errors": { "preview_image": "Product image is required" } }
       createdProduct = await dispatch(createProductThunk(data));
       if (createdProduct) {
         // console.log('CREATED PRODUCT:', createdProduct);
