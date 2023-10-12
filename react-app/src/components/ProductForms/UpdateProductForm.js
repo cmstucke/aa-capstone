@@ -28,6 +28,7 @@ export default function UpdateProductForm() {
   const [showInv, setShowInv] = useState(1);
   const [inventory, setInventory] = useState(null);
   const [previewImg, setPreviewImg] = useState(null);
+  console.log('PREVIEW IMAGE:', previewImg);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {

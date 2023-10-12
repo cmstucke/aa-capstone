@@ -12,7 +12,8 @@ export default function CreateShopForm() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-  const [imageInput, setImageInput] = useState('');
+  const [image1Input, setImage1Input] = useState(null);
+  // const [image2Input, setImage2Input] = useState('');
   const [errors, setErrors] = useState({})
   // const [imageLoading, setImageLoading] = useState(false);
   // console.log('ERRORS:', errors);
@@ -22,12 +23,12 @@ export default function CreateShopForm() {
 
     let data;
     let imageInputBool;
-    if (imageInput) {
+    if (image1Input) {
       data = new FormData();
       data.append('title', title);
       data.append('category', category);
       data.append('description', description);
-      data.append('preview_image', imageInput);
+      data.append('preview_image', image1Input);
       imageInputBool = true;
     } else {
       data = {
@@ -64,9 +65,20 @@ export default function CreateShopForm() {
             id="shop-previewImg-input"
             type="file"
             accept="image/*"
-            onChange={e => setImageInput(e.target.files[0])}
+            onChange={e => setImage1Input(e.target.files[0])}
           />
         </section>
+        {/* <section>
+          <label
+            htmlFor='shop-previewImg-input'
+          >Preview image</label>
+          <input
+            id="shop-img-input-2"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage1Input(e.target.files[1])}
+          />
+        </section> */}
         <section>
           {errors.title
             ?

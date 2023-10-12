@@ -19,7 +19,7 @@ def create_product():
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.data['seller_id'] != 0:
+    if form.data['seller_id']:
         shop = Shop.query.get(form.data['seller_id'])
         if shop and current_user.id != shop.owner_id:
             return {"errors": {"unauthorized": "User may only add products to shops they own"}}, 401
@@ -78,41 +78,42 @@ def update_product(product_id):
     Updates a Product by id by an authorized User
     '''
     form = ProductForm()
-    # print('YOU HAVE MADE IT TO THE UPDATE PRODUCT ROUTE')
     form['csrf_token'].data = request.cookies['csrf_token']
     product = Product.query.get(product_id)
 
     if not product:
         return {"errors": {"not found": "Product not found"}}, 404
 
-    if form.data['seller_id'] != 0:
+    if form.data['seller_id']:
         shop = Shop.query.get(form.data['seller_id'])
         if shop and current_user.id != shop.owner_id:
             return {"errors": {"unauthorized": "User may only add products to shops they own"}}, 401
 
+    preview_image = form.data['preview_image']
+    if not preview_image:
+        form['preview_image'].process_data(product.preview_image)
+    else:
+        preview_image.filename = get_unique_filename(preview_image.filename)
+        upload = upload_file_to_s3(preview_image)
+        print('image upload', upload)
+
+        if 'url' not in upload:
+            errors = [upload]
+            return {'errors': errors}, 400
+
+        url = upload['url']
+
+        product.preview_image= url
+
     if form.validate_on_submit() and product.owner_id == current_user.id:
 
-        preview_image = form.data['preview_image']
-        if preview_image:
-            preview_image.filename = get_unique_filename(preview_image.filename)
-            upload = upload_file_to_s3(preview_image)
-            print('image upload', upload)
-
-            if 'url' not in upload:
-                errors = [upload]
-                return {'errors': errors}, 400
-
-            url = upload['url']
-
-            product.preview_image= url
-
         product.seller_id= form.data['seller_id']
-        product.title= form.data['title']
-        product.category= form.data['category']
-        product.price= form.data['price']
-        product.description= form.data['description']
-        product.availability= form.data['availability']
-        product.inventory= form.data['inventory']
+        product.title = form.data['title']
+        product.category = form.data['category']
+        product.price = form.data['price']
+        product.description = form.data['description']
+        product.availability = form.data['availability']
+        product.inventory = form.data['inventory']
 
         db.session.commit()
         return product.to_dict()
