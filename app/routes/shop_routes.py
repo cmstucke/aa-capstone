@@ -2,12 +2,26 @@ from app.api.auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Shop, ShopImage
-from app.forms import ShopForm, ShopImageForm
+from app.forms import CreateShopForm, ShopForm, ShopImageForm
 from app.routes.s3_helpers import (
     upload_file_to_s3, get_unique_filename)
 
 
 shop_routes = Blueprint('shops', __name__)
+
+
+def aws(image):
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+    print('image upload', upload)
+
+    if 'url' not in upload:
+        errors = [upload]
+        return {'errors': errors}, 400
+
+    url = upload['url']
+
+    return url
 
 
 # Create a shop
@@ -19,7 +33,7 @@ def create_shop():
     """
     # print('YOU HAVE MADE IT TO THE CREATE SHOP ROUTE')
     print('FILES:', request.files)
-    form = ShopForm()
+    form = CreateShopForm()
     image_form = ShopImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -27,15 +41,8 @@ def create_shop():
         url = None
         preview_image=form.data['preview_image']
         if preview_image:
-            preview_image.filename = get_unique_filename(preview_image.filename)
-            upload = upload_file_to_s3(preview_image)
-            print('image upload', upload)
 
-            if 'url' not in upload:
-                errors = [upload]
-                return {'errors': errors}, 400
-
-            url = upload['url']
+            url = aws(preview_image)
 
         new_shop = Shop(
             title= form.data['title'],
@@ -52,12 +59,21 @@ def create_shop():
         new_shop_image = ShopImage(
             shop_id= new_shop_dict['id'],
             image_url= url,
-            preview_image=True
+            preview_image= True
         )
         db.session.add(new_shop_image)
         db.session.commit()
 
-        # print('NEW SHOP:', new_shop.to_dict())
+        if form.data['image_1']:
+            url_1 = aws(form.data['image_1'])
+            image_1 = ShopImage(
+                shop_id= new_shop_dict['id'],
+                image_url= url_1,
+                preview_image= False
+            )
+            db.session.add(image_1)
+            db.session.commit()
+
         return new_shop_dict, 201
     else:
         errors = validation_errors_to_error_messages(form.errors)

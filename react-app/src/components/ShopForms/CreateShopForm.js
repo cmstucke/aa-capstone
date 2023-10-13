@@ -12,36 +12,23 @@ export default function CreateShopForm() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-  const [image1Input, setImage1Input] = useState(null);
-  // const [image2Input, setImage2Input] = useState('');
+  const [preview_image, setPreview_image] = useState(null);
+  const [image1, setImage1] = useState(null);
   const [errors, setErrors] = useState({})
-  // const [imageLoading, setImageLoading] = useState(false);
-  // console.log('ERRORS:', errors);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let data;
-    let imageInputBool;
-    if (image1Input) {
-      data = new FormData();
-      data.append('title', title);
-      data.append('category', category);
-      data.append('description', description);
-      data.append('preview_image', image1Input);
-      imageInputBool = true;
-    } else {
-      data = {
-        title: title,
-        category: category,
-        description: description
-      };
-      imageInputBool = false;
-    };
+    const data = new FormData();
+    data.append('title', title);
+    data.append('category', category);
+    data.append('description', description);
+    data.append('preview_image', preview_image);
+    if (image1) data.append('image_1', image1);
 
     let createdShop;
     try {
-      createdShop = await dispatch(createShopThunk(data, imageInputBool));
+      createdShop = await dispatch(createShopThunk(data));
       history.push('/me/shops');
       console.log('CREATED SHOP:', createdShop);
     } catch ({ errors }) {
@@ -65,20 +52,20 @@ export default function CreateShopForm() {
             id="shop-previewImg-input"
             type="file"
             accept="image/*"
-            onChange={e => setImage1Input(e.target.files[0])}
+            onChange={e => setPreview_image(e.target.files[0])}
           />
         </section>
-        {/* <section>
+        <section>
           <label
             htmlFor='shop-previewImg-input'
           >Preview image</label>
           <input
-            id="shop-img-input-2"
+            id="shop-img-1"
             type="file"
             accept="image/*"
-            onChange={e => setImage1Input(e.target.files[1])}
+            onChange={e => setImage1(e.target.files[0])}
           />
-        </section> */}
+        </section>
         <section>
           {errors.title
             ?

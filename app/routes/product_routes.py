@@ -9,6 +9,19 @@ from app.routes.s3_helpers import (
 
 product_routes = Blueprint('products', __name__)
 
+def aws(image):
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+    print('image upload', upload)
+
+    if 'url' not in upload:
+        errors = [upload]
+        return {'errors': errors}, 400
+
+    url = upload['url']
+
+    return url
+
 # Create a Product
 @product_routes.route('/', methods=['POST'])
 @login_required
@@ -26,18 +39,20 @@ def create_product():
 
     if form.validate_on_submit():
 
-        url = None
-        preview_image = form.data['preview_image']
-        if preview_image:
-            preview_image.filename = get_unique_filename(preview_image.filename)
-            upload = upload_file_to_s3(preview_image)
-            print('image upload', upload)
+        url = aws(form.data['preview_image'])
 
-            if 'url' not in upload:
-                errors = [upload]
-                return {'errors': errors}, 400
+        # url = None
+        # preview_image = form.data['preview_image']
+        # if preview_image:
+        #     preview_image.filename = get_unique_filename(preview_image.filename)
+        #     upload = upload_file_to_s3(preview_image)
+        #     print('image upload', upload)
 
-            url = upload['url']
+        #     if 'url' not in upload:
+        #         errors = [upload]
+        #         return {'errors': errors}, 400
+
+        #     url = upload['url']
 
         new_product = Product(
             owner_id= current_user.id,
@@ -53,6 +68,10 @@ def create_product():
 
         db.session.add(new_product)
         db.session.commit()
+
+        if form.data['image_1']:
+            pass
+
         return new_product.to_dict(), 201
 
     else:

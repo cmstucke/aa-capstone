@@ -46,21 +46,12 @@ export const getUserShopsThunk = () => async dispatch => {
 };
 
 // Create a Shop
-export const createShopThunk = (shop, previewImg) => async dispatch => {
-  console.log('YOU ARE HERE');
-  let res;
-  if (previewImg) {
-    res = await fetch('/shops/', {
-      method: "POST",
-      body: shop
-    });
-  } else {
-    res = await fetch('/shops/', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(shop)
-    });
-  };
+export const createShopThunk = (shop) => async dispatch => {
+  console.log('YOU ARE IN THE CREATE SHOP THUNK');
+  const res = await fetch('/shops/', {
+    method: "POST",
+    body: shop
+  });
   if (res.ok) {
     const data = await res.json();
     dispatch(addShop(data));
