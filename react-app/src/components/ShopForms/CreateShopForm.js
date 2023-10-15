@@ -13,7 +13,7 @@ export default function CreateShopForm() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [preview_image, setPreview_image] = useState(null);
-  const [image1, setImage1] = useState(null);
+  const [banner_image, setBanner_image] = useState(null);
   const [errors, setErrors] = useState({})
 
   const handleSubmit = async e => {
@@ -24,7 +24,7 @@ export default function CreateShopForm() {
     data.append('category', category);
     data.append('description', description);
     data.append('preview_image', preview_image);
-    if (image1) data.append('image_1', image1);
+    data.append('banner_image', banner_image);
 
     let createdShop;
     try {
@@ -58,12 +58,12 @@ export default function CreateShopForm() {
         <section>
           <label
             htmlFor='shop-previewImg-input'
-          >Preview image</label>
+          >Banner image</label>
           <input
             id="shop-img-1"
             type="file"
             accept="image/*"
-            onChange={e => setImage1(e.target.files[0])}
+            onChange={e => setBanner_image(e.target.files[0])}
           />
         </section>
         <section>

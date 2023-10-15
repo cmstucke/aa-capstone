@@ -41,7 +41,7 @@ export default function ShopDetails() {
       <img
         id="shop-details-banner"
         alt={`${shop.title}`}
-        src={shop.preview_image}
+        src={shop.banner_image}
       />
       <div id="shop-details-page">
         <div id="shop-details-container">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateShopThunk, getShopsThunk } from "../../store/shop";
+import { categoryStrs } from "../../assets/helpers/block-text";
 import OpenModalButton from '../OpenModalButton';
 import DeleteShopModal from "./DeleteShopModal";
 import './index.css';
@@ -17,8 +18,10 @@ export default function UpdateShopForm() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-  const [imageInput, setImageInput] = useState('');
-  const [imageUrl, setimageUrl] = useState('');
+  const [previewInput, setPreviewInput] = useState('');
+  const [bannerInput, setBannerInput] = useState('');
+  const [preview_image, setPreview_image] = useState('');
+  const [banner_image, setBanner_image] = useState('');
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
@@ -35,38 +38,26 @@ export default function UpdateShopForm() {
       setTitle(shop.title);
       setCategory(shop.category);
       setDescription(shop.description);
-      setimageUrl(shop.preview_image);
+      setPreview_image(shop.preview_image);
+      setBanner_image(shop.banner_image);
     };
   }, [shop]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let data;
-    let imageBoolean;
-    if (imageInput) {
-      data = new FormData();
-      data.append('title', title);
-      data.append('category', category);
-      data.append('description', description);
-      data.append('preview_image', imageInput);
-      imageBoolean = true;
-    } else {
-      data = {
-        title,
-        category,
-        description
-      };
-      imageBoolean = false;
-    };
+    const data = new FormData();
+    data.append('title', title);
+    data.append('category', category);
+    data.append('description', description);
+    data.append('preview_image', previewInput);
+    data.append('banner_image', bannerInput);
 
-    let updatedShop;
     try {
-      updatedShop = await dispatch(
+      await dispatch(
         updateShopThunk(
           shop_id,
-          data,
-          imageBoolean
+          data
         ));
       history.push('/me/shops');
     } catch (errors) {
@@ -91,10 +82,23 @@ export default function UpdateShopForm() {
             id="shop-previewImg-input"
             type="file"
             accept="image/*"
-            onChange={e => setImageInput(e.target.files[0])}
+            onChange={e => setPreviewInput(e.target.files[0])}
           />
-          {imageUrl &&
-            <p className="img_url">{imageUrl}</p>}
+          {preview_image &&
+            <p className="img_url">{preview_image}</p>}
+        </section>
+        <section>
+          <label
+            htmlFor='shop-previewImg-input'
+          >Banner image</label>
+          <input
+            id="shop-previewImg-input"
+            type="file"
+            accept="image/*"
+            onChange={e => setBannerInput(e.target.files[0])}
+          />
+          {preview_image &&
+            <p className="img_url">{banner_image}</p>}
         </section>
         <section>
           {errors?.title
@@ -115,15 +119,26 @@ export default function UpdateShopForm() {
           />
         </section>
         <section>
-          <label
-            htmlFor='shop-category-input'
-          >Category</label>
-          <input
+          {errors.category
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-category-input'
+            >Category selection is required</label>
+            :
+            <label
+              htmlFor='shop-category-input'
+            >Category</label>}
+          <select
             id="shop-category-input"
-            type="text"
-            value={category}
             onChange={e => setCategory(e.target.value)}
-          />
+            value={category}
+          >
+            <option value={null}>{'(select one)'}</option>
+            {categoryStrs.map(str => (
+              <option value={str}>{str}</option>
+            ))}
+          </select>
         </section>
         <section>
           {errors?.description

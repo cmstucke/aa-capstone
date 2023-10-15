@@ -11,4 +11,4 @@ class CreateShopForm(FlaskForm):
   category = SelectField('Category', choices=category_strings, validators=[DataRequired()])
   description = TextAreaField('Description', validators=[DataRequired()])
   preview_image = FileField('Image File', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-  image_1 = FileField('Image File', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+  banner_image = FileField('Image File', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
