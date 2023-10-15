@@ -61,7 +61,7 @@ export default function CreateProductForm() {
       createdProduct = await dispatch(createProductThunk(data));
       if (createdProduct) {
         // console.log('CREATED PRODUCT:', createdProduct);
-        history.push('/me/shops');
+        history.push('/me/products');
       };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);

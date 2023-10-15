@@ -1,27 +1,36 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsThunk } from "../../store/product";
+import { getProductsThunk, getProductImagesThunk } from "../../store/product";
 import { getShopsThunk } from "../../store/shop";
 import './index.css';
 
 
 export default function ProductDetails() {
   const { product_id } = useParams();
-  console.log('PARAM:', product_id);
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
   const product = useSelector(state => state.product[product_id]);
-  console.log('PRODUCT:', product);
   const shop = useSelector(state => state.shop[product?.seller_id]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [previewImg, setPreviewImg] = useState(null);
+  console.log('PREVIEW IMAGE:', previewImg);
+  const [productImgs, setProductImgs] = useState(null);
+  console.log('PRODUCT IMAGES:', productImgs);
 
   useEffect(() => {
+    let images;
     dispatch(getProductsThunk())
       .then(() => dispatch(getShopsThunk()))
+      .then(async () => images = await dispatch(getProductImagesThunk(product_id)))
+      .then(() => setProductImgs(images))
       .then(() => setIsLoaded(true));
   }, []);
+
+  useEffect(() => {
+    if (product) setPreviewImg(product.preview_image);
+  }, [product])
 
   let sessionLink;
   if (isLoaded && sessionUser?.id === product?.owner_id) {
@@ -52,17 +61,46 @@ export default function ProductDetails() {
     );
   };
 
-  if (!isLoaded) return null;
-
   return (
     <>
       {isLoaded &&
         <div id="product-details-page">
-          <img
-            id="product-details-image"
-            alt={`${product.title}`}
-            src={product.preview_image}
-          />
+          <section
+            className="product-details-images"
+          >
+            <img
+              id="product-details-image"
+              alt={`${product.title}`}
+              src={previewImg}
+            />
+            {productImgs.length ?
+              <section id="product-small-images">
+                <img
+                  className={product.preview_image === previewImg
+                    ?
+                    'small-image-selected'
+                    :
+                    "product-small-image"}
+                  alt={`${product.title}`}
+                  src={product.preview_image}
+                  onClick={() => setPreviewImg(product.preview_image)}
+                />
+                {productImgs.map(image => (
+                  <img
+                    className={image.image_url === previewImg
+                      ?
+                      'small-image-selected'
+                      :
+                      "product-small-image"}
+                    alt={`${product.title}`}
+                    src={image.image_url}
+                    onClick={() => setPreviewImg(image.image_url)}
+                  />
+                ))}
+              </section>
+              :
+              null}
+          </section>
           <section
             className="product-details-information"
           >

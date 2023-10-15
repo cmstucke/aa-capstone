@@ -62,21 +62,6 @@ export const updateProductThunk = (productId, product) => async dispatch => {
     method: "PUT",
     body: product
   });
-
-  // let res;
-  // if (imgBool) {
-  //   res = await fetch(`/products/${productId}`, {
-  //     method: "PUT",
-  //     body: product
-  //   });
-  // } else {
-  //   res = await fetch(`/products/${productId}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(product)
-  //   });
-  // };
-
   if (res.ok) {
     const data = await res.json();
     dispatch(addProduct(data));
@@ -89,7 +74,7 @@ export const updateProductThunk = (productId, product) => async dispatch => {
 
 // Delete a product by its id
 export const deleteProductThunk = productId => async dispatch => {
-  console.log('DELETE PARAM:', productId);
+  // console.log('DELETE PARAM:', productId);
   const res = await fetch(`/products/${productId}`, {
     method: "DELETE"
   });
@@ -102,6 +87,14 @@ export const deleteProductThunk = productId => async dispatch => {
     console.log('ERROR RES:', data);
     throw data;
   };
+};
+
+
+// Get all images of a Product by its id
+export const getProductImagesThunk = productId => async () => {
+  const res = await fetch(`/products/${productId}/images`);
+  const data = await res.json();
+  return data;
 };
 
 

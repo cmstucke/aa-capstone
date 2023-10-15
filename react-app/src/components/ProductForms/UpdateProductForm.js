@@ -28,7 +28,7 @@ export default function UpdateProductForm() {
   const [showInv, setShowInv] = useState(1);
   const [inventory, setInventory] = useState(null);
   const [previewImg, setPreviewImg] = useState(null);
-  console.log('PREVIEW IMAGE:', previewImg);
+  // console.log('PREVIEW IMAGE:', previewImg);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function UpdateProductForm() {
     try {
       updatedProduct = await dispatch(updateProductThunk(product_id, data));
       if (updatedProduct) {
-        history.push('/me/shops');
+        history.push('/me/products');
       };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);

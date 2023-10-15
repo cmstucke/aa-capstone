@@ -2,7 +2,7 @@ from app.api.auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Product, ProductImage, Shop, User
-from app.forms import ProductForm
+from app.forms import CreateProductForm, UpdateProductForm
 from app.routes.s3_helpers import (
     upload_file_to_s3, get_unique_filename)
 
@@ -29,7 +29,7 @@ def create_product():
     '''
     Post a new Product by User id
     '''
-    form = ProductForm()
+    form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.data['seller_id']:
@@ -123,7 +123,7 @@ def update_product(product_id):
     '''
     Updates a Product by id by an authorized User
     '''
-    form = ProductForm()
+    form = UpdateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     product = Product.query.get(product_id)
 

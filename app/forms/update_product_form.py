@@ -6,7 +6,7 @@ from app.routes.s3_helpers import ALLOWED_EXTENSIONS
 from app.assets.helpers.block_text import category_strings, availabilityStrs
 
 
-class ProductForm(FlaskForm):
+class UpdateProductForm(FlaskForm):
   seller_id = IntegerField('Seller ID', validators=[Optional()])
   title = StringField('Title', validators=[DataRequired()])
   category = SelectField('Category', choices=category_strings, validators=[DataRequired()])
@@ -14,7 +14,7 @@ class ProductForm(FlaskForm):
   description = TextAreaField('Description', validators=[DataRequired()])
   availability = SelectField('Availability', choices=availabilityStrs, validators=[DataRequired()])
   inventory = IntegerField('Inventory', validators=[Optional()])
-  preview_image = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS)), FileRequired()])
+  preview_image = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
   image_1 = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
   image_2 = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
   image_3 = FileField('Image File', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
