@@ -252,7 +252,7 @@ export default function UpdateProductForm() {
         />
         <button
           id="create-shop-breadcrumb"
-          onClick={() => history.push(`/me/shops`)}
+          onClick={() => history.push(`/me/products`)}
         >Cancel</button>
         <button
           id="create-product-submit"

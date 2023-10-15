@@ -15,7 +15,7 @@ export default function CreateProductForm() {
   const shops = Object.values(userShopsObj);
 
   const [isLoaded, setIsLoaded] = useState(false)
-  const [imageInput, setImageInput] = useState('');
+  const [previewImg, setPreviewImg] = useState(null);
   const [seller_id, setSellerId] = useState(null);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
@@ -24,6 +24,10 @@ export default function CreateProductForm() {
   const [availability, setAvailability] = useState('');
   const [showInv, setShowInv] = useState(1);
   const [inventory, setInventory] = useState(null);
+  const [image_1, setImage_1] = useState(null);
+  const [image_2, setImage_2] = useState(null);
+  const [image_3, setImage_3] = useState(null);
+  const [image_4, setImage_4] = useState(null);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -46,7 +50,7 @@ export default function CreateProductForm() {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('preview_image', imageInput);
+    data.append('preview_image', previewImg);
     if (seller_id) data.append('seller_id', seller_id);
     data.append('title', title);
     data.append('price', price);
@@ -54,6 +58,10 @@ export default function CreateProductForm() {
     data.append('description', description);
     data.append('availability', availability);
     if (inventory) data.append('inventory', inventory);
+    if (image_1) data.append('image_1', image_1);
+    if (image_2) data.append('image_2', image_2);
+    if (image_3) data.append('image_3', image_3);
+    if (image_4) data.append('image_4', image_4);
 
     let createdProduct;
     try {
@@ -88,12 +96,56 @@ export default function CreateProductForm() {
             :
             <label
               htmlFor='product-previewImg-input'
-            >Preview image</label>}
+            >Image 1 (Preview)</label>}
           <input
             id="product-previewImg-input"
             type="file"
             accept="image/*"
-            onChange={e => setImageInput(e.target.files[0])}
+            onChange={e => setPreviewImg(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-img-1'
+          >Image 2</label>
+          <input
+            id="product-img-1"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage_1(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-img-2'
+          >Image 3</label>
+          <input
+            id="product-img-2"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage_2(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-img-3'
+          >Image 4</label>
+          <input
+            id="product-img-3"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage_3(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-img-4'
+          >Image 5</label>
+          <input
+            id="product-img-4"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage_4(e.target.files[0])}
           />
         </section>
         <label
@@ -238,7 +290,7 @@ export default function CreateProductForm() {
           <button
             id="create-product-breadcrumb"
             type="button"
-            onClick={() => history.push('/me/shops')}
+            onClick={() => history.push('/me/products')}
           >Cancel</button>
           <button
             id="create-product-submit"

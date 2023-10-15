@@ -90,11 +90,12 @@ export const deleteProductThunk = productId => async dispatch => {
 };
 
 
-// Get all images of a Product by its id
+// Get all non-preview images of a Product by its id
 export const getProductImagesThunk = productId => async () => {
   const res = await fetch(`/products/${productId}/images`);
   const data = await res.json();
-  return data;
+  const images = data.filter(image => !image.preview_image);
+  return images;
 };
 
 

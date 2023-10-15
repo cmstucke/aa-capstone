@@ -15,9 +15,9 @@ export default function ProductDetails() {
   const shop = useSelector(state => state.shop[product?.seller_id]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
-  console.log('PREVIEW IMAGE:', previewImg);
+  // console.log('PREVIEW IMAGE:', previewImg);
   const [productImgs, setProductImgs] = useState(null);
-  console.log('PRODUCT IMAGES:', productImgs);
+  // console.log('PRODUCT IMAGES:', productImgs);
 
   useEffect(() => {
     let images;

@@ -56,38 +56,54 @@ def create_product():
         db.session.add(new_product)
         db.session.commit()
         new_product_dict = new_product.to_dict()
+        print('NEW PRODUCT DICTIONARY:', new_product_dict)
+        preview_image = ProductImage(
+            product_id= new_product_dict['id'],
+            image_url= preview_url,
+            preview_image= True
+        )
+        db.session.add(preview_image)
+        db.session.commit()
 
         if form.data['image_1']:
             image_1_url = aws(form.data['image_1'])
             image_1 = ProductImage(
-                product_id= new_product_dict.id,
+                product_id= new_product_dict['id'],
                 image_url= image_1_url,
                 preview_image= False
             )
+            db.session.add(image_1)
+            db.session.commit()
 
         if form.data['image_2']:
             image_2_url = aws(form.data['image_2'])
             image_2 = ProductImage(
-                product_id= new_product_dict.id,
+                product_id= new_product_dict['id'],
                 image_url= image_2_url,
                 preview_image= False
             )
+            db.session.add(image_2)
+            db.session.commit()
 
         if form.data['image_3']:
             image_3_url = aws(form.data['image_3'])
             image_3 = ProductImage(
-                product_id= new_product_dict.id,
+                product_id= new_product_dict['id'],
                 image_url= image_3_url,
                 preview_image= False
             )
+            db.session.add(image_3)
+            db.session.commit()
 
         if form.data['image_4']:
             image_4_url = aws(form.data['image_4'])
             image_4 = ProductImage(
-                product_id= new_product_dict.id,
+                product_id= new_product_dict['id'],
                 image_url= image_4_url,
                 preview_image= False
             )
+            db.session.add(image_4)
+            db.session.commit()
 
         return new_product_dict, 201
 
