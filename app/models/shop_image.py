@@ -17,5 +17,6 @@ class ShopImage(db.Model):
     return {
       'id': self.id,
       'shop_id': self.shop_id,
-      'image_url': self.image_url
+      'image_url': self.image_url,
+      'preview_image': self.preview_image
     }

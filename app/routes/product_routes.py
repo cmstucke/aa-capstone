@@ -1,7 +1,7 @@
 from app.api.auth_routes import validation_errors_to_error_messages
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Product, Shop, User
+from app.models import db, Product, ProductImage, Shop, User
 from app.forms import ProductForm
 from app.routes.s3_helpers import (
     upload_file_to_s3, get_unique_filename)
@@ -39,8 +39,6 @@ def create_product():
 
     if form.validate_on_submit():
 
-        url = aws(form.data['preview_image'])
-
         # url = None
         # preview_image = form.data['preview_image']
         # if preview_image:
@@ -54,6 +52,8 @@ def create_product():
 
         #     url = upload['url']
 
+        preview_url = aws(form.data['preview_image'])
+
         new_product = Product(
             owner_id= current_user.id,
             seller_id= form.data['seller_id'],
@@ -63,16 +63,46 @@ def create_product():
             description= form.data['description'],
             availability= form.data['availability'],
             inventory= form.data['inventory'],
-            preview_image= url
+            preview_image= preview_url
         )
 
         db.session.add(new_product)
         db.session.commit()
+        new_product_dict = new_product.to_dict()
 
         if form.data['image_1']:
-            pass
+            image_1_url = aws(form.data['image_1'])
+            image_1 = ProductImage(
+                product_id= new_product_dict.id,
+                image_url= image_1_url,
+                preview_image= False
+            )
 
-        return new_product.to_dict(), 201
+        if form.data['image_2']:
+            image_2_url = aws(form.data['image_2'])
+            image_2 = ProductImage(
+                product_id= new_product_dict.id,
+                image_url= image_2_url,
+                preview_image= False
+            )
+
+        if form.data['image_3']:
+            image_3_url = aws(form.data['image_3'])
+            image_3 = ProductImage(
+                product_id= new_product_dict.id,
+                image_url= image_3_url,
+                preview_image= False
+            )
+
+        if form.data['image_4']:
+            image_4_url = aws(form.data['image_4'])
+            image_4 = ProductImage(
+                product_id= new_product_dict.id,
+                image_url= image_4_url,
+                preview_image= False
+            )
+
+        return new_product_dict, 201
 
     else:
         errors = validation_errors_to_error_messages(form.errors)

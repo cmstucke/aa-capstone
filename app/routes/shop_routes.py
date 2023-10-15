@@ -32,7 +32,6 @@ def create_shop():
     Post a new Shop by User id
     """
     form = CreateShopForm()
-    image_form = ShopImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
