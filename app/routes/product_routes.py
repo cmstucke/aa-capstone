@@ -39,19 +39,6 @@ def create_product():
 
     if form.validate_on_submit():
 
-        # url = None
-        # preview_image = form.data['preview_image']
-        # if preview_image:
-        #     preview_image.filename = get_unique_filename(preview_image.filename)
-        #     upload = upload_file_to_s3(preview_image)
-        #     print('image upload', upload)
-
-        #     if 'url' not in upload:
-        #         errors = [upload]
-        #         return {'errors': errors}, 400
-
-        #     url = upload['url']
-
         preview_url = aws(form.data['preview_image'])
 
         new_product = Product(
@@ -117,6 +104,16 @@ def get_all_products():
     '''
     products = Product.query.all()
     return [product.to_dict() for product in products]
+
+
+# Get all ProductImages by Product id
+@product_routes.route('/<int:product_id>/images')
+def get_all_product_images(product_id):
+    '''
+    Query a list of all ProductImages for a Product.
+    '''
+    product_images = ProductImage.query.filter(ProductImage.product_id == product_id)
+    return [image.to_dict() for image in product_images]
 
 
 # Update a Product
