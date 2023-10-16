@@ -16,7 +16,7 @@ export default function DeleteProductModal({ product_id, manager }) {
     if (manager) {
       closeModal();
     } else {
-      history.push('/');
+      history.push('/me/products');
       closeModal();
     };
   };

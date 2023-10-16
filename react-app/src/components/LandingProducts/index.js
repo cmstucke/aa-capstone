@@ -33,17 +33,15 @@ export default function LandingProducts() {
     ];
   };
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     dispatch(getProductsThunk())
       .then(() => dispatch(getShopsThunk()))
-      .then(() => setIsLoaded(true));
   }, []);
 
   return (
     <div id="landing-products-page">
-      {isLoaded &&
+      {productsArr.length
+        ?
         <div id="landing-products-container">
           <Link
             id='large-link'
@@ -60,7 +58,7 @@ export default function LandingProducts() {
                 htmlFor="large-product-img"
                 id="large-price"
                 className="landing-price"
-              >{largeProduct.price}</label>
+              >${largeProduct.price}</label>
             </section>
           </Link>
           <section id="small-landing-products">
@@ -100,7 +98,8 @@ export default function LandingProducts() {
           </section>
           <section id="small-landing-product"></section>
         </div>
-      }
+        :
+        null}
     </div>
   );
 };

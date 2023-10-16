@@ -16,7 +16,10 @@ sample_shop_url = [
   'https://www.sciencefriday.com/wp-content/uploads/2018/10/Alligator-dorsal-1.jpg',
   'https://images.fineartamerica.com/images-medium-large-5/3-single-gravestone-in-a-spooky-graveyard-on-a-foggy-day-ken-biggs.jpg',
   "https://s3.amazonaws.com/omeka-net/9541/archive/files/1466cde6172e5013420e75a239a89946.jpg?AWSAccessKeyId=AKIASNRMBMX265PGDDPJ&Expires=1697068800&Signature=ChqMoW0%2FZU%2FgvR1lcDnrSePttig%3D",
-  'https://i.etsystatic.com/24984991/r/il/c501a5/3558047167/il_fullxfull.3558047167_k4lo.jpg'
+  'https://i.etsystatic.com/24984991/r/il/c501a5/3558047167/il_fullxfull.3558047167_k4lo.jpg',
+  'https://www.conwayhall.org.uk/wp-content/uploads/2022/09/Haunted-Landscape-19112022.jpg',
+  'https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmlnaHQlMjB0aW1lfGVufDB8fDB8fHww&w=1000&q=80',
+  'https://cdn1.epicgames.com/ue/product/Screenshot/Untitled-1-1920x1080-40d871ba3129e359aaab454149e03063.jpg?resize=1&w=1920'
 ]
 
 

@@ -17,8 +17,11 @@ export default function UpdateProductForm() {
   const history = useHistory();
 
   const [isLoaded, setIsLoaded] = useState(false)
-  const [imageInput, setImageInput] = useState('');
-  // console.log('IMAGE INPUT:', imageInput);
+  const [previewImg, setPreviewImg] = useState(null);
+  const [img1, setImg1] = useState(null);
+  const [img2, setImg2] = useState(null);
+  const [img3, setImg3] = useState(null);
+  const [img4, setImg4] = useState(null);
   const [seller_id, setSellerId] = useState('');
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
@@ -27,8 +30,7 @@ export default function UpdateProductForm() {
   const [availability, setAvailability] = useState('');
   const [showInv, setShowInv] = useState(1);
   const [inventory, setInventory] = useState(null);
-  const [previewImg, setPreviewImg] = useState(null);
-  console.log('PREVIEW IMAGE:', previewImg);
+  const [preview_image, setPreview_image] = useState(null);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function UpdateProductForm() {
 
   useEffect(() => {
     if (product) {
-      setPreviewImg(product.preview_image);
+      setPreview_image(product.preview_image);
       if (product.seller_id) setSellerId(product.seller_id);
       setTitle(product.title);
       setPrice(product.price);
@@ -64,7 +66,11 @@ export default function UpdateProductForm() {
     e.preventDefault();
 
     const data = new FormData();
-    if (imageInput) data.append('preview_image', imageInput);
+    if (previewImg) data.append('preview_image', previewImg);
+    if (img1) data.append('image_1', img1);
+    if (img2) data.append('image_2', img2);
+    if (img3) data.append('image_3', img3);
+    if (img4) data.append('image_4', img4);
     if (seller_id) data.append('seller_id', seller_id);
     data.append('title', title);
     data.append('price', price);
@@ -73,40 +79,11 @@ export default function UpdateProductForm() {
     data.append('availability', availability);
     if (inventory) data.append('inventory', inventory);
 
-    // let data;
-    // let imgBool;
-    // if (imageInput) {
-    //   data = new FormData();
-    //   data.append('preview_image', imageInput);
-    //   if (seller_id) data.append('seller_id', seller_id);
-    //   data.append('title', title);
-    //   data.append('price', price);
-    //   data.append('category', category);
-    //   data.append('description', description);
-    //   data.append('availability', availability);
-    //   if (inventory) data.append('inventory', inventory);
-    //   imgBool = true;
-    // } else {
-    //   data = {
-    //     seller_id,
-    //     title,
-    //     price,
-    //     category,
-    //     description,
-    //     availability,
-    //     inventory
-    //   };
-    //   imgBool = false;
-    // };
-
-    // console.log('INPUT:', data);
-    // console.log('IMAGE BOOLEAN:', imgBool);
-
     let updatedProduct;
     try {
       updatedProduct = await dispatch(updateProductThunk(product_id, data));
       if (updatedProduct) {
-        history.push('/me/shops');
+        history.push('/me/products');
       };
     } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);
@@ -125,12 +102,56 @@ export default function UpdateProductForm() {
         <section>
           <label
             htmlFor='product-previewImg-input'
-          >Preview image</label>
+          >Image 1 (preview)</label>
           <input
             id="product-previewImg-input"
             type="file"
             accept="image/*"
-            onChange={e => setImageInput(e.target.files[0])}
+            onChange={e => setPreviewImg(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-previewImg-input'
+          >Image 2</label>
+          <input
+            id="product-previewImg-input"
+            type="file"
+            accept="image/*"
+            onChange={e => setImg1(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-previewImg-input'
+          >Image 3</label>
+          <input
+            id="product-previewImg-input"
+            type="file"
+            accept="image/*"
+            onChange={e => setImg2(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-previewImg-input'
+          >Image 4</label>
+          <input
+            id="product-previewImg-input"
+            type="file"
+            accept="image/*"
+            onChange={e => setImg3(e.target.files[0])}
+          />
+        </section>
+        <section>
+          <label
+            htmlFor='product-previewImg-input'
+          >Image 5</label>
+          <input
+            id="product-previewImg-input"
+            type="file"
+            accept="image/*"
+            onChange={e => setImg4(e.target.files[0])}
           />
         </section>
         <label
@@ -252,7 +273,7 @@ export default function UpdateProductForm() {
         />
         <button
           id="create-shop-breadcrumb"
-          onClick={() => history.push(`/me/shops`)}
+          onClick={() => history.push(`/me/products`)}
         >Cancel</button>
         <button
           id="create-product-submit"

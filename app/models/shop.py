@@ -11,7 +11,8 @@ class Shop(db.Model):
   title = db.Column(db.String, nullable=False)
   category = db.Column(db.String, nullable=True)
   description = db.Column(db.String, nullable=False)
-  preview_image = db.Column(db.String, nullable=True)
+  preview_image = db.Column(db.String, nullable=False)
+  banner_image = db.Column(db.String, nullable=False)
 
   users = db.relationship('User', back_populates='shops')
   products = db.relationship('Product', back_populates='shops')
@@ -24,5 +25,6 @@ class Shop(db.Model):
       'title': self.title,
       'category': self.category,
       'description': self.description,
-      'preview_image': self.preview_image
+      'preview_image': self.preview_image,
+      'banner_image': self.banner_image
     }
