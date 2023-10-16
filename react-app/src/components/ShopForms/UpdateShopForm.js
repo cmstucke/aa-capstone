@@ -188,7 +188,7 @@ export default function UpdateShopForm() {
           >Cancel</button>
         </div>
         <button
-          id="create-shop-submit"
+          className="create-shop-submit"
           type="submit"
           form='update-shop-form'
         >Update Shop</button>
