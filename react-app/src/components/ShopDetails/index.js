@@ -24,6 +24,7 @@ export default function ShopDetails() {
     sessionLink = (
       <div>
         <button
+          id="shop-details-update"
           onClick={() => {
             history.push(`/shops/${shop_id}/update`);
           }}

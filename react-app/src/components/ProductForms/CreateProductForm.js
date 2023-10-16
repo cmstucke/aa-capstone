@@ -328,12 +328,12 @@ export default function CreateProductForm() {
           </section>}
         <section className="form-submit-section">
           <button
-            id="create-shop-breadcrumb"
+            className="create-shop-breadcrumb"
             type="button"
             onClick={() => history.push('/me/products')}
           >Cancel</button>
           <button
-            id="create-shop-submit"
+            className="create-shop-submit"
             type="submit"
           >Create product</button>
         </section>

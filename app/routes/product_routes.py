@@ -142,6 +142,7 @@ def update_product(product_id):
     form = UpdateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     product = Product.query.get(product_id)
+    product_dict = product.to_dict()
     images = ProductImage.query.filter(ProductImage.product_id == product_id)
     images_list = [image.to_dict() for image in images]
     print('PRODUCT IMAGES QUERY:', images_list)
@@ -154,22 +155,6 @@ def update_product(product_id):
         if shop and current_user.id != shop.owner_id:
             return {"errors": {"unauthorized": "User may only add products to shops they own"}}, 401
 
-    # preview_image = form.data['preview_image']
-    # if not preview_image:
-    #     form['preview_image'].process_data(product.preview_image)
-    # else:
-    #     preview_image.filename = get_unique_filename(preview_image.filename)
-    #     upload = upload_file_to_s3(preview_image)
-    #     print('image upload', upload)
-
-    #     if 'url' not in upload:
-    #         errors = [upload]
-    #         return {'errors': errors}, 400
-
-    #     url = upload['url']
-
-    #     product.preview_image= url
-
     if form.data['preview_image']:
         preview_url = aws(form.data['preview_image'])
         product.preview_image = preview_url
@@ -178,23 +163,59 @@ def update_product(product_id):
 
     if form.data['image_1']:
         url_1 = aws(form.data['image_1'])
-        images[1].image_url = url_1
-        db.session.commit()
+        if len(images_list) >= 2:
+            images[1].image_url = url_1
+            db.session.commit()
+        else:
+            image_1 = ProductImage(
+                product_id= product_dict['id'],
+                image_url= url_1,
+                preview_image= False
+            )
+            db.session.add(image_1)
+            db.session.commit()
 
     if form.data['image_2']:
         url_2 = aws(form.data['image_2'])
-        images[2].image_url = url_2
-        db.session.commit()
+        if len(images_list) >= 3:
+            images[2].image_url = url_2
+            db.session.commit()
+        else:
+            image_2 = ProductImage(
+                product_id= product_dict['id'],
+                image_url= url_2,
+                preview_image= False
+            )
+            db.session.add(image_2)
+            db.session.commit()
 
     if form.data['image_3']:
         url_3 = aws(form.data['image_3'])
-        images[3].image_url = url_3
-        db.session.commit()
+        if len(images_list) >= 4:
+            images[3].image_url = url_3
+            db.session.commit()
+        else:
+            image_3 = ProductImage(
+                product_id= product_dict['id'],
+                image_url= url_3,
+                preview_image= False
+            )
+            db.session.add(image_3)
+            db.session.commit()
 
     if form.data['image_4']:
         url_4 = aws(form.data['image_4'])
-        images[4].image_url = url_4
-        db.session.commit()
+        if len(images_list) == 5:
+            images[4].image_url = url_4
+            db.session.commit()
+        else:
+            image_4 = ProductImage(
+                product_id= product_dict['id'],
+                image_url= url_4,
+                preview_image= False
+            )
+            db.session.add(image_4)
+            db.session.commit()
 
     if form.validate_on_submit() and product.owner_id == current_user.id:
 

@@ -100,6 +100,17 @@ export default function LandingProducts() {
         </div>
         :
         null}
+      <div id="landing-links">
+        <Link
+          className='landing-products-link'
+          id='landing-shops-link'
+          exact to='/shops'
+        >See all shops</Link>
+        <Link
+          className='landing-products-link'
+          exact to='/products'
+        >See all products</Link>
+      </div>
     </div>
   );
 };

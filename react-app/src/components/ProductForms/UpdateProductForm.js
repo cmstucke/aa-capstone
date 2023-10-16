@@ -92,83 +92,98 @@ export default function UpdateProductForm() {
   };
 
   return (
-    <div id="create-product-page">
-      <h1>Update your product</h1>
+    <div className="form-page">
+      <h1 className="form-heading">Update your product</h1>
       <form
         id="update-product-form"
+        className="form-body"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-previewImg-input'
           >Image 1 (preview)</label>
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setPreviewImg(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-previewImg-input'
           >Image 2</label>
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImg1(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-previewImg-input'
           >Image 3</label>
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImg2(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-previewImg-input'
           >Image 4</label>
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImg3(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-previewImg-input'
           >Image 5</label>
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImg4(e.target.files[0])}
           />
         </section>
-        <label
-          htmlFor="product-shop-input"
-        >Shop listing</label>
-        <select
-          id="product-shop-input"
-          defaultValue={null}
-          value={seller_id}
-          onChange={e => setSellerId(e.target.value)}
-        >
-          <option value={null}>{null}</option>
-          {shops.map(shop => (
-            <option value={shop?.id}>{shop?.title}</option>
-          ))}
-        </select>
-        <section>
+        <section className="form-section">
+          <label
+            className="form-label"
+            htmlFor="product-shop-input"
+          >Shop listing</label>
+          <select
+            id="product-shop-input"
+            className="form-input"
+            defaultValue={null}
+            value={seller_id}
+            onChange={e => setSellerId(e.target.value)}
+          >
+            <option value={null}>{null}</option>
+            {shops.map(shop => (
+              <option value={shop?.id}>{shop?.title}</option>
+            ))}
+          </select>
+        </section>
+        <section className="form-section">
           {errors.title
             ?
             <label
@@ -177,24 +192,40 @@ export default function UpdateProductForm() {
             >Title is required</label>
             :
             <label
+              className="form-label"
               htmlFor='product-title-input'
             >Title</label>}
           <input
             id="product-title-input"
+            className="form-input"
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
         </section>
-        <section>
-          <label
-            htmlFor="product-price-input"
-          >Price</label>
-          <label
-            htmlFor="product-price-input"
-          >$</label>
+        <section className="form-section">
+          <div
+            className="form-label"
+            id="price-label"
+          >
+            {errors.price
+              ?
+              <label
+                className="error-text"
+                htmlFor="product-price-input"
+              >Price is required</label>
+              :
+              <label
+                className="form-label"
+                htmlFor="product-price-input"
+              >Price</label>}
+            <label
+              htmlFor="product-price-input"
+            >$</label>
+          </div>
           <input
             id="product-price-input"
+            className="form-input"
             type="number"
             min={0}
             max={9999.99}
@@ -203,12 +234,21 @@ export default function UpdateProductForm() {
             onChange={e => setPrice(e.target.value)}
           />
         </section>
-        <section>
-          <label
-            htmlFor='product-category-input'
-          >Category</label>
+        <section className="form-section">
+          {errors.category
+            ?
+            <label
+              className="error-text"
+              htmlFor="product-category-input"
+            >Category is required</label>
+            :
+            <label
+              className="form-label"
+              htmlFor="product-category-input"
+            >Category</label>}
           <select
             id="product-category-input"
+            className="form-input"
             onChange={e => setCategory(e.target.value)}
             value={category}
           >
@@ -218,8 +258,11 @@ export default function UpdateProductForm() {
             ))}
           </select>
         </section>
-        <section>
-          {errors.title
+        <section
+          className="form-section"
+          id="form-description"
+        >
+          {errors.description
             ?
             <label
               className="error-text"
@@ -227,21 +270,33 @@ export default function UpdateProductForm() {
             >Description is required</label>
             :
             <label
+              className="form-label"
               htmlFor='product-title-input'
             >Description</label>}
-          <input
-            id="product-description-input"
+          <textarea
+            className="form-input"
+            id="description-input"
             type="textarea"
             value={description}
+            placeholder="Please write at least 30 characters"
             onChange={e => setDescription(e.target.value)}
           />
         </section>
-        <section>
-          <label
-            htmlFor="product-availability-input"
-          >Availability</label>
+        <section className="form-section">
+          {errors.availability
+            ?
+            <label
+              className="error-text"
+              htmlFor="product-availability-input"
+            >Availability is required</label>
+            :
+            <label
+              className="form-label"
+              htmlFor="product-availability-input"
+            >Availability</label>}
           <select
             id="product-availability-input"
+            className="form-input"
             value={availability}
             onChange={e => setAvailability(e.target.value)}
           >
@@ -252,12 +307,15 @@ export default function UpdateProductForm() {
           </select>
         </section>
         {showInv &&
-          <section>
+          <section className="form-section">
             <label
+              className="form-label"
               htmlFor="product-inventory-input"
             >Inventory</label>
             <input
               type="number"
+              className="form-input"
+              id="inventory-input"
               min={1}
               max={1000}
               step={1}
@@ -266,21 +324,30 @@ export default function UpdateProductForm() {
             />
           </section>}
       </form>
-      <div>
-        <OpenModalButton
-          buttonText="Delete Product"
-          modalComponent={<DeleteProductModal product_id={product_id} />}
-        />
+      <section
+        className="form-submit-section"
+        id="update-submit-section"
+      >
+        <div className="form-breadcrumbs">
+          <OpenModalButton
+            type='button'
+            className='create-shop-breadcrumb'
+            buttonText="Delete Product"
+            modalComponent={<DeleteProductModal product_id={product_id} />}
+          />
+          <button
+            type='button'
+            id="create-shop-breadcrumb"
+            className="create-shop-breadcrumb"
+            onClick={() => history.push(`/me/products`)}
+          >Cancel</button>
+        </div>
         <button
-          id="create-shop-breadcrumb"
-          onClick={() => history.push(`/me/products`)}
-        >Cancel</button>
-        <button
-          id="create-product-submit"
+          className="create-shop-submit"
           type="submit"
           form="update-product-form"
         >Update product</button>
-      </div>
+      </section>
     </div>
   );
 };
