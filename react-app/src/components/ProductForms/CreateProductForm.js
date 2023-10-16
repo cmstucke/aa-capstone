@@ -80,13 +80,14 @@ export default function CreateProductForm() {
   if (!isLoaded) return null;
 
   return (
-    <div id="create-product-page">
-      <h1>Create a product</h1>
+    <div className="form-page">
+      <h1 className="form-heading">Create a product</h1>
       <form
+        className="form-body"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <section>
+        <section className="form-section">
           {errors.preview_image
             ?
             <label
@@ -95,80 +96,94 @@ export default function CreateProductForm() {
             >Product image is required</label>
             :
             <label
+              className="form-label"
               htmlFor='product-previewImg-input'
-            >Image 1 (Preview)</label>}
+            >Image 1 (preview)</label>}
           <input
             id="product-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setPreviewImg(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-img-1'
           >Image 2</label>
           <input
             id="product-img-1"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImage_1(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-img-2'
           >Image 3</label>
           <input
             id="product-img-2"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImage_2(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-img-3'
           >Image 4</label>
           <input
             id="product-img-3"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImage_3(e.target.files[0])}
           />
         </section>
-        <section>
+        <section className="form-section">
           <label
+            className="form-label"
             htmlFor='product-img-4'
           >Image 5</label>
           <input
             id="product-img-4"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setImage_4(e.target.files[0])}
           />
         </section>
-        <label
-          htmlFor="product-shop-input"
-        >Shop listing</label>
-        <select
-          id="product-shop-input"
-          defaultValue={null}
-          value={seller_id}
-          onChange={e => {
-            e.target.value === '(select one)'
-              ?
-              setSellerId(null)
-              :
-              setSellerId(e.target.value)
-          }}
-        >
-          <option>{'(select one)'}</option>
-          {shops.map(shop => (
-            <option value={shop.id}>{shop.title}</option>
-          ))}
-        </select>
-        <section>
+        <section className="form-section">
+          <label
+            className="form-label"
+            htmlFor="product-shop-input"
+          >Shop listing</label>
+          <select
+            id="product-shop-input"
+            className="form-input"
+            defaultValue={null}
+            value={seller_id}
+            onChange={e => {
+              e.target.value === '(select one)'
+                ?
+                setSellerId(null)
+                :
+                setSellerId(e.target.value)
+            }}
+          >
+            <option>{'(select one)'}</option>
+            {shops.map(shop => (
+              <option value={shop.id}>{shop.title}</option>
+            ))}
+          </select>
+        </section>
+        <section className="form-section">
           {errors.title
             ?
             <label
@@ -177,40 +192,52 @@ export default function CreateProductForm() {
             >Title is required</label>
             :
             <label
+              className="form-label"
               htmlFor='product-title-input'
             >Title</label>}
           <input
             id="product-title-input"
+            className="form-input"
             type="text"
             value={title}
+            placeholder="Please provide a title for your product"
             onChange={e => setTitle(e.target.value)}
           />
         </section>
-        <section>
-          {errors.price
-            ?
+        <section className="form-section">
+          <div
+            className="form-label"
+            id="price-label"
+          >
+            {errors.price
+              ?
+              <label
+                className="error-text"
+                htmlFor="product-price-input"
+              >Price is required</label>
+              :
+              <label
+                className="form-label"
+                htmlFor="product-price-input"
+              >Price</label>}
             <label
-              className="error-text"
+              className="dollar-sign"
               htmlFor="product-price-input"
-            >Price is required</label>
-            :
-            <label
-              htmlFor="product-price-input"
-            >Price</label>}
-          <label
-            htmlFor="product-price-input"
-          >$</label>
+            >$</label>
+          </div>
           <input
             id="product-price-input"
+            className="form-input"
             type="number"
             min={0}
             max={9999.99}
             step={.01}
             value={price}
+            placeholder="0.00"
             onChange={e => setPrice(e.target.value)}
           />
         </section>
-        <section>
+        <section className="form-section">
           {errors.category
             ?
             <label
@@ -219,10 +246,12 @@ export default function CreateProductForm() {
             >Category is required</label>
             :
             <label
+              className="form-label"
               htmlFor="product-category-input"
             >Category</label>}
           <select
             id="product-category-input"
+            className="form-input"
             onChange={e => setCategory(e.target.value)}
             value={category}
           >
@@ -232,7 +261,10 @@ export default function CreateProductForm() {
             ))}
           </select>
         </section>
-        <section>
+        <section
+          className="form-section"
+          id="form-description"
+        >
           {errors.description
             ?
             <label
@@ -241,16 +273,19 @@ export default function CreateProductForm() {
             >Description is required</label>
             :
             <label
+              className="form-label"
               htmlFor='product-title-input'
             >Description</label>}
-          <input
-            id="product-description-input"
+          <textarea
+            className="form-input"
+            id="description-input"
             type="textarea"
             value={description}
+            placeholder="Please write at least 30 characters"
             onChange={e => setDescription(e.target.value)}
           />
         </section>
-        <section>
+        <section className="form-section">
           {errors.availability
             ?
             <label
@@ -259,10 +294,12 @@ export default function CreateProductForm() {
             >Availability is required</label>
             :
             <label
+              className="form-label"
               htmlFor="product-availability-input"
             >Availability</label>}
           <select
             id="product-availability-input"
+            className="form-input"
             value={availability}
             onChange={e => setAvailability(e.target.value)}
           >
@@ -273,12 +310,15 @@ export default function CreateProductForm() {
           </select>
         </section>
         {showInv &&
-          <section>
+          <section className="form-section">
             <label
+              className="form-label"
               htmlFor="product-inventory-input"
             >Inventory</label>
             <input
               type="number"
+              className="form-input"
+              id="inventory-input"
               min={1}
               max={1000}
               step={1}
@@ -286,14 +326,14 @@ export default function CreateProductForm() {
               onChange={e => setInventory(e.target.value)}
             />
           </section>}
-        <section>
+        <section className="form-submit-section">
           <button
-            id="create-product-breadcrumb"
+            id="create-shop-breadcrumb"
             type="button"
             onClick={() => history.push('/me/products')}
           >Cancel</button>
           <button
-            id="create-product-submit"
+            id="create-shop-submit"
             type="submit"
           >Create product</button>
         </section>

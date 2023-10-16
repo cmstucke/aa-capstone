@@ -13,6 +13,7 @@ export default function CreateShopForm() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [preview_image, setPreview_image] = useState(null);
+  console.log('PREVIEW IMAGE:', preview_image);
   const [banner_image, setBanner_image] = useState(null);
   const [errors, setErrors] = useState({})
 
@@ -38,35 +39,56 @@ export default function CreateShopForm() {
   };
 
   return (
-    <div id="create-shop-page">
-      <h1>Create a shop</h1>
+    <div className="form-page">
+      <h1 className="form-heading">Create a shop</h1>
       <form
+        className="form-body"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <section>
-          <label
-            htmlFor='shop-previewImg-input'
-          >Preview image</label>
+        <section className="form-section">
+          {errors.preview_image
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-previewImg-input'
+            >Please provide a preview image</label>
+            :
+            <label
+              className="form-label"
+              htmlFor='shop-previewImg-input'
+            >Preview image</label>}
           <input
             id="shop-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setPreview_image(e.target.files[0])}
           />
         </section>
-        <section>
-          <label
-            htmlFor='shop-previewImg-input'
-          >Banner image</label>
-          <input
-            id="shop-img-1"
-            type="file"
-            accept="image/*"
-            onChange={e => setBanner_image(e.target.files[0])}
-          />
+        <section className="form-section">
+          {errors.banner_image
+            ?
+            <label
+              className="error-text"
+              htmlFor='shop-previewImg-input'
+            >Please provide a banner image</label>
+            :
+            <label
+              className="form-label"
+              htmlFor='shop-previewImg-input'
+            >Banner image</label>}
+          <div className="img-input-container">
+            <input
+              id="shop-img-1"
+              className="img-input"
+              type="file"
+              accept="image/*"
+              onChange={e => setBanner_image(e.target.files[0])}
+            />
+          </div>
         </section>
-        <section>
+        <section className="form-section">
           {errors.title
             ?
             <label
@@ -75,16 +97,19 @@ export default function CreateShopForm() {
             >Title is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-title-input'
             >Title</label>}
           <input
             id="shop-title-input"
+            className="form-input"
             type="text"
             value={title}
+            placeholder="What is the title of your shop?"
             onChange={e => setTitle(e.target.value)}
           />
         </section>
-        <section>
+        <section className="form-section">
           {errors.category
             ?
             <label
@@ -93,10 +118,12 @@ export default function CreateShopForm() {
             >Category selection is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-category-input'
             >Category</label>}
           <select
             id="shop-category-input"
+            className="form-input"
             onChange={e => setCategory(e.target.value)}
             value={category}
           >
@@ -106,7 +133,10 @@ export default function CreateShopForm() {
             ))}
           </select>
         </section>
-        <section>
+        <section
+          className="form-section"
+          id="form-description"
+        >
           {errors.title
             ?
             <label
@@ -115,18 +145,22 @@ export default function CreateShopForm() {
             >Description is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-title-input'
             >Description</label>}
-          <input
-            id="shop-description-input"
+          <textarea
+            className="form-input"
+            id="description-input"
             type="textarea"
             value={description}
+            placeholder="Please write at least 30 characters"
             onChange={e => setDescription(e.target.value)}
           />
         </section>
-        <section>
+        <section className="form-submit-section">
           <button
             id="create-shop-breadcrumb"
+            type="button"
             onClick={() => history.push('/me/shops')}
           >Cancel</button>
           <button

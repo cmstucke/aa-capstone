@@ -19,6 +19,7 @@
 
 .manager-create:hover {
   background-color: #D95C1F;
+  box-shadow: 0 0 8px 1px #919191;
 }
 
 .manager-create:active {

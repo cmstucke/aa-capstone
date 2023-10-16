@@ -4,6 +4,18 @@
   font-weight: bold;
 }
 
-.error-text {
-  color: red;
+#price-label {
+  display: flex;
+  justify-content: space-between;
+  min-width: 13.25rem;
+  max-width: 19.75rem;
+  padding-right: .25rem;
+}
+
+#inventory-input {
+  width: fit-content;
+}
+
+.dollar-sign {
+  color: #919191;
 }
