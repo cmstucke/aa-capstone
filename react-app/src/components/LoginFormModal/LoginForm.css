@@ -98,3 +98,10 @@
 .register:active {
   background-color: #DEDEDE;
 }
+
+#unauthenticated-dropdown {
+  display: flex;
+  flex-direction: column;
+  margin: .5rem;
+  gap: .5rem;
+}

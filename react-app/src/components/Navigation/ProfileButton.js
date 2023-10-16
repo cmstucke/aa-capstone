@@ -78,19 +78,21 @@ function ProfileButton({ user }) {
             </Link>
           </>
         ) : (
-          <>
+          <div id="unauthenticated-dropdown">
             <OpenModalButton
               buttonText="Log In"
+              className='register'
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
 
             <OpenModalButton
               buttonText="Sign Up"
+              className='register'
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
       </div>
     </section>

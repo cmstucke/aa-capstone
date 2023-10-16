@@ -64,6 +64,7 @@ function SignupFormModal() {
 						className="session-input"
 						type="email"
 						value={email}
+						placeholder="Valid email is required"
 						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
@@ -85,6 +86,7 @@ function SignupFormModal() {
 						className="session-input"
 						type="text"
 						value={username}
+						placeholder="Username must be between 4 and 30 characters"
 						onChange={(e) => setUsername(e.target.value)}
 						required
 					/>
@@ -107,6 +109,7 @@ function SignupFormModal() {
 						className="session-input"
 						type="password"
 						value={password}
+						placeholder="Password must be at least 6 characters"
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
@@ -121,6 +124,7 @@ function SignupFormModal() {
 						className="session-input"
 						type="password"
 						value={confirmPassword}
+						placeholder="Confirm password must match password"
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
 					/>
