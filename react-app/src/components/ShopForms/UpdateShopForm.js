@@ -60,26 +60,29 @@ export default function UpdateShopForm() {
           data
         ));
       history.push('/me/shops');
-    } catch (errors) {
+    } catch ({ errors }) {
       console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };
 
   return (
-    <div id="create-shop-page">
-      <h1>Update your shop</h1>
+    <div className="form-page">
+      <h1 className="form-heading">Update your shop</h1>
       <form
         id="update-shop-form"
+        className="form-body"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
         <section>
           <label
+            className="form-label"
             htmlFor='shop-previewImg-input'
           >Preview image</label>
           <input
             id="shop-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setPreviewInput(e.target.files[0])}
@@ -89,10 +92,12 @@ export default function UpdateShopForm() {
         </section>
         <section>
           <label
+            className="form-label"
             htmlFor='shop-previewImg-input'
           >Banner image</label>
           <input
             id="shop-previewImg-input"
+            className="img-input"
             type="file"
             accept="image/*"
             onChange={e => setBannerInput(e.target.files[0])}
@@ -100,8 +105,8 @@ export default function UpdateShopForm() {
           {preview_image &&
             <p className="img_url">{banner_image}</p>}
         </section>
-        <section>
-          {errors?.title
+        <section className="form-section">
+          {errors.title
             ?
             <label
               className="error-text"
@@ -109,16 +114,18 @@ export default function UpdateShopForm() {
             >Title is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-title-input'
             >Title</label>}
           <input
             id="shop-title-input"
+            className="form-input"
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
         </section>
-        <section>
+        <section className="form-section">
           {errors.category
             ?
             <label
@@ -127,10 +134,12 @@ export default function UpdateShopForm() {
             >Category selection is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-category-input'
             >Category</label>}
           <select
             id="shop-category-input"
+            className="form-input"
             onChange={e => setCategory(e.target.value)}
             value={category}
           >
@@ -140,7 +149,7 @@ export default function UpdateShopForm() {
             ))}
           </select>
         </section>
-        <section>
+        <section className="form-section">
           {errors?.description
             ?
             <label
@@ -149,31 +158,41 @@ export default function UpdateShopForm() {
             >Description is required</label>
             :
             <label
+              className="form-label"
               htmlFor='shop-title-input'
             >Description</label>}
-          <input
-            id="shop-description-input"
+          <textarea
+            className="form-input"
+            id="description-input"
             type="textarea"
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
         </section>
       </form>
-      <div>
-        <OpenModalButton
-          buttonText="Delete Shop"
-          modalComponent={<DeleteShopModal shop_id={shop_id} />}
-        />
-        <button
-          id="create-shop-breadcrumb"
-          onClick={() => history.push(`/me/shops`)}
-        >Cancel</button>
+      <section
+        className="form-submit-section"
+        id="update-submit-section"
+      >
+        <div className="form-breadcrumbs">
+          <OpenModalButton
+            type="button"
+            buttonText="Delete Shop"
+            className='create-shop-breadcrumb'
+            modalComponent={<DeleteShopModal shop_id={shop_id} />}
+          />
+          <button
+            className="create-shop-breadcrumb"
+            type="button"
+            onClick={() => history.push(`/me/shops`)}
+          >Cancel</button>
+        </div>
         <button
           id="create-shop-submit"
           type="submit"
           form='update-shop-form'
         >Update Shop</button>
-      </div>
+      </section>
     </div>
   );
 };

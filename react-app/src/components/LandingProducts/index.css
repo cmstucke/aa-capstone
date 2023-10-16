@@ -1,8 +1,10 @@
 #landing-products-page {
   height: 100vh;
+  max-width: 1500px;
   margin: 2.5rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 #landing-products-container {
@@ -84,4 +86,46 @@
 
 .landing-link:hover {
   box-shadow: 0 0 8px 1px #919191;
+}
+
+.landing-products-link {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Shippori Mincho';
+  color: white;
+  background-color: #F1641E;
+  border: 1px solid #919191;
+  padding: .5rem 1rem;
+  border-radius: 1.25rem;
+  margin-right: 5%;
+}
+
+.landing-products-link:hover {
+  background-color: #D95C1F;
+  box-shadow: 0 0 8px 1px #919191;
+}
+
+.landing-products-link:active {
+  background-color: #C6541A;
+}
+
+#landing-links {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+#landing-shops-link {
+  color: #222222;
+  background-color: #e9e9e9;
+}
+
+#landing-shops-link:hover {
+  background-color: #DEDEDE;
+  box-shadow: 0 0 8px 1px #e9e9e9;
+}
+
+#landing-shops-link:active {
+  background-color: #919191;
 }

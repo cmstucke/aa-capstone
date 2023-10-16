@@ -75,3 +75,22 @@
   margin: 0 0 .25rem 0;
   padding: 0;
 }
+
+#shop-details-update {
+  font-size: 18px;
+  font-weight: 500;
+  color: #222222;
+  border: 1px solid #222222;
+  padding: .5rem 1rem;
+  border-radius: 1.25rem;
+  cursor: pointer;
+}
+
+#shop-details-update:hover {
+  background-color: #e9e9e9;
+  box-shadow: 0 0 8px 1px #e9e9e9;
+}
+
+#shop-details-update:active {
+  background-color: #DEDEDE;
+}
