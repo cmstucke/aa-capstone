@@ -2,36 +2,28 @@ from app.models import db, User, Product, CartItem, environment, SCHEMA
 from sqlalchemy.sql import text
 from random import randint
 
-user1 = User.query.get(1)
-user2 = User.query.get(2)
-products = Product.query.all()
-
-user1_product_ids = {product.id for product in user1.products}
-user2_product_ids = {product.id for product in user2.products}
+available_products = {
+    1: [6, 7, 9, 10],
+    2: [1, 2, 3, 4]
+}
 
 def seed_cart_items():
 
-  user1_cart_items = 0
-  for product in products:
-    if product.id not in user1_product_ids and user1_cart_items < 3:
-      new_cart_item = CartItem(
-        user_id=user1.id,
-        product_id=product.id,
+  for product_id in available_products.get(1, []):
+    new_cart_item = CartItem(
+        user_id=1,
+        product_id=product_id,
         quantity=randint(1, 5)
-      )
-      db.session.add(new_cart_item)
-      user1_cart_items += 1
+    )
+    db.session.add(new_cart_item)
 
-  user2_cart_items_count = 0
-  for product in products:
-    if product.id not in user2_product_ids and user2_cart_items_count < 3:
-      new_cart_item = CartItem(
-        user_id=user2.id,
-        product_id=product.id,
+  for product_id in available_products.get(2, []):
+    new_cart_item = CartItem(
+        user_id=2,
+        product_id=product_id,
         quantity=randint(1, 5)
-      )
-      db.session.add(new_cart_item)
-      user2_cart_items_count += 1
+    )
+    db.session.add(new_cart_item)
 
   db.session.commit()
 
