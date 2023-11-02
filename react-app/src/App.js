@@ -16,6 +16,7 @@ import UpdateProductForm from "./components/ProductForms/UpdateProductForm";
 import ShopManager from "./components/ShopManager";
 import LandingProducts from "./components/LandingProducts";
 import ProductManager from "./components/ProductManager";
+import Cart from "./components/Cart/index.js";
 
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route exact path="/me/products">
             <ProductManager />
+          </Route>
+          <Route exact path="/me/cart">
+            <Cart />
           </Route>
           <Route exact path="/shops/create">
             <CreateShopForm />
