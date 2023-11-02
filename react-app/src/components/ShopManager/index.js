@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserShopsThunk } from "../../store/shop";
-import { getUserProductsThunk } from "../../store/product";
 import AllUserShops from "../AllUserShops";
-import AllUserProducts from "../AllUserProducts";
 import './index.css';
 
 
@@ -22,8 +20,8 @@ export default function ShopManager() {
   }, [dispatch]);
 
   return (
-    <div id="manager-page">
-      <h1 id="manager-page-heading">Shop manager</h1>
+    <div className="manager-page">
+      <h1 className="manager-page-heading">Shop manager</h1>
       <div className="manager-container">
         <div className="manager-headings-container">
           <h2 className="manager-heading">Your shops</h2>
