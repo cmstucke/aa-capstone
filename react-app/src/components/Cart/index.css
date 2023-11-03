@@ -4,6 +4,10 @@
   gap: .75rem;
 }
 
+.cart-item-wrapper {
+  width: fit-content;
+}
+
 .cart-item {
   all: unset;
   display: flex;
@@ -11,6 +15,7 @@
   border-radius: .5rem;
   height: 9rem;
   box-sizing: content-box;
+  width: fit-content;
 }
 
 .cart-item:hover {
@@ -25,7 +30,7 @@
 }
 
 .cart-item-details {
-  width: 25rem;
+  width: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -38,11 +43,36 @@
   font-size: 14px;
 }
 
+.cart-item-headings {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+}
+
 .cart-item-details-heading {
   margin: 0;
   padding: 0;
   color: #222222;
   font-size: 18px;
+}
+
+.cart-item-store {
+  margin: 0;
+  padding: 0;
+  color: #E9E9E9;
+  font-size: 14px;
+}
+
+.cart-item-store:hover {
+  text-decoration: underline;
+  color: #F1641E;
+}
+
+.cart-item-store:active {
+  text-decoration: underline;
+  color: #C25017;
 }
 
 .cart-item-details-category {
@@ -67,4 +97,75 @@
 .cart-product-link {
   all: unset;
   cursor: pointer;
+}
+
+.cart-qty-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0 .75rem .75rem 0;
+  /* width: 8rem; */
+}
+
+.cart-qty-price {
+  width: 8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: .5rem; */
+}
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.cart-qty-label {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #919191;
+}
+
+.cart-qty-input {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #919191;
+  width: 3rem;
+  padding: 2px;
+  border: 2px solid #E9E9E9;
+  border-radius: .3rem;
+}
+
+.cart-qty-input:focus {
+  outline: none;
+}
+
+.cart-error {
+  color: #F1641E;
+  font-size: 10px;
+  font-weight: 600;
+  width: 8rem;
+  /* text-align: right; */
+  /* display: flex;
+  align-self: flex-end; */
+}
+
+#sub-cart-items {
+  background-color: #919191;
+  display: flex;
+  justify-content: flex-end;
+  width: 41.5rem;
+  border-radius: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+#subtotal-text {
+  color: white;
+  letter-spacing: .5px;
 }

@@ -29,6 +29,18 @@ def create_cart_item():
   cart_item_list = [cart_item.to_dict() for cart_item in cart_items]
   cart_item_id = get_cart_item_id(cart_item_list, product_id)
   print('CART ITEM ID:', cart_item_id)
+
+  if not form.data['quantity']:
+    print('YOU HAVE MADE IT TO THE CONDITIONAL')
+    if cart_item_id:
+      print('YOU HAVE MADE IT TO THE NESTED CONDITIONAL')
+      return {
+        "cart_item_id": cart_item_id,
+        "quantity": "A valid quantity is required for an order request"
+      }, 400
+    else:
+      return {"quantity": "A valid quantity is required for an order request"}, 400
+
   cart_item = None
   if cart_item_id:
     cart_item = CartItem.query.get(cart_item_id)
@@ -45,7 +57,7 @@ def create_cart_item():
     db.session.commit()
     return new_cart_item.to_dict()
 
-  print('CART ITEM QUERY:', not not cart_item)
+  # print('CART ITEM QUERY:', not not cart_item)
 
   return 'create cart item route'
 

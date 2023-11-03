@@ -13,11 +13,12 @@ export default function ProductDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const product = useSelector(state => state.product[product_id]);
   const shop = useSelector(state => state.shop[product?.seller_id]);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
-  // console.log('PREVIEW IMAGE:', previewImg);
   const [productImgs, setProductImgs] = useState(null);
-  // console.log('PRODUCT IMAGES:', productImgs);
+  const [quantity, setQuantity] = useState(1);
+  console.log('QUANTITY:', quantity);
 
   useEffect(() => {
     let images;
@@ -59,6 +60,11 @@ export default function ProductDetails() {
         </button>
       </>
     );
+  };
+
+  const handleAddToCart = async e => {
+    e.preventDefault();
+
   };
 
   return (
@@ -115,10 +121,34 @@ export default function ProductDetails() {
               sessionLink
               :
               <>
-                <button
-                  id="add-to-cart"
-                  onClick={() => alert('Feature coming soon')}
-                >Add to cart</button>
+                <form
+                  id="add-to-cart-form"
+                  onSubmit={handleAddToCart}
+                >
+                  <section id="qty-add-inputs">
+                    <div className="cart-qty">
+                      <label
+                        className="cart-qty-label"
+                        htmlFor="product-inventory-input"
+                      >Qty</label>
+                      <input
+                        type="number"
+                        className="cart-qty-input"
+                        min={1}
+                        max={1000}
+                        step={1}
+                        defaultValue={1}
+                        placeholder={1}
+                        // value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
+                        onChange={e => setQuantity(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      id="add-to-cart"
+                      type="submit"
+                    >Add to cart</button>
+                  </section>
+                </form>
                 <h2
                   className="product-details-heading"
                 >Item details</h2>

@@ -131,3 +131,8 @@
 .product-small-image:hover {
   border: 2px solid #F1641E;
 }
+
+#qty-add-inputs {
+  display: flex;
+  gap: .5rem;
+}
