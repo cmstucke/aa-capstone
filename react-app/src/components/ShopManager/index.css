@@ -1,8 +1,8 @@
-#manager-page {
+.manager-page {
   margin: 0 3rem;
 }
 
-#manager-page-heading {
+.manager-page-heading {
   font-family: 'Shippori Mincho';
   font-weight: 500;
   color: #222222;

@@ -6,3 +6,4 @@ from .create_product_form import CreateProductForm
 from .update_product_form import UpdateProductForm
 from .shop_image_form import ShopImageForm
 from .product_image_form import ProductImageForm
+from .cart_item_form import CartItemForm

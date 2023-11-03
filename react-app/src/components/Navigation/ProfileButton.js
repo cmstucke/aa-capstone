@@ -5,6 +5,9 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { Link, NavLink, useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -51,6 +54,16 @@ function ProfileButton({ user }) {
         >
           <i className="fas fa-store" />
           <span class="tooltiptext">Manage your shops and products</span>
+        </NavLink>}
+      {user &&
+        <NavLink
+          id='cart-link'
+          className='tooltip'
+          to='/me/cart'
+        >
+          <FontAwesomeIcon icon={faShoppingCart} />
+          {/* <i class="fa-solid fa-tags" /> */}
+          <span class="tooltiptext">Manage your items for purchase</span>
         </NavLink>}
       <button
         id="profile-button"
