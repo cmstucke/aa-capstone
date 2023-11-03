@@ -19,8 +19,8 @@ export default function ProductDetails() {
   const [previewImg, setPreviewImg] = useState(null);
   const [productImgs, setProductImgs] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  // console.log('QUANTITY:', quantity);
   const [res, setRes] = useState(null);
+  console.log('RES:', res);
 
   useEffect(() => {
     let images;
@@ -152,6 +152,7 @@ export default function ProductDetails() {
                         value={quantity}
                         onChange={e => setQuantity(e.target.value)}
                       />
+                      {res && <p className="add-cart-success">Added to cart</p>}
                     </div>
                     <button
                       id="add-to-cart"
