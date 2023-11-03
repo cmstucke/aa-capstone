@@ -3,6 +3,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk, getProductImagesThunk } from "../../store/product";
 import { getShopsThunk } from "../../store/shop";
+import { createCartItemThunk } from "../../store/cartItem";
 import './index.css';
 
 
@@ -18,7 +19,8 @@ export default function ProductDetails() {
   const [previewImg, setPreviewImg] = useState(null);
   const [productImgs, setProductImgs] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  console.log('QUANTITY:', quantity);
+  // console.log('QUANTITY:', quantity);
+  const [res, setRes] = useState(null);
 
   useEffect(() => {
     let images;
@@ -64,7 +66,15 @@ export default function ProductDetails() {
 
   const handleAddToCart = async e => {
     e.preventDefault();
-
+    const data = {
+      product_id,
+      quantity
+    };
+    let res;
+    try {
+      res = await dispatch(createCartItemThunk(data));
+      if (res) setRes({ ...res });
+    } catch (error) { };
   };
 
   return (
@@ -139,7 +149,7 @@ export default function ProductDetails() {
                         step={1}
                         defaultValue={1}
                         placeholder={1}
-                        // value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
+                        value={quantity}
                         onChange={e => setQuantity(e.target.value)}
                       />
                     </div>

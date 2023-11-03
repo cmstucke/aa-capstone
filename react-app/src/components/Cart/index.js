@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartItemsThunk, createCartItemThunk } from "../../store/cartItem";
 import { getProductsThunk } from "../../store/product";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import OpenModalButton from '../OpenModalButton';
+import ClearCartModal from "./ClearCartModal";
 import './index.css';
+import ClearCartItemModal from "./ClearCartItemModal";
 
 
 export default function Cart() {
@@ -45,10 +50,7 @@ export default function Cart() {
 
   const handleChange = async (e, cartItem) => {
     e.preventDefault();
-    // console.log('CART ITEM ARG:', cartItem);
     const data = { ...cartItem, quantity: e.target.value };
-    // console.log('NEW CART ITEM:', newCartItem);
-
     if (!data.quantity) {
       setEmpty(cartItem.id);
       setErrors({
@@ -76,7 +78,8 @@ export default function Cart() {
     <div className="manager-page">
       <h1 id="manager-page-heading">Shopping Cart</h1>
       <section className="cart-item-container">
-        {isLoaded && cartItemsArr.length &&
+        {isLoaded && cartItemsArr.length
+          ?
           cartItemsArr.map(cartItem => (
             <section className="cart-item-wrapper">
               <div className="cart-item">
@@ -133,38 +136,54 @@ export default function Cart() {
                   </Link>
                 </section>
                 <section className="cart-qty-wrapper">
-                  {errors.cart_item_id && errors.cart_item_id === cartItem.id &&
-                    <p className="cart-error">{errors.quantity}</p>
-                  }
-                  <section className="cart-qty-price">
-                    <div className="cart-qty">
-                      <label
-                        className="cart-qty-label"
-                        htmlFor="product-inventory-input"
-                      >Qty</label>
-                      <input
-                        type="number"
-                        className="cart-qty-input"
-                        min={1}
-                        max={1000}
-                        step={1}
-                        value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
-                        onChange={e => handleChange(e, cartItem)}
-                      />
-                    </div>
-                    {productsObj[cartItem.product_id] && cartItemsObj[cartItem.id] &&
-                      <p className="cart-qty-label"
-                      >${(productsObj[cartItem.product_id].price * cartItemsObj[cartItem.id].quantity).toFixed(2)}</p>}
+                  <OpenModalButton
+                    className='clear-cart-modal'
+                    buttonText={<FontAwesomeIcon id='clear-cart-item' icon={faTrash} />}
+                    modalComponent={<ClearCartItemModal cart_item_id={cartItem.id} />}
+                  />
+                  <section className="clear-qty-section">
+                    {errors.cart_item_id && errors.cart_item_id === cartItem.id &&
+                      <p className="cart-error">{errors.quantity}</p>
+                    }
+                    <section className="cart-qty-price">
+                      <div className="cart-qty">
+                        <label
+                          className="cart-qty-label"
+                          htmlFor="product-inventory-input"
+                        >Qty</label>
+                        <input
+                          type="number"
+                          className="cart-qty-input"
+                          min={1}
+                          max={1000}
+                          step={1}
+                          value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
+                          onChange={e => handleChange(e, cartItem)}
+                        />
+                      </div>
+                      {productsObj[cartItem.product_id] && cartItemsObj[cartItem.id] &&
+                        <p className="cart-qty-label"
+                        >${(productsObj[cartItem.product_id].price * cartItemsObj[cartItem.id].quantity).toFixed(2)}</p>}
+                    </section>
                   </section>
                 </section>
               </div>
             </section>
-          ))}
-        <section id="sub-cart-items">
-          <div id="subtotal">
+          ))
+          :
+          <h2 className="placeholder-text">Your currently have no items in your cart</h2>}
+        {isLoaded && cartItemsArr.length
+          ?
+          <section id="sub-cart-items">
+            <OpenModalButton
+              className='clear-cart-modal'
+              buttonText={<FontAwesomeIcon id='clear-cart' icon={faTrash} />}
+              modalComponent={<ClearCartModal />}
+            />
             {subtotal && <h4 id="subtotal-text">Subtotal: ${subtotal.toFixed(2)}</h4>}
-          </div>
-        </section>
+          </section>
+          :
+          null}
       </section>
     </div>
   );

@@ -6,9 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faShoppingCart
-} from "@fortawesome/free-solid-svg-icons"; // Import the specific icon you want to use
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 
 function ProfileButton({ user }) {
