@@ -58,7 +58,7 @@ export default function LandingProducts() {
                 htmlFor="large-product-img"
                 id="large-price"
                 className="landing-price"
-              >${largeProduct.price}</label>
+              >${largeProduct.price.toFixed(2)}</label>
             </section>
           </Link>
           <section id="small-landing-products">
@@ -74,7 +74,7 @@ export default function LandingProducts() {
                       alt={`${product.title}`}
                       src={product.preview_image}
                     />
-                    <p className="small-price">${product.price}</p>
+                    <p className="small-price">${product.price.toFixed(2)}</p>
                   </Link>
                 ))}
             </section>
@@ -90,7 +90,7 @@ export default function LandingProducts() {
                       alt={`${product.title}`}
                       src={product.preview_image}
                     />
-                    <p className="small-price">${product.price}</p>
+                    <p className="small-price">${product.price.toFixed(2)}</p>
                   </Link>
                 ))}
             </section>
