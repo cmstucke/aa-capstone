@@ -39,7 +39,7 @@ export default function AllUserProducts({ productsArr }) {
                 className='shops-list-text'
                 exact to={`/products/${product.id}`}
               >
-                <h3 className='shops-list-title'>${product.price}</h3>
+                <h3 className='shops-list-title'>${product.price.toFixed(2)}</h3>
                 <p className='shops-list-category'>{product.title}</p>
               </Link>
               <div className='products-list-buttons'>

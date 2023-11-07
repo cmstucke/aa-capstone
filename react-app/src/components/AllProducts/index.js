@@ -23,25 +23,41 @@ export default function AllProducts() {
 
   return (
     <div id="products-page">
-      <h1>Products</h1>
+      <h1 className="manager-page-heading">Products</h1>
       <div id="products-list-container">
         <div id="products-list">
           {isLoaded && productsArr.length &&
             productsArr.map(product => (
-              <Link
+              <div
+                className="product-link-wrapper"
                 key={product.id}
-                className='product-link'
-                exact to={`/products/${product.id}`}
               >
-                <img
-                  alt={`${product.title}`}
-                  src={product.preview_image}
-                  className="product-img"
-                />
-                <p className="product-link-title">{product.title}</p>
-                <p className="product-link-shop"
-                >{shopsObj[product.seller_id]?.title}</p>
-              </Link>
+                <Link
+                  className='product-link'
+                  exact to={`/products/${product.id}`}
+                >
+                  <img
+                    alt={`${product.title}`}
+                    src={product.preview_image}
+                    className="product-img"
+                  />
+                </Link>
+                <section className="product-link-info">
+                  <Link
+                    className='product-link'
+                    exact to={`/products/${product.id}`}
+                  >
+                    <p className="product-link-title">{product.title}</p>
+                  </Link>
+                  <Link
+                    className='product-link'
+                    exact to={`/shops/${product.seller_id}`}
+                  >
+                    <p className="product-link-shop"
+                    >{shopsObj[product.seller_id]?.title}</p>
+                  </Link>
+                </section>
+              </div>
             ))
           }
         </div>

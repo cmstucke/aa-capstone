@@ -20,8 +20,11 @@ export default function AllShops() {
 
   return (
     <div id="shops-page">
-      <h1>Shops</h1>
-      <div id="shops-list-container">
+      <h1 className="manager-page-heading">Shops</h1>
+      <div
+        id="shops-list-container"
+      // className="manager-heading"
+      >
         <div id="shops-list">
           {isLoaded &&
             shopsArr.map(shop => (
