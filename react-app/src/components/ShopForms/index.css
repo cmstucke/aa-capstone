@@ -132,3 +132,20 @@
   margin-top: 1rem;
   max-width: 70rem;
 }
+
+.modal-body-1 {
+  padding: 1rem;
+  width: fit-content;
+}
+
+.modal-heading-1 {
+  margin: 0 0 1rem 0;
+  padding: 0;
+  font-family: 'Shippori Mincho';
+  font-size: 28px;
+}
+
+.modal-buttons-1 {
+  display: flex;
+  justify-content: space-between;
+}

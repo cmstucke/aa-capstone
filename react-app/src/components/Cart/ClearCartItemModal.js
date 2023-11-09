@@ -14,21 +14,24 @@ export default function ClearCartItemModal({ cart_item_id }) {
   };
 
   return (
-    <div>
-      <h1>Delete this item from your cart</h1>
+    <div className="modal-body-1">
+      <h1
+        className="modal-heading-1"
+      >Clear this item</h1>
       <form
+        className="modal-form-1"
         onSubmit={handleSubmit}
       >
-        <button
-          onClick={closeModal}
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-        >
-          Clear item
-        </button>
+        <section className="modal-buttons-1">
+          <button
+            className="register"
+            onClick={closeModal}
+          >Cancel</button>
+          <button
+            className="register"
+            type="submit"
+          >Clear item</button>
+        </section>
       </form>
     </div>
   );
