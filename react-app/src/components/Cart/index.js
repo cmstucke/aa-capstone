@@ -75,116 +75,118 @@ export default function Cart() {
   };
 
   return (
-    <div className="manager-page">
-      <h1 id="manager-page-heading">Shopping Cart</h1>
-      <section className="cart-item-container">
-        {isLoaded && cartItemsArr.length
-          ?
-          cartItemsArr.map(cartItem => (
-            <section className="cart-item-wrapper">
-              <div className="cart-item">
-                <Link
-                  className='cart-product-link'
-                  to={`/products/${cartItem.product_id}`}
-                >
-                  <img
-                    className="cart-thumbnail"
-                    alt={productsObj[cartItem.product_id]?.title}
-                    src={productsObj[cartItem.product_id]?.preview_image}
-                  />
-                </Link>
-                <section className="cart-item-details">
+    <div className="manager-body">
+      <div className="manager-page">
+        <h1 id="manager-page-heading">Shopping Cart</h1>
+        <section className="cart-item-container">
+          {isLoaded && cartItemsArr.length
+            ?
+            cartItemsArr.map(cartItem => (
+              <section className="cart-item-wrapper">
+                <div className="cart-item">
                   <Link
                     className='cart-product-link'
                     to={`/products/${cartItem.product_id}`}
                   >
-                    <h2 className="cart-item-details-price"
-                    >${productsObj[cartItem.product_id]?.price.toFixed(2)}</h2>
+                    <img
+                      className="cart-thumbnail"
+                      alt={productsObj[cartItem.product_id]?.title}
+                      src={productsObj[cartItem.product_id]?.preview_image}
+                    />
                   </Link>
-                  <div className="cart-item-headings">
+                  <section className="cart-item-details">
                     <Link
                       className='cart-product-link'
                       to={`/products/${cartItem.product_id}`}
                     >
-                      <h2 className="cart-item-details-heading"
-                      >{productsObj[cartItem.product_id]?.title}</h2>
+                      <h2 className="cart-item-details-price"
+                      >${productsObj[cartItem.product_id]?.price.toFixed(2)}</h2>
+                    </Link>
+                    <div className="cart-item-headings">
+                      <Link
+                        className='cart-product-link'
+                        to={`/products/${cartItem.product_id}`}
+                      >
+                        <h2 className="cart-item-details-heading"
+                        >{productsObj[cartItem.product_id]?.title}</h2>
+                      </Link>
+                      <Link
+                        className='cart-product-link'
+                        to={`/shops/${productsObj[cartItem.product_id]?.seller_id}`}
+                      >
+                        <h3 className="cart-item-store">Go to shop</h3>
+                      </Link>
+                    </div>
+                    <Link
+                      className='cart-product-link'
+                      to={`/products/${cartItem.product_id}`}
+                    >
+                      <p className="cart-item-details-category"
+                      >{productsObj[cartItem.product_id]?.category}</p>
                     </Link>
                     <Link
                       className='cart-product-link'
-                      to={`/shops/${productsObj[cartItem.product_id]?.seller_id}`}
+                      to={`/products/${cartItem.product_id}`}
                     >
-                      <h3 className="cart-item-store">Go to shop</h3>
+                      <p className="cart-item-details-desc"
+                      >{productsObj[cartItem.product_id]?.description.length > 107
+                        ?
+                        productsObj[cartItem.product_id].description.slice(0, 107) + '...'
+                        :
+                        productsObj[cartItem.product_id].description}</p>
                     </Link>
-                  </div>
-                  <Link
-                    className='cart-product-link'
-                    to={`/products/${cartItem.product_id}`}
-                  >
-                    <p className="cart-item-details-category"
-                    >{productsObj[cartItem.product_id]?.category}</p>
-                  </Link>
-                  <Link
-                    className='cart-product-link'
-                    to={`/products/${cartItem.product_id}`}
-                  >
-                    <p className="cart-item-details-desc"
-                    >{productsObj[cartItem.product_id]?.description.length > 107
-                      ?
-                      productsObj[cartItem.product_id].description.slice(0, 107) + '...'
-                      :
-                      productsObj[cartItem.product_id].description}</p>
-                  </Link>
-                </section>
-                <section className="cart-qty-wrapper">
-                  <OpenModalButton
-                    className='clear-cart-modal'
-                    buttonText={<FontAwesomeIcon id='clear-cart-item' icon={faTrash} />}
-                    modalComponent={<ClearCartItemModal cart_item_id={cartItem.id} />}
-                  />
-                  <section className="clear-qty-section">
-                    {errors.cart_item_id && errors.cart_item_id === cartItem.id &&
-                      <p className="cart-error">{errors.quantity}</p>
-                    }
-                    <section className="cart-qty-price">
-                      <div className="cart-qty">
-                        <label
-                          className="cart-qty-label"
-                          htmlFor="product-inventory-input"
-                        >Qty</label>
-                        <input
-                          type="number"
-                          className="cart-qty-input"
-                          min={1}
-                          max={1000}
-                          step={1}
-                          value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
-                          onChange={e => handleChange(e, cartItem)}
-                        />
-                      </div>
-                      {productsObj[cartItem.product_id] && cartItemsObj[cartItem.id] &&
-                        <p className="cart-qty-label"
-                        >${(productsObj[cartItem.product_id].price * cartItemsObj[cartItem.id].quantity).toFixed(2)}</p>}
+                  </section>
+                  <section className="cart-qty-wrapper">
+                    <OpenModalButton
+                      className='clear-cart-modal'
+                      buttonText={<FontAwesomeIcon id='clear-cart-item' icon={faTrash} />}
+                      modalComponent={<ClearCartItemModal cart_item_id={cartItem.id} />}
+                    />
+                    <section className="clear-qty-section">
+                      {errors.cart_item_id && errors.cart_item_id === cartItem.id &&
+                        <p className="cart-error">{errors.quantity}</p>
+                      }
+                      <section className="cart-qty-price">
+                        <div className="cart-qty">
+                          <label
+                            className="cart-qty-label"
+                            htmlFor="product-inventory-input"
+                          >Qty</label>
+                          <input
+                            type="number"
+                            className="cart-qty-input"
+                            min={1}
+                            max={1000}
+                            step={1}
+                            value={empty === cartItem.id ? null : cartItemsObj[cartItem.id]?.quantity}
+                            onChange={e => handleChange(e, cartItem)}
+                          />
+                        </div>
+                        {productsObj[cartItem.product_id] && cartItemsObj[cartItem.id] &&
+                          <p className="cart-qty-label"
+                          >${(productsObj[cartItem.product_id].price * cartItemsObj[cartItem.id].quantity).toFixed(2)}</p>}
+                      </section>
                     </section>
                   </section>
-                </section>
-              </div>
+                </div>
+              </section>
+            ))
+            :
+            <h2 className="placeholder-text">Your currently have no items in your cart</h2>}
+          {isLoaded && cartItemsArr.length
+            ?
+            <section id="sub-cart-items">
+              <OpenModalButton
+                className='clear-cart-modal'
+                buttonText={<FontAwesomeIcon id='clear-cart' icon={faTrash} />}
+                modalComponent={<ClearCartModal />}
+              />
+              {subtotal && <h4 id="subtotal-text">Subtotal: ${subtotal.toFixed(2)}</h4>}
             </section>
-          ))
-          :
-          <h2 className="placeholder-text">Your currently have no items in your cart</h2>}
-        {isLoaded && cartItemsArr.length
-          ?
-          <section id="sub-cart-items">
-            <OpenModalButton
-              className='clear-cart-modal'
-              buttonText={<FontAwesomeIcon id='clear-cart' icon={faTrash} />}
-              modalComponent={<ClearCartModal />}
-            />
-            {subtotal && <h4 id="subtotal-text">Subtotal: ${subtotal.toFixed(2)}</h4>}
-          </section>
-          :
-          null}
-      </section>
+            :
+            null}
+        </section>
+      </div>
     </div>
   );
 };

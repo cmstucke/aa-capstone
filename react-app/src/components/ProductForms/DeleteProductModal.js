@@ -22,21 +22,28 @@ export default function DeleteProductModal({ product_id, manager }) {
   };
 
   return (
-    <div>
-      <h1>Delete this product</h1>
+    <div className="modal-body-1">
+      <h1
+        className="modal-heading-1"
+      >Delete this product</h1>
       <form
+        className="modal-form-1"
         onSubmit={handleSubmit}
       >
-        <button
-          onClick={closeModal}
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-        >
-          Delete product
-        </button>
+        <section className="modal-buttons-1">
+          <button
+            className="register"
+            onClick={closeModal}
+          >
+            Cancel
+          </button>
+          <button
+            className="register"
+            type="submit"
+          >
+            Delete product
+          </button>
+        </section>
       </form>
     </div>
   );

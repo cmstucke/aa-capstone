@@ -22,19 +22,21 @@ export default function ProductManager() {
   }, [dispatch]);
 
   return (
-    <div id="manager-page">
-      <h1 id="manager-page-heading">Shop manager</h1>
-      <div className="manager-container">
-        <div className="manager-headings-container">
-          <h2
-            className="manager-toggle"
-            onClick={() => history.push('/me/shops')}
-          >Your shops</h2>
-          <h2 className="manager-heading">Your products</h2>
-        </div>
-        <div className="list-container">
-          {isLoaded &&
-            <AllUserProducts productsArr={productsArr} />}
+    <div className="manager-body">
+      <div className="manager-page">
+        <h1 className="manager-page-heading">Shop manager</h1>
+        <div className="manager-container">
+          <div className="manager-headings-container">
+            <h2
+              className="manager-toggle"
+              onClick={() => history.push('/me/shops')}
+            >Your shops</h2>
+            <h2 className="manager-heading">Your products</h2>
+          </div>
+          <div className="list-container">
+            {isLoaded &&
+              <AllUserProducts productsArr={productsArr} />}
+          </div>
         </div>
       </div>
     </div>

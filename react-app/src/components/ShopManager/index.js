@@ -20,19 +20,21 @@ export default function ShopManager() {
   }, [dispatch]);
 
   return (
-    <div className="manager-page">
-      <h1 className="manager-page-heading">Shop manager</h1>
-      <div className="manager-container">
-        <div className="manager-headings-container">
-          <h2 className="manager-heading">Your shops</h2>
-          <h2
-            className="manager-toggle"
-            onClick={() => history.push('/me/products')}
-          >Your products</h2>
-        </div>
-        <div className="list-container">
-          {isLoaded &&
-            <AllUserShops shopsArr={shopsArr} />}
+    <div className="manager-body">
+      <div className="manager-page">
+        <h1 className="manager-page-heading">Shop manager</h1>
+        <div className="manager-container">
+          <div className="manager-headings-container">
+            <h2 className="manager-heading">Your shops</h2>
+            <h2
+              className="manager-toggle"
+              onClick={() => history.push('/me/products')}
+            >Your products</h2>
+          </div>
+          <div className="list-container">
+            {isLoaded &&
+              <AllUserShops shopsArr={shopsArr} />}
+          </div>
         </div>
       </div>
     </div>

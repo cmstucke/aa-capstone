@@ -13,21 +13,24 @@ export default function ClearCartModal() {
   };
 
   return (
-    <div>
-      <h1>Clear you shopping cart</h1>
+    <div className="modal-body-1">
+      <h1
+        className="modal-heading-1"
+      >Clear your cart</h1>
       <form
+        className="modal-form-1"
         onSubmit={handleSubmit}
       >
-        <button
-          onClick={closeModal}
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-        >
-          Clear cart
-        </button>
+        <section className="modal-buttons-1">
+          <button
+            className="register"
+            onClick={closeModal}
+          >Cancel</button>
+          <button
+            className="register"
+            type="submit"
+          >Clear cart</button>
+        </section>
       </form>
     </div>
   );

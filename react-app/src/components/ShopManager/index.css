@@ -1,5 +1,12 @@
+.manager-body {
+  display: flex;
+  justify-content: center;
+}
+
 .manager-page {
   margin: 0 3rem;
+  width: 100%;
+  max-width: 1500px;
 }
 
 .manager-page-heading {
