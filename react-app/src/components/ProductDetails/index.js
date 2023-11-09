@@ -14,44 +14,51 @@ export default function ProductDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const product = useSelector(state => state.product[product_id]);
   const shop = useSelector(state => state.shop[product?.seller_id]);
+  const cartItemsObj = useSelector(state => state.cartItem);
+  // console.log('CART ITEMS OBJ:', cartItemsObj)
+  const cartItemsArr = Object.values(cartItemsObj);
+  // console.log('CART ITEMS ARR:', cartItemsArr)
+
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [previewImg, setPreviewImg] = useState(null);
   const [productImgs, setProductImgs] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [res, setRes] = useState(null);
-  console.log('RES:', res);
+  // console.log('RES:', res);
+  const [prevQty, setPrevQty] = useState(null);
+  console.log('PREV QTY:', prevQty);
 
   useEffect(() => {
     let images;
     dispatch(getProductsThunk())
       .then(() => dispatch(getShopsThunk()))
-      .then(async () => images = await dispatch(getProductImagesThunk(product_id)))
+      .then(async () => images = await dispatch(
+        getProductImagesThunk(product_id)))
       .then(() => setProductImgs(images))
       .then(() => setIsLoaded(true));
   }, []);
 
   useEffect(() => {
-    if (product) setPreviewImg(product.preview_image);
-  }, [product])
+    if (product) {
+      setPreviewImg(product.preview_image)
+    };
+  }, [product]);
+
+  useEffect(() => {
+    if (cartItemsArr.length) {
+      for (const item of cartItemsArr) {
+        if (item.product_id === parseInt(product_id)) {
+          setPrevQty(item.quantity);
+        };
+      };
+    };
+  }, [cartItemsArr]);
 
   let sessionLink;
   if (isLoaded && sessionUser?.id === product?.owner_id) {
     sessionLink = (
       <>
-        <h2
-          className="product-details-heading"
-        >Item details</h2>
-        <p
-          className="product-details-desc"
-        >{product.availability}</p>
-        {product.availability === 'In stock' &&
-          <p
-            className="product-details-desc"
-          >{product.inventory} left</p>}
-        <p
-          className="product-details-desc"
-        >{product.description}</p>
         <button
           id="product-details-update"
           onClick={() => {
@@ -68,7 +75,7 @@ export default function ProductDetails() {
     e.preventDefault();
     const data = {
       product_id,
-      quantity
+      quantity: prevQty ? parseInt(prevQty) + parseInt(quantity) : quantity
     };
     let res;
     try {
@@ -78,7 +85,7 @@ export default function ProductDetails() {
   };
 
   return (
-    <>
+    <div id="product-details-body">
       {isLoaded &&
         <div id="product-details-page">
           <section
@@ -126,13 +133,8 @@ export default function ProductDetails() {
             <h2
               className="product-details-heading"
             >{product.title}</h2>
-            {sessionLink && sessionLink}
-            {/* {sessionLink
-              ?
-              sessionLink
-              : */}
             <>
-              {sessionUser && <form
+              {sessionUser && !sessionLink && <form
                 id="add-to-cart-form"
                 onSubmit={handleAddToCart}
               >
@@ -174,9 +176,16 @@ export default function ProductDetails() {
               <p
                 className="product-details-desc"
               >{product.description}</p>
-              <h2
-                className="product-details-heading"
-              >Meet your seller</h2>
+              {sessionLink && sessionLink}
+              {sessionLink
+                ?
+                <h2
+                  className="product-details-heading"
+                >Go to shop</h2>
+                :
+                <h2
+                  className="product-details-heading"
+                >Meet your seller</h2>}
               <Link
                 id="product-shop"
                 to={`/shops/${shop.id}`}
@@ -193,6 +202,6 @@ export default function ProductDetails() {
             </>
           </section>
         </div>}
-    </>
+    </div>
   );
 };
