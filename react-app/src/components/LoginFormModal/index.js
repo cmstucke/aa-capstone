@@ -15,9 +15,16 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let errorsObj = {};
+    if (!email) {
+      errorsObj.email = 'Valid email is required';
+    };
+    if (password.length < 8) {
+      errorsObj.password = 'Valid password is required for this email';
+    };
+
     const data = await dispatch(login(email, password));
     if (data) {
-      // console.log('LOGIN ERRORS:', data);
       setErrors(data);
     } else {
       closeModal();
@@ -63,8 +70,8 @@ function LoginFormModal() {
             className="session-input"
             type="email"
             value={email}
+            placeholder="Valid email is required"
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
         </section>
         <section className="session-section">
@@ -84,8 +91,8 @@ function LoginFormModal() {
             className="session-input"
             type="password"
             value={password}
+            placeholder="Valid password is required"
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
         </section>
         <button
@@ -94,14 +101,12 @@ function LoginFormModal() {
           onClick={demoUser}
         >Demo User</button>
         <button
-          className={email.length < 6 ||
-            password.length < 6
+          className={!email ||
+            password.length < 8
             ?
             'submit-disabled'
             :
             "session-submit"}
-          disabled={email.length < 4 ||
-            password.length < 6}
           type="submit"
         >Log In</button>
       </form>

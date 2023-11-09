@@ -13,11 +13,29 @@ function SignupFormModal() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState({});
-	console.log('SIGNUP ERRORS:', errors);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		let errorObj = {};
+		if (!email) {
+			errorObj.email = 'Valid email is required';
+		};
+		if (username.length < 4) {
+			errorObj.username = 'Username must be at least 4 characters';
+		};
+		if (password.length < 8) {
+			errorObj.password = 'Password must be at least 8 characters';
+		};
+		if (confirmPassword.length < 8 || confirmPassword !== password) {
+			errorObj.confirmPassword = 'Confirm password must match password';
+		};
+		const errorObjVals = Object.values(errorObj);
+		if (errorObjVals.length) {
+			setErrors(errorObj);
+			return;
+		};
+
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, password));
 			if (data) {
@@ -29,7 +47,7 @@ function SignupFormModal() {
 			setErrors({
 				password: "Confirm Password field must be the same as the Password field",
 			});
-		}
+		};
 	};
 
 	return (
@@ -66,7 +84,6 @@ function SignupFormModal() {
 						value={email}
 						placeholder="Valid email is required"
 						onChange={(e) => setEmail(e.target.value)}
-						required
 					/>
 				</section>
 				<section className="session-section">
@@ -86,9 +103,8 @@ function SignupFormModal() {
 						className="session-input"
 						type="text"
 						value={username}
-						placeholder="Username must be between 4 and 30 characters"
+						placeholder="Username must be at least 4 characters"
 						onChange={(e) => setUsername(e.target.value)}
-						required
 					/>
 				</section>
 				<section className="session-section">
@@ -109,16 +125,22 @@ function SignupFormModal() {
 						className="session-input"
 						type="password"
 						value={password}
-						placeholder="Password must be at least 6 characters"
+						placeholder="Password must be at least 8 characters"
 						onChange={(e) => setPassword(e.target.value)}
-						required
 					/>
 				</section>
 				<section className="session-section">
-					<label
-						htmlFor="signup-confirm-password"
-						className="session-field"
-					>Confirm password</label>
+					{errors.confirmPassword
+						?
+						<label
+							htmlFor="signup-confirm-password"
+							className="session-error"
+						>{errors.confirmPassword}</label>
+						:
+						<label
+							htmlFor="signup-confirm-password"
+							className="session-field"
+						>Confirm password</label>}
 					<input
 						id="signup-confirm-password"
 						className="session-input"
@@ -126,20 +148,18 @@ function SignupFormModal() {
 						value={confirmPassword}
 						placeholder="Confirm password must match password"
 						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
 					/>
 				</section>
 				<button
-					className={email.length < 6 ||
+					className={!email.length ||
 						username.length < 4 ||
-						password.length < 6 ||
-						confirmPassword < 6
+						password.length < 8 ||
+						confirmPassword < 8 ||
+						confirmPassword !== password
 						?
 						'submit-disabled'
 						:
 						"session-submit"}
-					disabled={email.length < 4 ||
-						password.length < 6}
 					type="submit"
 				>Sign up</button>
 			</form>

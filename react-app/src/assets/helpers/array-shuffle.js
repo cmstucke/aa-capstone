@@ -5,6 +5,3 @@ export default function arrShuffle(arr) {
   };
   return arr;
 };
-
-// const testArr = ['a', 'b', 'c', 'd', 'e'];
-// console.log(arrShuffle(testArr));

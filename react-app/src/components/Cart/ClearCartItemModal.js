@@ -3,7 +3,6 @@ import { useModal } from '../../context/Modal'
 import { deleteCartItemThunk } from "../../store/cartItem";
 
 export default function ClearCartItemModal({ cart_item_id }) {
-  console.log('CART ITEM ID:', cart_item_id)
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 

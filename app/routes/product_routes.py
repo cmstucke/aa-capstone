@@ -12,7 +12,7 @@ product_routes = Blueprint('products', __name__)
 def aws(image):
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    print('image upload', upload)
+    # print('image upload', upload)
 
     if 'url' not in upload:
         errors = [upload]
@@ -56,7 +56,6 @@ def create_product():
         db.session.add(new_product)
         db.session.commit()
         new_product_dict = new_product.to_dict()
-        print('NEW PRODUCT DICTIONARY:', new_product_dict)
         preview_image = ProductImage(
             product_id= new_product_dict['id'],
             image_url= preview_url,
@@ -145,7 +144,6 @@ def update_product(product_id):
     product_dict = product.to_dict()
     images = ProductImage.query.filter(ProductImage.product_id == product_id)
     images_list = [image.to_dict() for image in images]
-    print('PRODUCT IMAGES QUERY:', images_list)
 
     if not product:
         return {"errors": {"not found": "Product not found"}}, 404

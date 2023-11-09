@@ -33,7 +33,6 @@ def get_all_user_shops():
     Query a list of all shopes created by a user
     """
     user_shops = Shop.query.filter(Shop.owner_id == current_user.id)
-    # print('USER SHOP QUERY:', user_shops)
     return [shop.to_dict() for shop in user_shops]
 
 
@@ -45,5 +44,4 @@ def get_all_user_products():
     Query a list of all products created by a user
     """
     user_products = Product.query.filter(Product.owner_id == current_user.id)
-    # print('USER PRODUCT QUERY:', user_shops)
     return [product.to_dict() for product in user_products]

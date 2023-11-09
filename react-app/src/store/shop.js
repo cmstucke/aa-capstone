@@ -36,7 +36,6 @@ export const getUserShopsThunk = () => async dispatch => {
   const res = await fetch('/api/users/shops');
   if (res.ok) {
     const data = await res.json();
-    // console.log('USER SHOPS FETCH RES:', data);
     dispatch(getShops(data));
     return data;
   } else {
@@ -47,7 +46,6 @@ export const getUserShopsThunk = () => async dispatch => {
 
 // Create a Shop
 export const createShopThunk = (shop) => async dispatch => {
-  // console.log('YOU ARE IN THE CREATE SHOP THUNK');
   const res = await fetch('/shops/', {
     method: "POST",
     body: shop
@@ -64,15 +62,12 @@ export const createShopThunk = (shop) => async dispatch => {
 
 // Update a Shop
 export const updateShopThunk = (shopId, shop) => async dispatch => {
-  // console.log('UPDATE ARGS:', shopId, shop, preview_image);
   const res = await fetch(`/shops/${shopId}`, {
     method: "PUT",
     body: shop
   });
   if (res.ok) {
-    // console.log('RES:', res);
     const data = await res.json();
-    // console.log('DATA:', data);
     dispatch(addShop(data));
     return data;
   } else {

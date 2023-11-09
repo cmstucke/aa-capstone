@@ -35,7 +35,6 @@ export const getProductsThunk = () => async dispatch => {
 export const getUserProductsThunk = () => async dispatch => {
   const res = await fetch('/api/users/products');
   const data = await res.json();
-  // console.log('USER PRODUCTS FETCH RES:', data);
   dispatch(getProducts(data));
   return data;
 };
@@ -74,7 +73,6 @@ export const updateProductThunk = (productId, product) => async dispatch => {
 
 // Delete a product by its id
 export const deleteProductThunk = productId => async dispatch => {
-  // console.log('DELETE PARAM:', productId);
   const res = await fetch(`/products/${productId}`, {
     method: "DELETE"
   });
@@ -84,7 +82,6 @@ export const deleteProductThunk = productId => async dispatch => {
     return data;
   } else {
     const data = await res.json();
-    console.log('ERROR RES:', data);
     throw data;
   };
 };

@@ -86,7 +86,6 @@ export default function UpdateProductForm() {
         history.push('/me/products');
       };
     } catch ({ errors }) {
-      console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };
