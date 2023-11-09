@@ -15,9 +15,7 @@ export default function ProductDetails() {
   const product = useSelector(state => state.product[product_id]);
   const shop = useSelector(state => state.shop[product?.seller_id]);
   const cartItemsObj = useSelector(state => state.cartItem);
-  // console.log('CART ITEMS OBJ:', cartItemsObj)
   const cartItemsArr = Object.values(cartItemsObj);
-  // console.log('CART ITEMS ARR:', cartItemsArr)
 
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,9 +23,7 @@ export default function ProductDetails() {
   const [productImgs, setProductImgs] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [res, setRes] = useState(null);
-  // console.log('RES:', res);
   const [prevQty, setPrevQty] = useState(null);
-  console.log('PREV QTY:', prevQty);
 
   useEffect(() => {
     let images;
@@ -64,9 +60,7 @@ export default function ProductDetails() {
           onClick={() => {
             history.push(`/products/${product_id}/update`);
           }}
-        >
-          Update
-        </button>
+        >Update</button>
       </>
     );
   };
@@ -81,7 +75,7 @@ export default function ProductDetails() {
     try {
       res = await dispatch(createCartItemThunk(data));
       if (res) setRes({ ...res });
-    } catch (error) { };
+    } catch (error) { throw error };
   };
 
   return (

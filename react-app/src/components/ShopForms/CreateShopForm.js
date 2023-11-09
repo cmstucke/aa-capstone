@@ -6,14 +6,12 @@ import { categoryStrs } from "../../assets/helpers/block-text";
 
 
 export default function CreateShopForm() {
-  // const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [preview_image, setPreview_image] = useState(null);
-  console.log('PREVIEW IMAGE:', preview_image);
   const [banner_image, setBanner_image] = useState(null);
   const [errors, setErrors] = useState({})
 
@@ -31,9 +29,7 @@ export default function CreateShopForm() {
     try {
       createdShop = await dispatch(createShopThunk(data));
       history.push('/me/shops');
-      console.log('CREATED SHOP:', createdShop);
     } catch ({ errors }) {
-      console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };

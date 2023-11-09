@@ -13,7 +13,7 @@ shop_routes = Blueprint('shops', __name__)
 def aws(image):
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    print('image upload', upload)
+    # print('image upload', upload)
 
     if 'url' not in upload:
         errors = [upload]
@@ -89,7 +89,6 @@ def update_shop(shop_id):
     """
     Update a Shop by its id by an authorized User
     """
-    # print('YOU HAVE MADE IT TO THE UPDATE SHOP ROUTE')
     form = UpdateShopForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     shop = Shop.query.get(shop_id)
@@ -98,20 +97,6 @@ def update_shop(shop_id):
         return {"errors": {"not found": "Shop not found"}}, 404
 
     if form.validate_on_submit() and shop.owner_id == current_user.id:
-
-        # preview_image=form.data["preview_image"]
-        # if preview_image:
-        #     preview_image.filename = get_unique_filename(preview_image.filename)
-        #     upload = upload_file_to_s3(preview_image)
-        #     print("image upload", upload)
-
-        #     if "url" not in upload:
-        #         errors = [upload]
-        #         return {'errors': errors}, 400
-
-        #     url = upload["url"]
-
-        #     shop.preview_image = url
 
         if form.data['preview_image']:
             shop.preview_image = aws(form.data['preview_image'])
@@ -124,7 +109,6 @@ def update_shop(shop_id):
         shop.description = form.data['description']
 
         db.session.commit()
-        print('UPDATED SHOP RECORD:', shop.to_dict())
         return shop.to_dict(), 200
 
     elif shop.owner_id != current_user.id:

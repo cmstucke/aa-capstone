@@ -24,7 +24,6 @@ export default function Cart() {
   const [empty, setEmpty] = useState(null);
   const [errors, setErrors] = useState({});
   const [subtotal, setSubtotal] = useState(null);
-  console.log('ERRORS:', errors);
 
   useEffect(() => {
     dispatch(getCartItemsThunk())

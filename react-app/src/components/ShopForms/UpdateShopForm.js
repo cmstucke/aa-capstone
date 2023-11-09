@@ -61,7 +61,6 @@ export default function UpdateShopForm() {
         ));
       history.push('/me/shops');
     } catch ({ errors }) {
-      console.log('CAUGHT ERRORS:', errors);
       setErrors(errors);
     };
   };

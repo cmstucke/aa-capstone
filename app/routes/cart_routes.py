@@ -23,17 +23,13 @@ def create_cart_item():
   form = CartItemForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   product_id = form.data['product_id']
-  # print('FORM PRODUCT ID:', form.data['product_id'])
 
   cart_items = CartItem.query.filter(CartItem.user_id == current_user.id)
   cart_item_list = [cart_item.to_dict() for cart_item in cart_items]
   cart_item_id = get_cart_item_id(cart_item_list, product_id)
-  print('CART ITEM ID:', cart_item_id)
 
   if not form.data['quantity']:
-    print('YOU HAVE MADE IT TO THE CONDITIONAL')
     if cart_item_id:
-      print('YOU HAVE MADE IT TO THE NESTED CONDITIONAL')
       return {
         "cart_item_id": cart_item_id,
         "quantity": "A valid quantity is required for an order request"
@@ -57,8 +53,6 @@ def create_cart_item():
     db.session.commit()
     return new_cart_item.to_dict()
 
-  # print('CART ITEM QUERY:', not not cart_item)
-
   return 'create cart item route'
 
 
@@ -80,7 +74,6 @@ def clear_cart():
   '''
   cart_items = CartItem.query.filter(CartItem.user_id == current_user.id)
   for cart_item in cart_items:
-    # print('YOU ARE IN THE CART ITEM QUERY LIST')
     db.session.delete(cart_item)
   db.session.commit()
   return {"success": "Cart is empty"}

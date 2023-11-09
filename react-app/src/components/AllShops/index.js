@@ -9,9 +9,7 @@ export default function AllShops() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const shopsObj = useSelector(state => state.shop);
-  // console.log('SHOPS STATE', shopsObj);
   const shopsArr = Object.values(shopsObj);
-  // console.log('SHOPS ARR', shopsArr);
 
   useEffect(() => {
     dispatch(getShopsThunk())
