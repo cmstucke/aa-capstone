@@ -85,8 +85,10 @@ export default function UpdateProductForm() {
       if (updatedProduct) {
         history.push('/me/products');
       };
-    } catch ({ errors }) {
-      setErrors(errors);
+    } catch (errors) {
+      // console.log('CAUGHT ERRORS:', errors);
+      const { errorsObj } = errors
+      if (errorsObj) setErrors(errorsObj);
     };
   };
 
