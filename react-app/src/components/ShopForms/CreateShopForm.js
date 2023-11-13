@@ -29,8 +29,15 @@ export default function CreateShopForm() {
     try {
       createdShop = await dispatch(createShopThunk(data));
       history.push('/me/shops');
-    } catch ({ errors }) {
-      setErrors(errors);
+    } catch (errorRes) {
+      console.error(errorRes);
+      console.log('ERROR RES:', errorRes);
+      const { errors } = errorRes
+      if (errors) {
+        setErrors(errors);
+      } else {
+        setErrors({ aws: errorRes });
+      };
     };
   };
 
@@ -43,12 +50,12 @@ export default function CreateShopForm() {
         encType="multipart/form-data"
       >
         <section className="form-section">
-          {errors.preview_image
+          {errors.preview_image || errors.aws
             ?
             <label
               className="error-text"
               htmlFor='shop-previewImg-input'
-            >Please provide a preview image</label>
+            >{errors.preview_image ? 'Please provide a preview image' : errors.aws}</label>
             :
             <label
               className="form-label"

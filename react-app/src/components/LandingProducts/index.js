@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsThunk } from "../../store/product";
 import { getShopsThunk } from "../../store/shop";
 import { Link } from 'react-router-dom';
+// import { Carousel } from 'react-bootstrap'
+// import Carousel from 'react-bootstrap/Carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 import arrShuffle from "../../assets/helpers/array-shuffle";
 import './index.css';
 
@@ -14,6 +18,9 @@ export default function LandingProducts() {
     .filter(product => product.seller_id);
   const landingProducts = arrShuffle([...productsArr]);
   const largeProduct = landingProducts[0];
+
+  const shopsObj = useSelector(state => state.shop);
+  const shopsArr = Object.values(shopsObj);
 
   let smallProductOne;
   if (landingProducts.length >= 4) {
@@ -33,6 +40,12 @@ export default function LandingProducts() {
     ];
   };
 
+  // const [index, setIndex] = useState(0);
+
+  // const handleSelect = (selectedIndex) => {
+  //   setIndex(selectedIndex);
+  // };
+
   useEffect(() => {
     dispatch(getProductsThunk())
       .then(() => dispatch(getShopsThunk()))
@@ -42,24 +55,22 @@ export default function LandingProducts() {
     <div id="landing-products-page">
       {productsArr.length
         ?
-        <div id="landing-products-container">
+        <section id="landing-products-container">
           <Link
             id='large-link'
             className='landing-link'
             to={`/products/${largeProduct.id}`}
           >
-            <section id="large-landing-product">
-              <img
-                id="large-product-img"
-                alt={`${largeProduct.title}`}
-                src={largeProduct.preview_image}
-              />
-              <label
-                htmlFor="large-product-img"
-                id="large-price"
-                className="landing-price"
-              >${largeProduct.price.toFixed(2)}</label>
-            </section>
+            <img
+              id="large-product-img"
+              alt={`${largeProduct.title}`}
+              src={largeProduct.preview_image}
+            />
+            <label
+              htmlFor="large-product-img"
+              id="large-price"
+              className="small-price"
+            >${largeProduct.price.toFixed(2)}</label>
           </Link>
           <section id="small-landing-products">
             <section className="small-row">
@@ -94,13 +105,13 @@ export default function LandingProducts() {
                   </Link>
                 ))}
             </section>
-            <section className="small-row"></section>
+            {/* <section className="small-row"></section> */}
           </section>
-          <section id="small-landing-product"></section>
-        </div>
+          {/* <section id="small-landing-product"></section> */}
+        </section>
         :
         null}
-      <div id="landing-links">
+      <section id="landing-links">
         <Link
           className='landing-products-link'
           id='landing-shops-link'
@@ -110,7 +121,27 @@ export default function LandingProducts() {
           className='landing-products-link'
           exact to='/products'
         >See all products</Link>
-      </div>
+      </section>
+      {shopsArr.length &&
+        <section id="landing-carousel-section">
+          <Carousel
+            dynamicHeight={false}
+            infiniteLoop={true}
+          >
+            {shopsArr.map(shop => (
+              // <div
+              //   className="landing-carousel-img"
+              //   style={{ backgroundImage: `url(${product.preview_image})` }}
+              // >
+              // </div>
+              <img
+                className="landing-carousel-img"
+                alt={`${shop?.title}`}
+                src={shop?.banner_image}
+              />
+            ))}
+          </Carousel>
+        </section>}
     </div>
   );
 };
