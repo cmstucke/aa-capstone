@@ -48,18 +48,16 @@ export default function LandingProducts() {
             className='landing-link'
             to={`/products/${largeProduct.id}`}
           >
-            <section id="large-landing-product">
-              <img
-                id="large-product-img"
-                alt={`${largeProduct.title}`}
-                src={largeProduct.preview_image}
-              />
-              <label
+            <img
+              id="large-product-img"
+              alt={`${largeProduct.title}`}
+              src={largeProduct.preview_image}
+            />
+            {/* <label
                 htmlFor="large-product-img"
                 id="large-price"
                 className="landing-price"
-              >${largeProduct.price.toFixed(2)}</label>
-            </section>
+              >${largeProduct.price.toFixed(2)}</label> */}
           </Link>
           <section id="small-landing-products">
             <section className="small-row">
@@ -74,7 +72,7 @@ export default function LandingProducts() {
                       alt={`${product.title}`}
                       src={product.preview_image}
                     />
-                    <p className="small-price">${product.price.toFixed(2)}</p>
+                    {/* <p className="small-price">${product.price.toFixed(2)}</p> */}
                   </Link>
                 ))}
             </section>
@@ -90,13 +88,13 @@ export default function LandingProducts() {
                       alt={`${product.title}`}
                       src={product.preview_image}
                     />
-                    <p className="small-price">${product.price.toFixed(2)}</p>
+                    {/* <p className="small-price">${product.price.toFixed(2)}</p> */}
                   </Link>
                 ))}
             </section>
-            <section className="small-row"></section>
+            {/* <section className="small-row"></section> */}
           </section>
-          <section id="small-landing-product"></section>
+          {/* <section id="small-landing-product"></section> */}
         </div>
         :
         null}
