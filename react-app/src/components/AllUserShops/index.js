@@ -34,7 +34,9 @@ export default function AllUserShops({ shopsArr }) {
                 className='shops-list-text'
                 exact to={`/shops/${shop.id}`}
               >
-                <p className='shops-list-title'>{shop.title}</p>
+                <p className='shops-list-title'>{shop.title.length > 20 ?
+                  shop.title.slice(0, 17) + '...' :
+                  shop.title}</p>
                 <p className='shops-list-category'>{shop.category}</p>
               </Link>
               <Link

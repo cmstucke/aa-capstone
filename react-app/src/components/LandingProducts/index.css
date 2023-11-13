@@ -3,12 +3,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 
 #landing-products-container {
   display: flex;
   max-width: 1500px;
   gap: .5rem;
+  margin: 2rem 0 1rem;
 }
 
 #large-link {
@@ -17,7 +19,6 @@
 }
 
 #large-price {
-  /* position: absolute; */
   bottom: 7%;
 }
 
@@ -29,7 +30,13 @@
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
+  border-radius: .75rem;
 }
+
+#large-product-img:hover {
+  box-shadow: 0 0 8px 1px #919191;
+}
+
 
 #small-landing-products {
   width: 60%;
@@ -40,13 +47,19 @@
 
 .landing-link {
   width: 33%;
+  margin: 0;
+  padding: 0;
 }
 
 .small-product-img {
-  /* width: 30%; */
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
+  border-radius: .75rem;
+}
+
+.small-product-img:hover {
+  box-shadow: 0 0 8px 1px #919191;
 }
 
 .small-row {
@@ -57,16 +70,17 @@
 }
 
 #landing-carousel-section {
-  /* width: 75%; */
   display: flex;
   justify-content: center;
   width: 100%;
   max-width: 1500px;
+  margin-top: 3rem;
 }
 
 .landing-carousel-img {
   height: 15rem;
   object-fit: cover;
+  border-radius: .75rem;
 }
 
 .thumb {
@@ -75,6 +89,7 @@
 
 .control-arrow {
   width: 15%;
+  border-radius: .75rem;
 }
 
 .carousel-status {
@@ -102,6 +117,67 @@
   font-size: 12px;
   font-weight: bolder;
   border-radius: .6rem;
+}
+
+.shop-carousel-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-products-link {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Shippori Mincho';
+  color: white;
+  background-color: #F1641E;
+  border: 1px solid #919191;
+  padding: .5rem 1rem;
+  border-radius: 1.25rem;
+}
+
+.landing-products-link:hover {
+  background-color: #D95C1F;
+  box-shadow: 0 0 8px 1px #DEDEDE;
+}
+
+.landing-products-link:active {
+  background-color: #C6541A;
+}
+
+#product-link {
+  max-width: 1500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.shop-carousel-info {
+  display: flex;
+  /* justify-content: center; */
+  text-decoration: none;
+  gap: .75rem;
+  position: absolute;
+  /* top: 35%; */
+  /* left: 40%; */
+  background-color: white;
+  padding: 1rem;
+  border-radius: 3rem
+}
+
+.shop-carousel-info:hover {
+  box-shadow: 0 0 8px 1px #919191;
+}
+
+
+.landing-shop-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: 'Shippori Mincho';
+  color: #919191;
 }
 
 /* #landing-products-page {
