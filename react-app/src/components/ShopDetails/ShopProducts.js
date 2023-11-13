@@ -37,10 +37,12 @@ export default function ShopProducts({ seller_id }) {
               <section className="shop-product-info">
                 <p
                   className="product-link-text"
-                >{product.title}</p>
+                >{product.title.length > 20 ?
+                  product.title.slice(0, 17) + '...' :
+                  product.title}</p>
                 <p
                   className="product-link-text"
-                >${product.price}</p>
+                >${product.price.toFixed(2)}</p>
               </section>
             </Link>
           ))

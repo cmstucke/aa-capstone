@@ -111,12 +111,7 @@ export default function LandingProducts() {
         </section>
         :
         null}
-      <section id="landing-links">
-        <Link
-          className='landing-products-link'
-          id='landing-shops-link'
-          exact to='/shops'
-        >See all shops</Link>
+      <section id="product-link">
         <Link
           className='landing-products-link'
           exact to='/products'
@@ -129,16 +124,30 @@ export default function LandingProducts() {
             infiniteLoop={true}
           >
             {shopsArr.map(shop => (
-              // <div
-              //   className="landing-carousel-img"
-              //   style={{ backgroundImage: `url(${product.preview_image})` }}
-              // >
-              // </div>
-              <img
-                className="landing-carousel-img"
-                alt={`${shop?.title}`}
-                src={shop?.banner_image}
-              />
+              <div className="shop-carousel-item">
+                <img
+                  className="landing-carousel-img"
+                  alt={`${shop?.title}`}
+                  src={shop?.banner_image}
+                />
+                <Link
+                  className="shop-carousel-info"
+                  to={`/shops/${shop.id}`}
+                >
+                  {/* <div className="shop-carousel-info"> */}
+                  <img
+                    id="product-shop-icon"
+                    alt={`${shop.title}`}
+                    src={shop.preview_image}
+                  />
+                  <p
+                    className="landing-shop-title"
+                  >{shop.title.length > 20 ?
+                    shop.title.slice(0, 17) + '...' :
+                    shop.title}</p>
+                  {/* </div> */}
+                </Link>
+              </div>
             ))}
           </Carousel>
         </section>}

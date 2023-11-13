@@ -47,14 +47,18 @@ export default function AllProducts() {
                     className='product-link'
                     exact to={`/products/${product.id}`}
                   >
-                    <p className="product-link-title">{product.title}</p>
+                    <p className="product-link-title">{product.title.length > 15 ?
+                      product.title.slice(0, 12) + '...' :
+                      product.title}</p>
                   </Link>
                   <Link
                     className='product-link'
                     exact to={`/shops/${product.seller_id}`}
                   >
                     <p className="product-link-shop"
-                    >{shopsObj[product.seller_id]?.title}</p>
+                    >{shopsObj[product.seller_id]?.title.length > 15 ?
+                      shopsObj[product.seller_id]?.title.slice(0, 12) + '...' :
+                      shopsObj[product.seller_id]?.title}</p>
                   </Link>
                 </section>
               </div>

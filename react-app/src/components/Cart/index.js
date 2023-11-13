@@ -75,7 +75,7 @@ export default function Cart() {
 
   return (
     <div className="manager-body">
-      <div className="manager-page">
+      <div id="cart-page">
         <h1 id="manager-page-heading">Shopping Cart</h1>
         <section className="cart-item-container">
           {isLoaded && cartItemsArr.length
@@ -107,7 +107,9 @@ export default function Cart() {
                         to={`/products/${cartItem.product_id}`}
                       >
                         <h2 className="cart-item-details-heading"
-                        >{productsObj[cartItem.product_id]?.title}</h2>
+                        >{productsObj[cartItem.product_id]?.title.length > 30 ?
+                          productsObj[cartItem.product_id]?.title.slice(0, 27) + '...' :
+                          productsObj[cartItem.product_id]?.title}</h2>
                       </Link>
                       <Link
                         className='cart-product-link'
