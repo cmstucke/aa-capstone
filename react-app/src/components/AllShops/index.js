@@ -36,7 +36,9 @@ export default function AllShops() {
                   src={shop.preview_image}
                   className="shop-img"
                 />
-                <h2 className="shop-link-title">{shop.title}</h2>
+                <h2 className="shop-link-title">{shop.title.length > 20 ?
+                  shop.title.slice(0, 17) + '...' :
+                  shop.title}</h2>
               </Link>
             ))
           }

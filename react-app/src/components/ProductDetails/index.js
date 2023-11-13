@@ -191,7 +191,9 @@ export default function ProductDetails() {
                 />
                 <p
                   id="product-shop-title"
-                >{shop.title}</p>
+                >{shop.title.length > 20 ?
+                  shop.title.slice(0, 17) + '...' :
+                  shop.title}</p>
               </Link>
             </>
           </section>

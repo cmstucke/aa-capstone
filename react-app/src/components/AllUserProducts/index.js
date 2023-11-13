@@ -40,7 +40,9 @@ export default function AllUserProducts({ productsArr }) {
                 exact to={`/products/${product.id}`}
               >
                 <h3 className='shops-list-title'>${product.price.toFixed(2)}</h3>
-                <p className='shops-list-category'>{product.title}</p>
+                <p className='shops-list-category'>{product.title.length > 25 ?
+                  product.title.slice(0, 22) + '...' :
+                  product.title}</p>
               </Link>
               <div className='products-list-buttons'>
                 <OpenModalButton
