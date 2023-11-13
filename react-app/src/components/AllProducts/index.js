@@ -47,8 +47,8 @@ export default function AllProducts() {
                     className='product-link'
                     exact to={`/products/${product.id}`}
                   >
-                    <p className="product-link-title">{product.title.length > 20 ?
-                      product.title.slice(0, 17) + '...' :
+                    <p className="product-link-title">{product.title.length > 15 ?
+                      product.title.slice(0, 12) + '...' :
                       product.title}</p>
                   </Link>
                   <Link
