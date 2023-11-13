@@ -13,6 +13,12 @@
 
 #large-link {
   width: 40%;
+  position: relative;
+}
+
+#large-price {
+  /* position: absolute; */
+  bottom: 7%;
 }
 
 #large-landing-product {
@@ -33,13 +39,13 @@
 }
 
 .landing-link {
-  width: 30%;
+  width: 33%;
 }
 
 .small-product-img {
   /* width: 30%; */
   width: 100%;
-  aspect-ratio: 4.9/4;
+  aspect-ratio: 4/3;
   object-fit: cover;
 }
 
@@ -48,7 +54,54 @@
   padding: 0;
   display: flex;
   gap: .5rem;
-  /* flex-direction: column; */
+}
+
+#landing-carousel-section {
+  /* width: 75%; */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1500px;
+}
+
+.landing-carousel-img {
+  height: 15rem;
+  object-fit: cover;
+}
+
+.thumb {
+  height: 3.5rem;
+}
+
+.control-arrow {
+  width: 15%;
+}
+
+.carousel-status {
+  visibility: hidden;
+}
+
+.thumbs-wrapper {
+  visibility: hidden;
+}
+
+.landing-link {
+  position: relative;
+}
+
+.small-price {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  bottom: 10%;
+  right: 5%;
+  color: #919191;
+  background-color: white;
+  width: fit-content;
+  padding: .1rem .5rem;
+  font-size: 12px;
+  font-weight: bolder;
+  border-radius: .6rem;
 }
 
 /* #landing-products-page {
