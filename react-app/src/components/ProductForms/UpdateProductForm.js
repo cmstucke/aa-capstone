@@ -87,7 +87,7 @@ export default function UpdateProductForm() {
       };
     } catch (errors) {
       // console.log('CAUGHT ERRORS:', errors);
-      const { errorsObj } = errors
+      const { errorsObj } = errors;
       if (errorsObj) setErrors(errorsObj);
     };
   };
