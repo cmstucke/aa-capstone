@@ -21,7 +21,6 @@ export default function AllShops() {
       <h1 className="manager-page-heading">Shops</h1>
       <div
         id="shops-list-container"
-      // className="manager-heading"
       >
         <div id="shops-list">
           {isLoaded &&
